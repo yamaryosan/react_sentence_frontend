@@ -11,10 +11,12 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LaptopIcon from '@mui/icons-material/Laptop'; // ラップトップアイコン
 
+import {Link} from 'react-router-dom';
+
 // ナビゲーションメニューの項目
 const pages = [
-    {name: 'Home', url: '/home'},
-    {name: 'Recommend', url: '/recommend'},
+    {name: 'Home', url: '/'},
+    {name: 'Recommend', url: '/recommendations'},
     {name: 'New', url: '/new'},
     {name: 'Contact', url: '/contact'},
 ];
@@ -87,7 +89,9 @@ function Header() {
                 >
                 {pages.map((page) => (
                     <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page.name}</Typography>
+                        <Link to={page.url} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <Typography textAlign="center">{page.name}</Typography>
+                        </Link>
                     </MenuItem>
                 ))}
                 </Menu>
@@ -97,7 +101,7 @@ function Header() {
                 variant="h5"
                 noWrap
                 component="a"
-                href="#app-bar-with-responsive-menu"
+                href="http://localhost:3000/"
                 sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
