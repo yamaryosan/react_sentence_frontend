@@ -10,9 +10,13 @@ type ContentsAreaProps = {
 function ContentsArea({name}: ContentsAreaProps) {
     return (
         <>
-            <Box sx={{ display: 'flex' }}>
-                <MainContents name={name} />
-                <Sidebar />
+            <Box sx={{ display: 'flex', width: 1 }}>
+                <Box sx={{ flexGrow: 3 }}>
+                    <MainContents name={name} />
+                </Box>
+                <Box sx={{ flexGrow: 1 }}>
+                    <Sidebar />
+                </Box>
             </Box>
         </>
     );
