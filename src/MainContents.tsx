@@ -1,8 +1,8 @@
-type MainContentProps = {
+type MainContentsProps = {
     name: string;
 };
 
-function MainContent({name}: MainContentProps) {
+function MainContents({name}: MainContentsProps) {
     return (
         <div>
         <p>ページ名は{name}です</p>
@@ -10,4 +10,4 @@ function MainContent({name}: MainContentProps) {
     );
 }
 
-export default MainContent;
+export default MainContents;
