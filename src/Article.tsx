@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import {useQuery} from 'react-query';
 
 type Article = {
