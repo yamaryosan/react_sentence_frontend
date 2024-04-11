@@ -1,11 +1,10 @@
-type MainContentsProps = {
-    name: string;
-};
+import Article from "./Article";
 
-function MainContents({name}: MainContentsProps) {
+function MainContents() {
     return (
         <div>
-        <p>ページ名は{name}です</p>
+            <h1>記事一覧</h1>
+            <Article id={14} />
         </div>
     );
 }
