@@ -1,11 +1,14 @@
 import Article from "./Article";
+import Box from '@mui/material/Box';
 
 function MainContents() {
     return (
-        <div>
-            <h1>記事一覧</h1>
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            pl: {xs: 5, md: 25}}}>
             <Article id={14} />
-        </div>
+        </Box>
     );
 }
 
