@@ -9,7 +9,8 @@ function ContentsArea() {
             <Box sx={{ 
                 display: 'flex', 
                 flexDirection: {xs: 'column', md: 'row'},
-                width: 1 }}>
+                width: 1,
+                pt: 5 }}>
                 <Box sx={{ flexGrow: 3, mb: {xs: 2, md: 0 } }}>
                     <MainContents />
                 </Box>
