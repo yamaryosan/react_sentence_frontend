@@ -1,4 +1,5 @@
 import {useQuery} from 'react-query';
+import Box from '@mui/material/Box';
 
 type Article = {
     id: number;
@@ -35,11 +36,10 @@ export default function Article({id}: ArticleProps) {
     }
 
     return (
-        <div>
+        <Box sx={{textAlign: 'left'}}>
             <h1>{article?.title}</h1>
             <p>{article?.content}</p>
-            <p>{article?.created_at}</p>
             <p>{article?.updated_at}</p>
-        </div>
+        </Box>
     );
 }
