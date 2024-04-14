@@ -12,7 +12,13 @@ export default function SearchWindow() {
         setKeyword(e.target.value);
     }
 
-    const handleSubmit = () => {navigate('/search/' + keyword)};
+    // 値が空白でないことを確認して検索ページに遷移
+    const handleSubmit = () => {
+        if (keyword === '') {
+            return;
+        }
+        navigate('/search/' + keyword)
+    };
 
     return (
         <Box sx={{
