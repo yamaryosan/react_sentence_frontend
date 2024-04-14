@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,8 +31,14 @@ export default function SearchWindow() {
                 <Box sx={{ display: 'none' }}>
                     <input type="text" name="dummy" />
                 </Box>
-                <input type="text" name="keyword" onChange={handleForm} />
-                <input type="button" value="検索" onClick={handleSubmit} />
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    backgroundColor: '#f0f0f0'
+                }}>
+                    <TextField name="keyword" id="keyword" label="keyword" variant="outlined" onChange={handleForm} />
+                    <Button type="button" variant="text" onClick={handleSubmit}>検索</Button>
+                </Box>
             </form>
         </Box>
     )
