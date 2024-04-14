@@ -38,7 +38,9 @@ export default function Article() {
     }
 
     return (
-        <Box sx={{textAlign: 'left'}}>
+        <Box sx={{
+            textAlign: 'left',
+            pl: {xs: 5, md: 25}}}>
             <h1>{article?.title}</h1>
             <p>{article?.content}</p>
             <p>{article?.updated_at}</p>
