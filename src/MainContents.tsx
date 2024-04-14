@@ -1,15 +1,35 @@
 import Article from "./Article";
 import Box from '@mui/material/Box';
 
-function MainContents() {
+type MainContentsProps = {
+    children: React.ReactNode;
+};
+
+function MainContents({children}: MainContentsProps) {
     return (
         <Box sx={{
             display: 'flex',
             justifyContent: 'flex-start',
             pl: {xs: 5, md: 25}}}>
-            <Article id={1} />
+                {children}
         </Box>
     );
 }
 
-export default MainContents;
+function New() {
+    return <MainContents children={<Article id={1}/>} />;
+}
+
+function Home() {
+    return <MainContents children={<p>テスト</p>} />;
+}
+
+function Recommendations() {
+    return <MainContents children={<p>テスト</p>} />;
+}
+
+function Contact() {
+    return <MainContents children={<p>テスト</p>} />;
+}
+
+export {New, Home, Recommendations, Contact};
