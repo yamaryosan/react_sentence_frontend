@@ -28,6 +28,9 @@ export default function SearchWindow() {
             backgroundColor: '#f0f0f0'
         }}>
             <form action="/search" method="get">
+                <Box sx={{ display: 'none' }}>
+                    <input type="text" name="dummy" />
+                </Box>
                 <input type="text" name="keyword" onChange={handleForm} />
                 <input type="button" value="検索" onClick={handleSubmit} />
             </form>
