@@ -1,4 +1,4 @@
-import Article from "./Article";
+import NewArticles from './NewArticles';
 import Box from '@mui/material/Box';
 
 type MainContentsProps = {
@@ -17,7 +17,7 @@ function MainContents({children}: MainContentsProps) {
 }
 
 function New() {
-    return <MainContents children={<Article id={1}/>} />;
+    return <MainContents children={<NewArticles />} />;
 }
 
 function Home() {

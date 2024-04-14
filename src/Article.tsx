@@ -1,5 +1,6 @@
 import {useQuery} from 'react-query';
 import Box from '@mui/material/Box';
+import { useParams } from 'react-router-dom';
 
 type Article = {
     id: number;
@@ -9,11 +10,10 @@ type Article = {
     updated_at: string;
 };
 
-type ArticleProps = {
-    id: number;
-};
-
-const fetchArticle = async (id: number) => {
+const fetchArticle = async (id: string) => {
+    if (!id) {
+        throw new Error('IDが不正です');
+    }
     const response = await fetch(`http://localhost/api/articles/${id}`);
     if (!response.ok) {
         throw new Error('記事が見つかりません');
@@ -21,10 +21,12 @@ const fetchArticle = async (id: number) => {
     return response.json() as Promise<Article>;
 };
 
-export default function Article({id}: ArticleProps) {
+export default function Article() {
+    const params = useParams<{id: string}>();
+
     const {data: article, isLoading, isError} = useQuery<Article, Error>(
-        ['article', id],
-        () => fetchArticle(id)
+        ['article', params.id],
+        () => fetchArticle(params.id ?? ''),
     );
 
     if (isLoading) {
