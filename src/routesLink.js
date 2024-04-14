@@ -2,6 +2,7 @@ import {Route, createBrowserRouter, createRoutesFromElements } from 'react-route
 import App from './App';
 import ContentsArea from './ContentsArea';
 import {New, Home, Recommendations, Contact} from './MainContents';
+import Article from './Article';
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -10,6 +11,7 @@ const routes = createBrowserRouter(
             <Route path="/recommendations" element={<ContentsArea children={Recommendations} />}/>
             <Route path="/new" element={<ContentsArea children={<New />} />}/>
             <Route path="/contact" element={<ContentsArea children={Contact} />}/>
+            <Route path="/article/:id" element={<ContentsArea children={<Article />} />}/>
         </Route>
     )
 )
