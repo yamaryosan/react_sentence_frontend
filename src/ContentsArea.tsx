@@ -3,19 +3,16 @@ import Sidebar from "./Sidebar";
 
 import Box from "@mui/material/Box";
 
-type ContentsAreaProps = {
-    name: string;
-};
-
-function ContentsArea({name}: ContentsAreaProps) {
+function ContentsArea() {
     return (
         <>
             <Box sx={{ 
                 display: 'flex', 
                 flexDirection: {xs: 'column', md: 'row'},
-                width: 1 }}>
+                width: 1,
+                pt: 5 }}>
                 <Box sx={{ flexGrow: 3, mb: {xs: 2, md: 0 } }}>
-                    <MainContents name={name} />
+                    <MainContents />
                 </Box>
                 <Box sx={{ flexGrow: 1 }}>
                     <Sidebar />
@@ -26,19 +23,19 @@ function ContentsArea({name}: ContentsAreaProps) {
 }
 
 function Home() {
-    return <ContentsArea name="Home" />;
+    return <ContentsArea />;
 }
 
 function Recommendations() {
-    return <ContentsArea name="Recommendations" />;
+    return <ContentsArea />;
 }
 
 function New() {
-    return <ContentsArea name="New" />;
+    return <ContentsArea />;
 }
 
 function Contact() {
-    return <ContentsArea name="Contact" />;
+    return <ContentsArea />;
 }
 
 export {Home, Recommendations, New, Contact};

@@ -1,12 +1,14 @@
-type MainContentsProps = {
-    name: string;
-};
+import Article from "./Article";
+import Box from '@mui/material/Box';
 
-function MainContents({name}: MainContentsProps) {
+function MainContents() {
     return (
-        <div>
-        <p>ページ名は{name}です</p>
-        </div>
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            pl: {xs: 5, md: 25}}}>
+            <Article id={1} />
+        </Box>
     );
 }
 
