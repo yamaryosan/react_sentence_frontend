@@ -1,7 +1,9 @@
+import SearchWindow from "./SearchWindow"
+
 export default function Sidebar() {
     return (
         <div>
-            <p>サイドバーです</p>
+            <SearchWindow />
         </div>
     )
 };
