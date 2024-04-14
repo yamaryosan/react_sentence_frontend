@@ -14,7 +14,7 @@ export default function ContentsArea({children}: ContentsAreaProps) {
                 flexDirection: {xs: 'column', md: 'row'},
                 width: 1,
                 pt: 5 }}>
-                <Box sx={{ flexGrow: 3, mb: {xs: 2, md: 0 } }}>
+                <Box sx={{ flexGrow: 5, mb: {xs: 2, md: 0 } }}>
                     {children}
                 </Box>
                 <Box sx={{ flexGrow: 1 }}>
