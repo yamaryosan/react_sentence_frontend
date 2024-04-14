@@ -7,11 +7,8 @@ type MainContentsProps = {
 
 function MainContents({children}: MainContentsProps) {
     return (
-        <Box sx={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            pl: {xs: 5, md: 25}}}>
-                {children}
+        <Box sx={{pl: {xs: 5, md: 25}}}>
+            {children}
         </Box>
     );
 }
