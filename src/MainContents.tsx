@@ -7,7 +7,7 @@ function MainContents() {
             display: 'flex',
             justifyContent: 'flex-start',
             pl: {xs: 5, md: 25}}}>
-            <Article id={14} />
+            <Article id={1} />
         </Box>
     );
 }
