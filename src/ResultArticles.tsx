@@ -9,23 +9,26 @@ type Article = {
     created_at: string;
 };
 
-type Articles = Article[];
+type ResponseData = {
+    articles: Article[];
+    specificKeyword?: string;
+};
 
-const fetchArticle = async (keyword: string) => {
+const fetchArticle = async (keyword: string): Promise<ResponseData> => {
     if (!keyword) {
         throw new Error('キーワードが不正です');
     }
     const response = await fetch(`http://localhost/api/search?keyword=${keyword}`);
     if (!response.ok) {
-        return [];
+        throw new Error('記事の取得に失敗しました');
     }
-    return response.json() as Promise<Articles>;
+    return response.json();
 };
 
 export default function ResultArticles() {
     const params = useParams<{keyword: string}>();
 
-    const {data: articles, isLoading, isError} = useQuery<Articles, Error>(
+    const {data, isLoading, isError} = useQuery<ResponseData, Error>(
         ['article', params.keyword],
         () => fetchArticle(params.keyword ?? ''),
     );
@@ -41,11 +44,16 @@ export default function ResultArticles() {
     return (
         <Box sx={{
             textAlign: 'left',
-            pl: {xs: 5, md: 25}}}>
-                {articles?.length === 0 ? 
+            pl: {xs: 5, md: 25}
+            }}>
+                {data?.specificKeyword && (
+                    <div>キーワード: {data.specificKeyword}</div>
+                )}
+                
+                {data?.articles?.length === 0 ? 
                 (<div>記事が見つかりません</div>
                 ) : (
-                articles?.map((article) => (
+                data?.articles?.map((article) => (
                     <div key={article.id}>
                         <h1>{article.title}</h1>
                         <p>{article.content}</p>
