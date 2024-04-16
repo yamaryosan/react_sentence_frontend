@@ -12,7 +12,7 @@ type Article = {
 
 type ResponseData = {
     articles: Article[];
-    specificKeyword?: string;
+    isVerified?: string;
 };
 
 const fetchResponse = async (keyword: string): Promise<ResponseData> => {
@@ -45,7 +45,7 @@ export default function GeneralResult() {
 
     return (
         <div>
-            {(data?.specificKeyword ? <ResultSecret /> : <ResultArticles articles={data?.articles} />)}
+            {(data?.isVerified ? <ResultSecret /> : <ResultArticles articles={data?.articles} />)}
         </div>
     );
 }
