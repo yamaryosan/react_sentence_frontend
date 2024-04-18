@@ -3,7 +3,7 @@ import App from './App';
 import ContentsArea from './ContentsArea';
 import {New, Home, Recommendations, Contact} from './MainContents';
 import Article from './Article';
-import GeneralResult from './GeneralResult';
+import ResultArticles from './ResultArticles';
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -13,7 +13,7 @@ const routes = createBrowserRouter(
             <Route path="/new" element={<ContentsArea children={<New />} />}/>
             <Route path="/contact" element={<ContentsArea children={Contact} />}/>
             <Route path="/article/:id" element={<ContentsArea children={<Article />} />}/>
-            <Route path="/search/:keyword" element={<ContentsArea children={<GeneralResult />} />}/>
+            <Route path="/search/:keyword" element={<ContentsArea children={<ResultArticles />} />}/>
         </Route>
     )
 )
