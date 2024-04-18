@@ -1,9 +1,9 @@
-import SearchWindow from "./SearchWindow"
+import AdminCheck from "./AdminCheck"
 
 export default function Sidebar() {
     return (
         <div>
-            <SearchWindow />
+            <AdminCheck />
         </div>
     )
 };
