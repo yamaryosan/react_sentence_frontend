@@ -21,12 +21,8 @@ function Home() {
     return <MainContents children={<p>テスト</p>} />;
 }
 
-function Recommendations() {
-    return <MainContents children={<p>テスト</p>} />;
-}
-
 function Contact() {
     return <MainContents children={<p>テスト</p>} />;
 }
 
-export {New, Home, Recommendations, Contact};
+export {New, Home, Contact};
