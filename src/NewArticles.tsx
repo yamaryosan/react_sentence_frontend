@@ -34,7 +34,7 @@ export default function NewArticles() {
     return (
         <Box sx={{textAlign: 'left'}}>
             {articles?.map((article) => (
-                <Link to={`/article/${article.id}`}>
+                <Link to={`/articles/${article.id}`}>
                     <h1>{article.title}</h1>
                 </Link>
             ))}
