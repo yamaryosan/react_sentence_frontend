@@ -11,8 +11,8 @@ const routes = createBrowserRouter(
             <Route index element={<ContentsArea children={Home} />} />
             <Route path="/new" element={<ContentsArea children={<New />} />}/>
             <Route path="/contact" element={<ContentsArea children={Contact} />}/>
-            <Route path="/article/:id" element={<ContentsArea children={<Article />} />}/>
-            <Route path="/search/:keyword" element={<ContentsArea children={<ResultArticles />} />}/>
+            <Route path="/articles/:id" element={<ContentsArea children={<Article />} />}/>
+            <Route path="/articles/search/:keyword" element={<ContentsArea children={<ResultArticles />} />}/>
         </Route>
     )
 )
