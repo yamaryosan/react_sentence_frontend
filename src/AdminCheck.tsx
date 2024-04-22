@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
-import SearchWindow from "./SearchWindow";
+import ArticleSearchWindow from "./ArticleSearchWindow";
+import SentenceSearchWindow from "./SentenceSearchWindow";
 
 type isVerifiedResponse = {
     isVerified: string;
@@ -27,14 +28,14 @@ export default function AdminCheck() {
                     <h2>管理者メニュー</h2>
                     <p>管理者としてログインしています</p>
                     <p>{isVerified?.isVerified}</p>
-                    <SearchWindow />
+                    <SentenceSearchWindow />
                 </div>
             ) : (
                 <div>
                     <h2>管理者メニュー</h2>
                     <p>管理者としてログインしていません</p>
                     <p>{isVerified?.isVerified}</p>
-                    <SearchWindow />
+                    <ArticleSearchWindow />
                 </div>
             )}
         </div>
