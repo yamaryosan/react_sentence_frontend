@@ -1,7 +1,9 @@
 import { useQuery } from 'react-query';
+import { useState } from 'react';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
 
+import MuiPagination from '@mui/material/Pagination';
 
 type Sentence = {
     id: number;
@@ -21,11 +23,21 @@ const fetchSentences = async (keyword: string): Promise<Sentences> => {
 };
 
 export default function ResultSentences() {
-
     // URLパラメータからキーワードを取得
     const { keyword } = useParams<{ keyword: string }>();
-    // 記事を取得
+    // 文章を取得
     const { data: sentences, isLoading, error } = useQuery<Sentences>(['sentences', keyword], () => fetchSentences(keyword || ''));
+
+    // ページネーション用
+    const [page, setPage] = useState(1);
+    const pageSize = 100; // 1ページあたりの表示数
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    }
+
+    const indexOfLast = page * pageSize;
+    const indexOfFirst = indexOfLast - pageSize;
+    const currentSentences = sentences?.slice(indexOfFirst, indexOfLast);
 
     if (isLoading) {
         return <div>読み込み中...</div>;
@@ -39,15 +51,16 @@ export default function ResultSentences() {
         <Box sx={{
             textAlign: 'left',
             }}>
-                {sentences?.length === 0 ? (
+                {currentSentences?.length === 0 ? (
                     <p>{keyword}の検索結果: ヒットなし</p>
                 ) : (
-                    sentences?.map((sentence) => (
+                    currentSentences?.map((sentence) => (
                         <div key={sentence.id}>
                             <p>{sentence.sentence}</p>
                         </div>
                     ))
                 )}
+                <MuiPagination count={Math.ceil((sentences?.length || 0) / pageSize)} page={page} onChange={handlePageChange} />
         </Box>
     );
 }
