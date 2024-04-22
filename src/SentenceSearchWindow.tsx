@@ -3,7 +3,7 @@ import { Box, Button, TextField } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SearchWindow() {
+export default function SentenceSearchWindow() {
     const [keyword, setKeyword] = useState<string>('');
     const navigate = useNavigate();
 
@@ -17,17 +17,17 @@ export default function SearchWindow() {
         if (keyword === '') {
             return;
         }
-        navigate('/search/' + keyword)
+        navigate('/sentences/search/' + keyword)
     };
 
     return (
         <Box sx={{
             display: 'flex',
             justifyContent: 'center',
-            padding: '10px',
+            p: '10px',
             backgroundColor: '#f0f0f0'
         }}>
-            <form action="/search" method="get">
+            <form action="sentences/search" method="get">
                 <Box sx={{ display: 'none' }}>
                     <input type="text" name="dummy" />
                 </Box>
