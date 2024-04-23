@@ -12,7 +12,7 @@ type Article = {
 type Articles = Article[];
 
 const fetchArticles = async (keyword: string): Promise<Articles> => {
-    const response = await fetch(`http://localhost/search?keyword=${keyword}`, {
+    const response = await fetch(`http://localhost/articles/search?keyword=${keyword}`, {
         credentials: 'include',
     });
     if (!response.ok) {
@@ -38,7 +38,6 @@ export default function ResultArticles() {
     return (
         <Box sx={{
             textAlign: 'left',
-            pl: {xs: 5, md: 25}
             }}>
                 {articles?.length === 0 ? (
                     <p>{keyword}の検索結果: ヒットなし</p>

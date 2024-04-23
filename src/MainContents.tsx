@@ -7,7 +7,7 @@ type MainContentsProps = {
 
 function MainContents({children}: MainContentsProps) {
     return (
-        <Box sx={{pl: {xs: 5, md: 25}}}>
+        <Box>
             {children}
         </Box>
     );

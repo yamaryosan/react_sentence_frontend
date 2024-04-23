@@ -17,7 +17,7 @@ export default function SearchWindow() {
         if (keyword === '') {
             return;
         }
-        navigate('/search/' + keyword)
+        navigate('/articles/search/' + keyword)
     };
 
     return (
@@ -27,7 +27,7 @@ export default function SearchWindow() {
             padding: '10px',
             backgroundColor: '#f0f0f0'
         }}>
-            <form action="/search" method="get">
+            <form action="articles/search" method="get">
                 <Box sx={{ display: 'none' }}>
                     <input type="text" name="dummy" />
                 </Box>
