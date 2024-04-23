@@ -30,7 +30,7 @@ export default function ResultSentences() {
 
     // ページネーション用
     const [page, setPage] = useState(1);
-    const pageSize = 100; // 1ページあたりの表示数
+    const pageSize = 50; // 1ページあたりの表示数
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     }
@@ -56,7 +56,11 @@ export default function ResultSentences() {
                 ) : (
                     currentSentences?.map((sentence) => (
                         <div key={sentence.id}>
-                            <p>{sentence.sentence}</p>
+                            <p>{sentence.sentence.split('\n').map(line => {
+                                return (
+                                    <span key={line}>{line}<br /></span>
+                                );
+                            })}</p>
                         </div>
                     ))
                 )}
