@@ -60,7 +60,13 @@ export default function ResultSentences() {
                         </div>
                     ))
                 )}
-                <MuiPagination count={Math.ceil((sentences?.length || 0) / pageSize)} page={page} onChange={handlePageChange} />
+                <MuiPagination
+                 count={Math.ceil((sentences?.length || 0) / pageSize)}
+                 page={page}
+                 onChange={handlePageChange}
+                 size='large'
+                 sx={{display: 'flex', justifyContent: 'center', pt: 2}}
+                 />
         </Box>
     );
 }
