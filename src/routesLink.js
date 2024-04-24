@@ -9,7 +9,7 @@ import ResultSentences from './ResultSentences';
 const routes = createBrowserRouter(
     createRoutesFromElements(
         <Route element={<App />}>
-            <Route index element={<ContentsArea children={Home} />} />
+            <Route index element={<ContentsArea children={<Home />} />} />
             <Route path="/new" element={<ContentsArea children={<New />} />}/>
             <Route path="/contact" element={<ContentsArea children={Contact} />}/>
             <Route path="/articles/:id" element={<ContentsArea children={<Article />} />}/>
