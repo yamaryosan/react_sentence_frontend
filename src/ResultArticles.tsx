@@ -36,9 +36,7 @@ export default function ResultArticles() {
     }
 
     return (
-        <Box sx={{
-            textAlign: 'left',
-            }}>
+        <Box>
                 {articles?.length === 0 ? (
                     <p>{keyword}の検索結果: ヒットなし</p>
                 ) : (
