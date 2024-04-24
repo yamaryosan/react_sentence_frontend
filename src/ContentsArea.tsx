@@ -19,6 +19,7 @@ export default function ContentsArea({children}: ContentsAreaProps) {
                 <Box sx={{ 
                     width: {xs: 1, md: 4/6},
                     px: {xs: 0, md: 3},
+                    textAlign: 'left'
                     }}>
                     {children}
                 </Box>
