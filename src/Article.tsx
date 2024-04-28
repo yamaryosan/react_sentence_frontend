@@ -1,6 +1,9 @@
 import {useQuery} from 'react-query';
 import Box from '@mui/material/Box';
 import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 type Article = {
     id: number;
@@ -42,7 +45,23 @@ export default function Article() {
             textAlign: 'left',
             pl: {xs: 5, md: 25}}}>
             <h1>{article?.title}</h1>
-            <p>{article?.content}</p>
+            <ReactMarkdown 
+            components={{
+                code({ className, children, ...props }) {
+                    const match = /language-(\w+)/.exec(className || '');
+                    return match ? (
+                    <SyntaxHighlighter style={vscDarkPlus} language={match[1]} PreTag="div">
+                        {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                    ) : (
+                    <code className={className} {...props}>
+                        {children}
+                    </code>
+                    );
+                },
+            }}>
+                {article?.content}
+            </ReactMarkdown>
             <p>{article?.updated_at}</p>
         </Box>
     );

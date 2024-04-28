@@ -1,3 +1,4 @@
+import React from 'react';
 import {useQuery} from 'react-query';
 import Article from './Article';
 import Box from '@mui/material/Box';
@@ -34,9 +35,11 @@ export default function NewArticles() {
     return (
         <Box sx={{textAlign: 'left'}}>
             {articles?.map((article) => (
+                <React.Fragment key={article.id}>
                 <Link to={`/articles/${article.id}`}>
                     <h1>{article.title}</h1>
                 </Link>
+                </React.Fragment>
             ))}
         </Box>
     );
