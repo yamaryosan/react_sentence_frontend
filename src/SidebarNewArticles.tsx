@@ -18,7 +18,7 @@ const fetchArticleItem = async () => {
     return response.json() as Promise<Articles>;
 };
 
-const maxArticleLength = 5;
+const maxArticleLength = 6;
 
 export default function SidebarNewArticles() {
     const {data: articles, isLoading, isError} = useQuery<Articles, Error>(
