@@ -37,10 +37,11 @@ export default function SidebarNewArticles() {
     return (
         <React.Fragment>
             <h3 className="text-xl">最新記事</h3>
-            <ul>
+            <ul className="xs:grid grid-cols-2 md:block">
             {articles?.slice(0, maxArticleLength).map((article) => (
-                <li key={article.id} className="mt-4">
-                    <a className="group hover:text-blue-700 cursor-pointer" href={`/articles/${article.id}`} >
+                <li key={article.id} className="border border-gray-2 xs:m-2 md:mb-2">
+                    <a href={`/articles/${article.id}`}
+                    className="group hover:text-blue-700 cursor-pointer">
                         <Box
                             component="img"
                             sx={{
@@ -51,7 +52,7 @@ export default function SidebarNewArticles() {
                             src={article.imagePaths[0]}
                             className="group-hover:bg-gray-200 transition duration-2"
                         />
-                        <p className="group-hover:bg-gray-200 transition duration-2">{article.title}</p>
+                        <p className="group-hover:bg-gray-200 transition duration-2 xs:text-sm md:text-md">{article.title}</p>
                     </a>
                 </li>
             ))}
