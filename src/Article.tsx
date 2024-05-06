@@ -42,8 +42,7 @@ export default function Article() {
 
     return (
         <Box sx={{
-            textAlign: 'left',
-            pl: {xs: 5, md: 25}}}>
+            textAlign: 'left'}}>
             <h1>{article?.title}</h1>
             <ReactMarkdown 
             components={{
