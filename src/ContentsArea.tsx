@@ -12,19 +12,19 @@ export default function ContentsArea({children}: ContentsAreaProps) {
             <Box sx={{ 
                 display: 'flex', 
                 flexDirection: {xs: 'column', md: 'row'},
-                px: {xs: 3, md: 5},
+                px: 5,
                 pt: 5,
                 fontSize: {xs: '1.2rem', md: '1rem'},
                 }}>
                 <Box sx={{ 
-                    width: {xs: 1, md: 4/6},
-                    px: {xs: 0, md: 3},
-                    textAlign: 'left'
+                    width: {xs: 1, md: 5/6},
+                    textAlign: 'left',
+                    pr: {xs: 0, md: 5},
                     }}>
                     {children}
                 </Box>
                 <Box sx={{ 
-                    width: {xs:1, md: 2/6} }}>
+                    width: {xs:1, md: 1/6} }}>
                     <Sidebar />
                 </Box>
             </Box>
