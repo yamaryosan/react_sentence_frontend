@@ -20,7 +20,7 @@ const fetchArticleItem = async () => {
 
 const maxArticleLength = 6;
 
-export default function SidebarNewArticles() {
+export default function SidebarNewArticleItems() {
     const {data: articles, isLoading, isError} = useQuery<Articles, Error>(
         'side_new_articles',
         () => fetchArticleItem()

@@ -1,11 +1,11 @@
 import AdminCheck from "./AdminCheck"
-import SidebarNewArticles from "./SidebarNewArticles"
+import SidebarNewArticleItems from "./SidebarNewArticleItems"
 
 export default function Sidebar() {
     return (
         <div>
             <AdminCheck />
-            <SidebarNewArticles />
+            <SidebarNewArticleItems />
         </div>
     )
 };
