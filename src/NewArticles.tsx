@@ -3,10 +3,13 @@ import {useQuery} from 'react-query';
 import Article from './Article';
 import Box from '@mui/material/Box';
 import {Link} from 'react-router-dom';
+import ThumbnailBox from './ThumbnailBox';
 
 type Article = {
     id: number;
     title: string;
+    content: string;
+    imagePaths: string[];
 };
 
 type Articles = Article[];
@@ -33,13 +36,22 @@ export default function NewArticles() {
         return <div>エラーが発生しました</div>;
     }
     return (
-        <Box sx={{textAlign: 'left'}}>
+        <Box className="flex-col">
             {articles?.map((article) => (
-                <React.Fragment key={article.id}>
-                <Link to={`/articles/${article.id}`}>
-                    <h1>{article.title}</h1>
-                </Link>
-                </React.Fragment>
+                <Box key={article.id}
+                className=" bg-white pd-2 border border-transparent hover:border hover:border-blue-600 transition duration-2 mb-2">
+                    <Link to={`/articles/${article.id}`}>
+                        <h1 className="pt-2 text-center xs:text-xl md:text-2xl">{article.title}</h1>
+                        <div className="flex pb-4">
+                            <div className="w-2/5 px-4">
+                            <ThumbnailBox width="100%">
+                            <img src={article.imagePaths[0]} alt="thumbnail" />
+                            </ThumbnailBox>
+                            </div>
+                            <p className="line-clamp-1 w-3/5 px-4 text-lg">{article.content}</p>
+                        </div>
+                    </Link>
+                </Box>
             ))}
         </Box>
     );
