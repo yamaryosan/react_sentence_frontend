@@ -6,6 +6,10 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useEffect } from 'react';
 
+import remarkGfm from 'remark-gfm'; // gfm(GitHub Flavored Markdown)
+
+import { Table, TableContainer, Paper } from '@mui/material';
+
 type Article = {
     id: number;
     title: string;
@@ -63,7 +67,16 @@ export default function Article() {
                     </code>
                     );
                 },
-            }}>
+                table({ children }) {
+                    return (
+                    <TableContainer component={Paper}>
+                        <Table>{children}</Table>
+                    </TableContainer>
+                    );
+                },
+            }}
+            remarkPlugins={[remarkGfm]}
+            >
                 {article?.content}
             </ReactMarkdown>
             <p>{article?.updated_at}</p>
