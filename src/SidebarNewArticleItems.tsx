@@ -1,6 +1,7 @@
 import {useQuery} from 'react-query';
 import Box from '@mui/material/Box';
 import React from 'react';
+import SidebarThumbnailBox from './SidebarThumbnailBox';
 
 type Article = {
     id: number;
@@ -39,20 +40,13 @@ export default function SidebarNewArticleItems() {
             <h3 className="text-xl">最新記事</h3>
             <ul className="xs:grid grid-cols-2 md:block">
             {articles?.slice(0, maxArticleLength).map((article) => (
-                <li key={article.id} className="border border-gray-2 xs:m-2 md:mb-2">
+                <li key={article.id} className="border border-gray-2 xs:m-2 md:mb-2 hover:border hover:border-blue-600 ">
                     <a href={`/articles/${article.id}`}
                     className="group hover:text-blue-700 cursor-pointer">
-                        <Box
-                            component="img"
-                            sx={{
-                                objectFit: 'cover',
-                                width: '100%',
-                            }}
-                            alt="thumbnail"
-                            src={article.imagePaths[0]}
-                            className="group-hover:bg-gray-200 transition duration-2"
-                        />
-                        <p className="group-hover:bg-gray-200 transition duration-2 xs:text-sm md:text-md">{article.title}</p>
+                        <SidebarThumbnailBox>
+                            <img src={article.imagePaths[0]} alt="thumbnail" />
+                        </SidebarThumbnailBox>
+                        <p className="xs:text-sm md:text-md">{article.title}</p>
                     </a>
                 </li>
             ))}

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useEffect } from 'react';
 
 type Article = {
     id: number;
@@ -25,6 +26,10 @@ const fetchArticle = async (id: string) => {
 };
 
 export default function Article() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const params = useParams<{id: string}>();
 
     const {data: article, isLoading, isError} = useQuery<Article, Error>(
