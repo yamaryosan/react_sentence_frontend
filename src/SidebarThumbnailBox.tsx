@@ -1,17 +1,16 @@
 import Box from "@mui/material/Box";
 
-type ThumbnailBoxProps = {
+type SidebarThumbnailBoxProps = {
     children: React.ReactNode;
-    width: string;
 };
 
-export default function ThumbnailBox({children, width}: ThumbnailBoxProps) {
+export default function SidebarThumbnailBox({children}: SidebarThumbnailBoxProps) {
     return (
       <Box 
         sx={{ 
           position: 'relative',
-          width: {xs: width, md: width},
-          paddingTop: {xs: width, md: width},
+          width: '100%',
+          paddingTop: '100%',
           backgroundColor: 'white',
         }}
       >
