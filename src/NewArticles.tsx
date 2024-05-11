@@ -41,15 +41,11 @@ export default function NewArticles() {
                 <Box key={article.id}
                 className=" bg-white pd-2 border border-transparent hover:border hover:border-blue-600 transition duration-2 mb-2">
                     <Link to={`/articles/${article.id}`}>
-                        <h1 className="pt-2 text-center xs:text-xl md:text-2xl">{article.title}</h1>
-                        <div className="flex pb-4">
-                            <div className="w-2/5 px-4">
-                            <ThumbnailBox width="100%">
-                            <img src={article.imagePaths[0]} alt="thumbnail" />
-                            </ThumbnailBox>
-                            </div>
-                            <p className="line-clamp-1 w-3/5 px-4 text-lg">{article.content}</p>
+                        <div className="flex justify-center items-center h-[200px] overflow-hidden">
+                        <img src={article.imagePaths[0]} alt="thumbnail" className="max-h-full max-w-full object-contain"/>
                         </div>
+                        <h1 className="pt-2 px-4 text-center xs:text-xl md:text-2xl">{article.title}</h1>
+                        <p className="px-4 text-lg xs:line-clamp-3 sm:line-clamp-5 md:line-clamp-6">{article.content}</p>
                     </Link>
                 </Box>
             ))}
