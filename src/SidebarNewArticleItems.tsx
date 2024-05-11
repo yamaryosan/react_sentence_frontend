@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 import Box from '@mui/material/Box';
 import React from 'react';
-import ThumbnailBox from './ThumbnailBox';
+import SidebarThumbnailBox from './SidebarThumbnailBox';
 
 type Article = {
     id: number;
@@ -43,9 +43,9 @@ export default function SidebarNewArticleItems() {
                 <li key={article.id} className="border border-gray-2 xs:m-2 md:mb-2 hover:border hover:border-blue-600 ">
                     <a href={`/articles/${article.id}`}
                     className="group hover:text-blue-700 cursor-pointer">
-                        <ThumbnailBox width="100%">
+                        <SidebarThumbnailBox>
                             <img src={article.imagePaths[0]} alt="thumbnail" />
-                        </ThumbnailBox>
+                        </SidebarThumbnailBox>
                         <p className="xs:text-sm md:text-md">{article.title}</p>
                     </a>
                 </li>
