@@ -10,7 +10,9 @@ type Sentence = {
     sentence: string;
 };
 
-type Sentences = Sentence[];
+type Sentences = {
+    [key: string]: Sentence;
+}
 
 const fetchSentences = async (keyword: string): Promise<Sentences> => {
     const response = await fetch(`http://localhost/sentences/search?keyword=${keyword}`, {
@@ -19,7 +21,7 @@ const fetchSentences = async (keyword: string): Promise<Sentences> => {
     if (!response.ok) {
         throw new Error('記事の取得に失敗しました');
     }
-    return response.json();
+    return response.json() as Promise<Sentences>;
 };
 
 export default function ResultSentences() {
@@ -37,7 +39,8 @@ export default function ResultSentences() {
 
     const indexOfLast = page * pageSize;
     const indexOfFirst = indexOfLast - pageSize;
-    const currentSentences = sentences?.slice(indexOfFirst, indexOfLast);
+    // const currentSentences = sentences?.slice(indexOfFirst, indexOfLast);
+    const currentSentences = Object.values(sentences ?? {})?.slice(indexOfFirst, indexOfLast);
 
     if (isLoading) {
         return <div>読み込み中...</div>;
@@ -65,7 +68,7 @@ export default function ResultSentences() {
                     ))
                 )}
                 <MuiPagination
-                 count={Math.ceil((sentences?.length || 0) / pageSize)}
+                 count={Math.ceil((Object.values(sentences ?? {})?.length || 0) / pageSize)}
                  page={page}
                  onChange={handlePageChange}
                  size='large'
