@@ -7,7 +7,8 @@ type Article = {
 };
 
 const fetchArticle = async (): Promise<Article> => {
-    const response = await fetch(`http://localhost/api/home`, {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const response = await fetch(`${apiUrl}/api/home`, {
         credentials: 'include',
     });
     if (!response.ok) {

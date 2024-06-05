@@ -3,7 +3,8 @@ import { useQuery } from 'react-query';
 
 // データ取得用関数
 const fetchSentence = async () => {
-  const res = await fetch('http://localhost/api/sentences');
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const res = await fetch(`${apiUrl}/sentences`);
   if (!res.ok) {
     throw new Error('サーバエラー');
   }

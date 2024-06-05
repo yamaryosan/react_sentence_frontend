@@ -12,7 +12,8 @@ type Article = {
 type Articles = Article[];
 
 const fetchArticles = async (keyword: string): Promise<Articles> => {
-    const response = await fetch(`http://localhost/articles/search?keyword=${keyword}`, {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const response = await fetch(`${apiUrl}/api/articles/search?keyword=${keyword}`, {
         credentials: 'include',
     });
     if (!response.ok) {
