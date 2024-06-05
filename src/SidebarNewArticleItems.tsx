@@ -12,7 +12,8 @@ type Article = {
 type Articles = Article[];
 
 const fetchArticleItem = async () => {
-    const response = await fetch(`http://localhost/api/articles`);
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const response = await fetch(`${apiUrl}/api/articles`);
     if (!response.ok) {
         throw new Error('記事が見つかりません');
     }

@@ -22,7 +22,8 @@ const fetchArticle = async (id: string) => {
     if (!id) {
         throw new Error('IDが不正です');
     }
-    const response = await fetch(`http://localhost/api/articles/${id}`);
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const response = await fetch(`${apiUrl}/api/articles/${id}`);
     if (!response.ok) {
         throw new Error('記事が見つかりません');
     }

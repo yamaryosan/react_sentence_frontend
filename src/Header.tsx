@@ -43,7 +43,7 @@ function Header() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="http://localhost:3000/"
+                href="/"
                 sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },

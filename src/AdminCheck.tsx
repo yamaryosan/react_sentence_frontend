@@ -7,7 +7,8 @@ type isVerifiedResponse = {
 };
 
 const fetchResponse = async (): Promise<isVerifiedResponse> => {
-    const response = await fetch(`http://localhost/verify`, {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const response = await fetch(`${apiUrl}/verify`, {
         credentials: 'include',
     });
     if (!response.ok) {

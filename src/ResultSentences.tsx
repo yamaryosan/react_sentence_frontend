@@ -15,7 +15,8 @@ type Sentences = {
 }
 
 const fetchSentences = async (keyword: string): Promise<Sentences> => {
-    const response = await fetch(`http://localhost/sentences/search?keyword=${keyword}`, {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const response = await fetch(`${apiUrl}/sentences/search?keyword=${keyword}`, {
         credentials: 'include',
     });
     if (!response.ok) {
