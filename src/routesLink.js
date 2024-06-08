@@ -5,16 +5,18 @@ import {New, Home, Contact} from './MainContents';
 import Article from './Article';
 import ResultArticles from './ResultArticles';
 import ResultSentences from './ResultSentences';
+import Upload from './Upload';
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
         <Route element={<App />}>
             <Route index element={<ContentsArea children={<Home />} />} />
             <Route path="/new" element={<ContentsArea children={<New />} />}/>
-            <Route path="/contact" element={<ContentsArea children={Contact} />}/>
+            <Route path="/contact" element={<ContentsArea children={<Contact />} />}/>
             <Route path="/articles/:id" element={<ContentsArea children={<Article />} />}/>
             <Route path="/articles/search/:keyword" element={<ContentsArea children={<ResultArticles />} />}/>
             <Route path="/sentences/search/:keyword" element={<ContentsArea children={<ResultSentences />} />}/>
+            <Route path="/upload" element={<ContentsArea children={<Upload />} />}/>
         </Route>
     )
 )
