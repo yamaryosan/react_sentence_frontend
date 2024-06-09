@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal';
 
 type articleTitles = {
     title: string;
+    category: string;
 };
 
 async function fetchArticles() {
@@ -59,7 +60,7 @@ export default function ArticlesIndexModal() {
                     {isLoading && <Typography id="modal-description" sx={{ mt: 2 }}>読み込み中...</Typography>}
                     {articles?.map((article, index) => (
                         <Typography key={index} id="modal-description" sx={{ mt: 2 }}>
-                            {article.title}
+                            {article.category} : {article.title}
                         </Typography>
                     ))}
                 </Box>
