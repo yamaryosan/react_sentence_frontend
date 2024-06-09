@@ -29,7 +29,7 @@ async function fetchUpload(files: File[]) {
     return await response.json() as UploadResponse;
 }
 
-export default function Uploader() {
+export default function ArticleFilesUpload() {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [response, setResponse] = useState<UploadResponse | null>(null);
     const [error, setError] = useState<string>('');
@@ -90,9 +90,12 @@ export default function Uploader() {
                 {selectedFiles.length > 0 && (
                     <p>以下のファイルが選択されています</p>
                 )}
-                {selectedFiles.map((file) => (
-                    <p key={file.name}>{file.name}</p>))
-                }
+                {selectedFiles.slice(0, 5).map((file, index) => (
+                    <p key={index}>{file.name}</p>
+                ))}
+                {selectedFiles.length > 5 && (
+                    <p>他{selectedFiles.length - 5}件のファイルが選択されています</p>
+                )}
                 
                 <Button variant="contained" color="primary" onClick={handleUpload} disabled={selectedFiles.length === 0}>Upload</Button>
                 {response && (
