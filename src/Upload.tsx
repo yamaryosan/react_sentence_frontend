@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 type UploadResponse = {
     message: string;
@@ -54,24 +56,50 @@ export default function Uploader() {
             .catch((error) => {
                 setError(error.message);
             });
-        };
+    };
 
     return (
-        <div>
-            <input type="file" multiple onChange={handleFileChange} />
-            <Button variant="contained" color="primary" onClick={handleUpload} disabled={selectedFiles.length === 0}>Upload</Button>
-            {response && (
-                <div>
+        <Container>
+            <h1>記事用ファイルアップロード</h1>
+            <Box component="form"
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                mt: 4,
+                p: 3,
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                backgroundColor: '#f9f9f9',
+            }}
+            >
+                <input
+                    accept=".md"
+                    style={{ display: 'none' }}
+                    id="file-upload"
+                    type="file"
+                    multiple
+                    onChange={handleFileChange}
+                />
+                <label htmlFor="file-upload">
+                    <Button variant="contained" component="span">
+                    ファイルを選択
+                    </Button>
+                </label>
+                {selectedFiles.length > 0 && (
+                    <p>以下のファイルが選択されています</p>
+                )}
+                {selectedFiles.map((file) => (
+                    <p key={file.name}>{file.name}</p>))
+                }
+                
+                <Button variant="contained" color="primary" onClick={handleUpload} disabled={selectedFiles.length === 0}>Upload</Button>
+                {response && (
                     <p>{response.message}</p>
-                    <p>アップロードファイル数: {response.count}</p>
-                    <ul>
-                        {response.filenames.map((filename) => (
-                            <li key={filename}>{filename}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-            {error && <p>{error}</p>}
-        </div>
+                )}
+                {error && <p>{error}</p>}
+            </Box>
+        </Container>
     );
 };
