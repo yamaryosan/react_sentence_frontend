@@ -11,7 +11,7 @@ type Article = {
 
 type Articles = Article[];
 
-const fetchArticles = async (keyword: string): Promise<Articles> => {
+async function fetchArticles(keyword: string): Promise<Articles> {
     const apiUrl = process.env.REACT_APP_API_URL;
     const response = await fetch(`${apiUrl}/api/articles/search?keyword=${keyword}`, {
         credentials: 'include',
@@ -20,8 +20,12 @@ const fetchArticles = async (keyword: string): Promise<Articles> => {
         throw new Error('記事の取得に失敗しました');
     }
     return response.json();
-};
+}
 
+/**
+ * Renders a list of articles based on a keyword.
+ * @returns JSX.Element
+ */
 export default function ResultArticles() {
     // URLパラメータからキーワードを取得
     const { keyword } = useParams<{ keyword: string }>();
@@ -38,17 +42,17 @@ export default function ResultArticles() {
 
     return (
         <Box>
-                {articles?.length === 0 ? (
-                    <p>{keyword}の検索結果: ヒットなし</p>
-                ) : (
-                    articles?.map((article) => (
-                        <div key={article.id}>
-                            <h2>{article.title}</h2>
-                            <p>{article.content}</p>
-                            <p>{article.created_at}</p>
-                        </div>
-                    ))
-                )}
+            {articles?.length === 0 ? (
+                <p>{keyword}の検索結果: ヒットなし</p>
+            ) : (
+                articles?.map((article) => (
+                    <div key={article.id}>
+                        <h2>{article.title}</h2>
+                        <p>{article.content}</p>
+                        <p>{article.created_at}</p>
+                    </div>
+                ))
+            )}
         </Box>
     );
 }

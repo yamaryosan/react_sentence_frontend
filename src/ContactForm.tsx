@@ -20,8 +20,13 @@ type Response = Promise<{
     secret: string,
 }>;
 
-// フォーム送信時の処理
-const fetchContact = async (form: Form) => {
+/**
+ * Sends a contact form to the server.
+ * @param form - The contact form data.
+ * @returns A promise that resolves to the server response.
+ * @throws An error if the request fails.
+ */
+async function fetchContact(form: Form) {
     const apiUrl = process.env.REACT_APP_API_URL;
     const response = await fetch(`${apiUrl}/api/contacts`, {
         method: 'POST',

@@ -5,7 +5,7 @@ import {New, Home, Contact} from './MainContents';
 import Article from './Article';
 import ResultArticles from './ResultArticles';
 import ResultSentences from './ResultSentences';
-import Upload from './Upload';
+import Upload from './upload/Upload';
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
