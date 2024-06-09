@@ -16,6 +16,11 @@ async function fetchUpload(files: File[]) {
 
     files.forEach((file) => {
         formData.append('files[]', file);
+        // ファイルの親フォルダの1つ内側のフォルダ名を取得
+        const pathSegments = file.webkitRelativePath.split('/');
+        const category = pathSegments.length > 1 ? pathSegments[pathSegments.length - 2] : 'default';
+        formData.append('categories[]', category);
+        console.log(`File: ${file.name}, Category: ${category}`);
     });
 
     const response = await fetch(`${apiUrl}/api/articles/upload`, {
@@ -79,6 +84,9 @@ export default function ArticleFilesUpload() {
                     style={{ display: 'none' }}
                     id="file-upload"
                     type="file"
+                    /* @ts-expect-error */
+                    directory="true"
+                    webkitdirectory="true"
                     multiple
                     onChange={handleFileChange}
                 />
