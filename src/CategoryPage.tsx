@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { useEffect } from 'react';
 import Box from "@mui/material/Box";
 import {Link} from 'react-router-dom';
 
@@ -25,6 +26,11 @@ async function fetchArticlesByCategory (category: string) {
 }
 
 export default function CategoryPage() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
+
+
     const params = useParams<{category: string}>();
 
     const { data: articles, isLoading, error } = useQuery<Articles, Error>(
