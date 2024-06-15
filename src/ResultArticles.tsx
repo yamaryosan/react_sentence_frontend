@@ -13,7 +13,7 @@ type Articles = Article[];
 
 async function fetchArticles(keyword: string): Promise<Articles> {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/api/articles/search?keyword=${keyword}`, {
+    const response = await fetch(`${apiUrl}/articles/search?keyword=${keyword}`, {
         credentials: 'include',
     });
     if (!response.ok) {
