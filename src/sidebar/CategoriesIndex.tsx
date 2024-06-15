@@ -29,7 +29,7 @@ export default function CategoriesIndex() {
                 {categories?.map((category) => (
                     /* カテゴリーのリストを表示(リンクも付与) */
                     <li key={category}>
-                        <Link to={`/articles/categories/${category}`}>{category}</Link>
+                        <Link to={`/categories/${category}`}>{category}</Link>
                     </li>        
                 ))}
             </ul>
