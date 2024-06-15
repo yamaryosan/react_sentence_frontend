@@ -1,7 +1,7 @@
 import {Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import App from './App';
 import ContentsArea from './ContentsArea';
-import {New, Home, Contact} from './MainContents';
+import {New, Home, Contact, Category} from './MainContents';
 import Article from './Article';
 import ResultArticles from './ResultArticles';
 import ResultSentences from './ResultSentences';
@@ -17,6 +17,7 @@ const routes = createBrowserRouter(
             <Route path="/articles/search/:keyword" element={<ContentsArea children={<ResultArticles />} />}/>
             <Route path="/sentences/search/:keyword" element={<ContentsArea children={<ResultSentences />} />}/>
             <Route path="/upload" element={<ContentsArea children={<Upload />} />}/>
+            <Route path="/categories/:category" element={<ContentsArea children={<Category />} />}/>
         </Route>
     )
 )
