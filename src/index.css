@@ -28,8 +28,8 @@
   }
 }
 
-.inline-code {
-  @apply bg-gray-700 text-white px-1 py-0.5 rounded;
+table {
+  @apply w-full border border-gray-300 whitespace-pre overflow-auto;
 }
 
 body {

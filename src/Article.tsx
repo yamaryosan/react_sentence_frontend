@@ -63,10 +63,13 @@ export default function Article() {
                         {String(children).replace(/\n$/, '')}
                     </SyntaxHighlighter>
                     ) : (
-                    <code className="inline-code" {...props}>
+                    <code className="bg-gray-700 text-white px-0.5" {...props}>
                         {children}
                     </code>
                     );
+                },
+                pre({ children }) {
+                    return <div className="whitespace-pre overflow-auto bg-gray-700 text-white text-sm">{children}</div>;
                 },
                 table({ children }) {
                     return (
