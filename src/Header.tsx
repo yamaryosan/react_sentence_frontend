@@ -16,7 +16,7 @@ import {Link} from 'react-router-dom';
 // ナビゲーションメニューの項目
 const pages = [
     {name: 'Home', url: '/'},
-    {name: 'New', url: '/new'},
+    {name: 'All', url: '/all'},
     {name: 'Contact', url: '/contact'},
 ];
 
