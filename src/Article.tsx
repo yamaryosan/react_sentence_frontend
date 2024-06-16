@@ -53,7 +53,7 @@ export default function Article() {
     return (
         <Box sx={{
             textAlign: 'left'}}>
-            <h1>{article?.title}</h1>
+            <h1 className="border-double border-4 border-blue-500 p-4 bg-white">{article?.title}</h1>
             <ReactMarkdown 
             components={{
                 code({ className, children, ...props }) {
@@ -63,10 +63,13 @@ export default function Article() {
                         {String(children).replace(/\n$/, '')}
                     </SyntaxHighlighter>
                     ) : (
-                    <code className={className} {...props}>
+                    <code className="bg-gray-700 text-white px-0.5" {...props}>
                         {children}
                     </code>
                     );
+                },
+                pre({ children }) {
+                    return <div className="whitespace-pre overflow-auto bg-gray-700 text-white text-sm">{children}</div>;
                 },
                 table({ children }) {
                     return (
@@ -75,6 +78,21 @@ export default function Article() {
                     </TableContainer>
                     );
                 },
+                ul({ children }) {
+                    return <ul className="list-disc list-inside pb-2">{children}</ul>;
+                },
+                ol({ children }) {
+                    return <ol className="list-decimal list-inside pb-2">{children}</ol>;
+                },
+                h2({ children }) {
+                    return <h2 className="border-l-4 border-blue-500 pl-2 py-2 bg-white">{children}</h2>;
+                },
+                h3({ children }) {
+                    return <h3 className="border-l-4 border-blue-500 pl-2 py-2 bg-white">{children}</h3>;
+                },
+                h4({ children }) {
+                    return <h4 className="border-l-4 border-blue-500 pl-2 py-2 bg-white">{children}</h4>;
+                }
             }}
             remarkPlugins={[remarkGfm]}
             >
