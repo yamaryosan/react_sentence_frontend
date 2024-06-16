@@ -27,10 +27,9 @@ export default function CategoriesIndex() {
             <h2>カテゴリー</h2>
             <ul>
                 {categories?.map((category) => (
-                    /* カテゴリーのリストを表示(リンクも付与) */
-                    <li key={category}>
-                        <Link to={`/articles/categories/${category}`}>{category}</Link>
-                    </li>        
+                    <li key={category} className="text-left hover:text-blue-500 active:text-blue-700">
+                        <Link to={`/categories/${category}`} className="block">{category}</Link>
+                    </li>
                 ))}
             </ul>
         </div>
