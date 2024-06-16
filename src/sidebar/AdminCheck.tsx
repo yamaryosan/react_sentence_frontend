@@ -26,16 +26,10 @@ export default function AdminCheck() {
         <div>
             {isVerified?.isVerified === 'true' ? (
                 <div>
-                    <h2>管理者メニュー</h2>
-                    <p>管理者としてログインしています</p>
-                    <p>{isVerified?.isVerified}</p>
                     <SentenceSearchWindow />
                 </div>
             ) : (
                 <div>
-                    <h2>管理者メニュー</h2>
-                    <p>管理者としてログインしていません</p>
-                    <p>{isVerified?.isVerified}</p>
                     <ArticleSearchWindow />
                 </div>
             )}
