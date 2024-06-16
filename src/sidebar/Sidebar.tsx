@@ -1,4 +1,4 @@
-import AdminCheck from "../AdminCheck";
+import AdminCheck from "./AdminCheck";
 import SidebarNewArticleItems from "./SidebarNewArticleItems";
 import CategoriesIndex from "./CategoriesIndex";
 
