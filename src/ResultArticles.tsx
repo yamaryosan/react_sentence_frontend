@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
+import ArticleCard from './ArticleCard';
 
 type Article = {
     id: number;
     title: string;
     content: string;
-    created_at: string;
+    imagePaths: string[];
 };
 
 type Articles = Article[];
@@ -19,7 +20,7 @@ async function fetchArticles(keyword: string): Promise<Articles> {
     if (!response.ok) {
         throw new Error('記事の取得に失敗しました');
     }
-    return response.json();
+    return response.json() as Promise<Articles>;
 }
 
 /**
@@ -30,7 +31,10 @@ export default function ResultArticles() {
     // URLパラメータからキーワードを取得
     const { keyword } = useParams<{ keyword: string }>();
     // 記事を取得
-    const { data: articles, isLoading, error } = useQuery<Articles>(['articles', keyword], () => fetchArticles(keyword || ''));
+    const { data: articles, isLoading, error } = useQuery<Articles, Error>(
+        ['articles', keyword],
+        () => fetchArticles(keyword || '')
+    );
 
     if (isLoading) {
         return <div>読み込み中...</div>;
@@ -46,11 +50,7 @@ export default function ResultArticles() {
                 <p>{keyword}の検索結果: ヒットなし</p>
             ) : (
                 articles?.map((article) => (
-                    <div key={article.id}>
-                        <h2>{article.title}</h2>
-                        <p>{article.content}</p>
-                        <p>{article.created_at}</p>
-                    </div>
+                    <ArticleCard key={article.id} article={article} />
                 ))
             )}
         </Box>
