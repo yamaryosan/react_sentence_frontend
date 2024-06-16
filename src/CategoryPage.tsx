@@ -85,8 +85,7 @@ export default function CategoryPage() {
             onChange={handlePageChange}
             size='large'
             sx={{display: 'flex', justifyContent: 'center', pt: 2}}
-            />   
-                )
+            />
             </Box>
         </div>
     )
