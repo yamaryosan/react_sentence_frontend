@@ -63,7 +63,7 @@ export default function Article() {
                         {String(children).replace(/\n$/, '')}
                     </SyntaxHighlighter>
                     ) : (
-                    <code className={className} {...props}>
+                    <code className="inline-code" {...props}>
                         {children}
                     </code>
                     );
