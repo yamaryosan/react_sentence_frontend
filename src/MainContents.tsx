@@ -1,4 +1,4 @@
-import NewArticles from './NewArticles';
+import AllArticles from './AllArticles';
 import HomeContent from './HomeContent';
 import ContactForm from './ContactForm';
 import Box from '@mui/material/Box';
@@ -16,8 +16,8 @@ function MainContents({children}: MainContentsProps) {
     );
 }
 
-function New() {
-    return <MainContents children={<NewArticles />} />;
+function All() {
+    return <MainContents children={<AllArticles />} />;
 }
 
 function Home() {
@@ -32,4 +32,4 @@ function Category() {
     return <MainContents children={<CategoryPage />} />;
 }
 
-export {New, Home, Contact, Category};
+export {All, Home, Contact, Category};

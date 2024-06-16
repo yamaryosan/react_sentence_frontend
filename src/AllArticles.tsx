@@ -23,7 +23,7 @@ const fetchArticleItem = async () => {
     return response.json() as Promise<Articles>;
 };
 
-export default function NewArticles() {
+export default function AllArticles() {
     const {data: articles, isLoading, isError} = useQuery<Articles, Error>(
         'article',
         () => fetchArticleItem()
@@ -50,6 +50,7 @@ export default function NewArticles() {
     }
     return (
         <Box className="flex-col">
+            <h1 className="text-2xl font-bold">記事一覧</h1>
             {currentArticles?.map((article) => (
                 <ArticleCard key={article.id} article={article} />
             ))}
