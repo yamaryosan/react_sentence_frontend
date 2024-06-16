@@ -53,7 +53,7 @@ export default function Article() {
     return (
         <Box sx={{
             textAlign: 'left'}}>
-            <h1>{article?.title}</h1>
+            <h1 className="border-double border-4 border-blue-500 p-4 bg-white">{article?.title}</h1>
             <ReactMarkdown 
             components={{
                 code({ className, children, ...props }) {
@@ -81,6 +81,15 @@ export default function Article() {
                 ol({ children }) {
                     return <ol className="list-decimal list-inside pb-2">{children}</ol>;
                 },
+                h2({ children }) {
+                    return <h2 className="border-l-4 border-blue-500 pl-2 py-2 bg-white">{children}</h2>;
+                },
+                h3({ children }) {
+                    return <h3 className="border-l-4 border-blue-500 pl-2 py-2 bg-white">{children}</h3>;
+                },
+                h4({ children }) {
+                    return <h4 className="border-l-4 border-blue-500 pl-2 py-2 bg-white">{children}</h4>;
+                }
             }}
             remarkPlugins={[remarkGfm]}
             >
