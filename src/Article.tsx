@@ -75,6 +75,12 @@ export default function Article() {
                     </TableContainer>
                     );
                 },
+                ul({ children }) {
+                    return <ul className="list-disc list-inside pb-2">{children}</ul>;
+                },
+                ol({ children }) {
+                    return <ol className="list-decimal list-inside pb-2">{children}</ol>;
+                },
             }}
             remarkPlugins={[remarkGfm]}
             >
