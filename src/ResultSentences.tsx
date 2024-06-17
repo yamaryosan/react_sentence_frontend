@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 import { useState } from 'react';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import MuiPagination from '@mui/material/Pagination';
 
@@ -37,6 +38,11 @@ export default function ResultSentences() {
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     }
+
+    // ページネーションがクリックされたときに自動でページトップにスクロールする
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page]);
 
     const indexOfLast = page * pageSize;
     const indexOfFirst = indexOfLast - pageSize;
