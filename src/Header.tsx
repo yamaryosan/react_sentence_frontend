@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import LaptopIcon from '@mui/icons-material/Laptop';
-import SentenceSearchWindow from './header/SentenceSearchWindow';
+import VerificationProvider from '@/header/VerificationProvider';
 
 import { HomeOutlined, MailOutlined } from '@mui/icons-material';
 
@@ -21,7 +21,7 @@ function Header() {
                     <Button key={page.name} href={page.url}>{page.name}</Button>
                 ))}
             </Box>
-            <SentenceSearchWindow />
+            <VerificationProvider />
         </Box>
     );
 }
