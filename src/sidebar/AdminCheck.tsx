@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import ArticleSearchWindow from "./ArticleSearchWindow";
-import SentenceSearchWindow from "./SentenceSearchWindow";
+import SentenceSearchWindow from "../header/SentenceSearchWindow";
 
 type isVerifiedResponse = {
     isVerified: string;
