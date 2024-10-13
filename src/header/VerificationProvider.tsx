@@ -18,7 +18,7 @@ export default function VerificationProvider() {
     return (
         <VerificationContext.Provider value={isVerified}>
             <ArticleSearchWindow />
-            <SentenceSearchWindow />
+            {isVerified && <SentenceSearchWindow />}
         </VerificationContext.Provider>
     )
 }
