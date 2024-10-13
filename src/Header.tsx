@@ -9,126 +9,30 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import LaptopIcon from '@mui/icons-material/Laptop'; // ラップトップアイコン
+import LaptopIcon from '@mui/icons-material/Laptop';
+import SentenceSearchWindow from './sidebar/SentenceSearchWindow';
 
 import {Link} from 'react-router-dom';
+import { HomeOutlined, MailOutlined } from '@mui/icons-material';
 
 // ナビゲーションメニューの項目
 const pages = [
-    {name: 'Home', url: '/'},
-    {name: 'All', url: '/all'},
-    {name: 'Contact', url: '/contact'},
+    {name: 'Home', url: '/', icon: <HomeOutlined />},
+    {name: 'Contact', url: '/contact', icon: <MailOutlined />},
 ];
 
 function Header() {
-    // ナビゲーションメニューの開閉状態を管理
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-
-    // ナビゲーションメニューを開く
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
-
-    // ナビゲーションメニューを閉じる
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
     return (
-        <AppBar position="static">
-        <Container maxWidth="xl">
-            <Toolbar disableGutters>
-            <LaptopIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                }}
-            >
-                Webエンジン
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-                >
-                <MenuIcon />
-                </IconButton>
-                <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                    display: { xs: 'block', md: 'none' },
-                }}
-                >
+        <Box>
+            <LaptopIcon />
+            <h1>Webエンジン</h1>
+            <Box>
                 {pages.map((page) => (
-                    <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                        <Link to={page.url} style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <Typography textAlign="center">{page.name}</Typography>
-                        </Link>
-                    </MenuItem>
-                ))}
-                </Menu>
-            </Box>
-            <LaptopIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                }}
-            >
-                Webエンジン
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map((page) => (
-                <Button
-                    key={page.name}
-                    href={page.url}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                    {page.name}
-                </Button>
+                    <Button key={page.name} href={page.url}>{page.name}</Button>
                 ))}
             </Box>
-            </Toolbar>
-        </Container>
-        </AppBar>
+            <SentenceSearchWindow />
+        </Box>
     );
 }
 export default Header;
