@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import VerificationContext from '@/header/VerificationContext';
 
-export default function SearchWindow() {
+export default function ArticleSearchWindow() {
     const [keyword, setKeyword] = useState<string>('');
     const navigate = useNavigate();
 
