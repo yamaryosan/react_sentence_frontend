@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 
 export default function SentenceSearchWindow() {
-    const [keyword, setKeyword] = useState<string>('');
+    const [keyword, setKeyword] = useState('');
     const navigate = useNavigate();
 
     // 値を更新

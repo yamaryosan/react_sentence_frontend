@@ -3,34 +3,20 @@ import { useState } from 'react';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { fetchSentences } from './api/sentence';
 
 import MuiPagination from '@mui/material/Pagination';
 
 type Sentence = {
-    id: number;
-    sentence: string;
-};
-
-type Sentences = {
-    [key: string]: Sentence;
+    id: number,
+    sentence: string,
 }
-
-const fetchSentences = async (keyword: string): Promise<Sentences> => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/sentences/search?keyword=${keyword}`, {
-        credentials: 'include',
-    });
-    if (!response.ok) {
-        throw new Error('記事の取得に失敗しました');
-    }
-    return response.json() as Promise<Sentences>;
-};
 
 export default function ResultSentences() {
     // URLパラメータからキーワードを取得
     const { keyword } = useParams<{ keyword: string }>();
     // 文章を取得
-    const { data: sentences, isLoading, error } = useQuery<Sentences>(['sentences', keyword], () => fetchSentences(keyword || ''));
+    const { data: sentences, isLoading, error } = useQuery<Sentence[] | undefined>(['sentences', keyword], () => fetchSentences(keyword || ''));
 
     // ページネーション用
     const [page, setPage] = useState(1);
