@@ -1,11 +1,11 @@
-import SidebarRandomArticleItems from "./SidebarRandomArticleItems";
-import CategoriesIndex from "./CategoriesIndex";
+import SidebarRandomArticleItems from "@/sidebar/SidebarRandomArticleItems";
+import CategoriesIndex from "@/sidebar/CategoriesIndex";
 
 export default function Sidebar() {
     return (
         <div>
-            <SidebarRandomArticleItems />
             <CategoriesIndex />
+            <SidebarRandomArticleItems />
         </div>
     )
 };
