@@ -22,22 +22,13 @@ export default function SentenceSearchWindow() {
     };
 
     return (
-        <Box sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            p: '10px',
-            backgroundColor: '#f0f0f0'
-        }}>
+        <Box>
             <form action="sentences/search" method="get">
                 <Box sx={{ display: 'none' }}>
                     <input type="text" name="dummy" />
                 </Box>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    backgroundColor: '#f0f0f0'
-                }}>
-                    <TextField name="keyword" id="keyword" label="keyword" variant="outlined" onChange={handleForm} />
+                <Box>
+                    <TextField name="keyword" id="keyword" label="sentence" variant="outlined" onChange={handleForm} />
                     <Button type="button" variant="text" onClick={handleSubmit}>検索</Button>
                 </Box>
             </form>
