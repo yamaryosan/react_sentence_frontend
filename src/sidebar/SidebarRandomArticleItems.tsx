@@ -1,7 +1,8 @@
 import {useQuery} from 'react-query';
-import React from 'react';
-import SidebarThumbnailBox from './SidebarThumbnailBox';
+import SidebarThumbnailBox from '@/component/ThumbnailBox';
 import { fetchRandomArticles } from '@/api/article';
+import { Link } from 'react-router-dom';
+import Image from '@/component/Image';
 
 type Article = {
     id: number;
@@ -25,20 +26,20 @@ export default function SidebarRandomArticleItems() {
     }
 
     return (
-        <React.Fragment>
+        <>
             <h3>ランダム</h3>
             <ul>
             {articles?.slice(0, maxArticleLength).map((article) => (
                 <li key={article.id}>
-                    <a href={`/articles/${article.id}`}>
+                    <Link to={`/articles/${article.id}`}>
                         <SidebarThumbnailBox>
-                            <img src={article.imagePaths[0]} alt="thumbnail" />
+                            <Image imagePath={article.imagePaths[0]} />
+                            <p>{article.title}({article.category})</p>
                         </SidebarThumbnailBox>
-                        <p>{article.title} - {article.category}</p>
-                    </a>
+                    </Link>
                 </li>
             ))}
             </ul>
-        </React.Fragment>
+        </>
     );
 }
