@@ -22,10 +22,6 @@ export default function AllArticles() {
     // ページネーション用の変数
     const [page, setPage] = React.useState(1);
 
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    }
-
     // ページネーションがクリックされたときに自動でページトップにスクロールする
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -56,7 +52,7 @@ export default function AllArticles() {
             <MuiPagination
             count={Math.ceil((articles?.length || 0) / pageSize)}
             page={page}
-            onChange={handlePageChange}
+            onChange={(e, value) => setPage(value)}
             size='large'
             sx={{display: 'flex', justifyContent: 'center', paddingY: '1rem'}} />
         </Box>
