@@ -51,9 +51,8 @@ export default function Article() {
     }
 
     return (
-        <Box sx={{
-            textAlign: 'left'}}>
-            <h1 className="border-double border-4 border-blue-500 p-4 bg-white">{article?.title}</h1>
+        <Box sx={{ textAlign: 'left' }}>
+            <h2>{article?.title}</h2>
             <ReactMarkdown 
             components={{
                 code({ className, children, ...props }) {
