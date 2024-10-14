@@ -2,13 +2,16 @@ import Box from "@mui/material/Box";
 import {Link} from 'react-router-dom';
 import Image from '@/component/Image';
 
+type Article = {
+    id: number;
+    title: string;
+    content: string;
+    category: string;
+    imagePaths: string[];
+}
+
 type ArticleCardProps = {
-    article: {
-        id: number;
-        title: string;
-        content: string;
-        imagePaths: string[];
-    }
+    article: Article;
 }
 
 /**
@@ -29,14 +32,10 @@ export default function ArticleCard({article}: ArticleCardProps) {
                 }
              }}>
             <Link to={`/articles/${article.id}`}>
-            <h1 style={{
-                    paddingTop: '0.5rem',
-                    paddingLeft: '1rem',
-                    paddingRight: '1rem',
-                    fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                }}>{article.title}
-            </h1>
+            <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{article.title}</h1>
+                <p style={{ fontSize: '1rem' }}>{article.category}</p>
+            </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
                 <Image imagePath={article.imagePaths[0]} />
                 <p className='line-clamp-3'>{article.content}</p>
