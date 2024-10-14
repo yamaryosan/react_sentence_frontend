@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { fetchSentences } from './api/sentence';
+import { fetchSentences } from '@/api/sentence';
 
 import MuiPagination from '@mui/material/Pagination';
 

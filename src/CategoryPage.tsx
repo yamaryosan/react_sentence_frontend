@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import MuiPagination from '@mui/material/Pagination';
-import ArticleCard from './ArticleCard';
+import ArticleCard from '@/component/ArticleCard';
 
 type Article = {
     id: number;

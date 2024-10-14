@@ -1,10 +1,10 @@
 import {Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import App from './App';
-import ContentsArea from './ContentsArea';
-import {All, Home, Contact, Category} from './MainContents';
-import Article from './Article';
-import ResultArticles from './ResultArticles';
-import ResultSentences from './ResultSentences';
+import App from '@/App';
+import ContentsArea from '@/ContentsArea';
+import {All, Home, Contact, Category} from '@/MainContents';
+import Article from '@/Article';
+import ResultArticles from '@/ResultArticles';
+import ResultSentences from '@/ResultSentences';
 import Upload from '@/upload/Upload';
 
 const routes = createBrowserRouter(
