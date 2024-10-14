@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import {Link} from 'react-router-dom';
+import Image from '@/component/Image';
 
 type ArticleCardProps = {
     article: {
@@ -17,15 +18,30 @@ type ArticleCardProps = {
 export default function ArticleCard({article}: ArticleCardProps) {
     return (
         <Box key={article.id}
-        className=" bg-white pd-2 border border-transparent hover:border hover:border-blue-600 transition duration-2 mb-2">
+             sx={{
+                padding: '0.5rem',
+                border: '1.5px solid transparent',
+                transition: 'border 0.2s, background-color 0.2s',
+                marginY: '0.25rem',
+                '&:hover': {
+                    border: '1.5px solid gray',
+                    bgcolor: 'secondary.light',
+                }
+             }}>
             <Link to={`/articles/${article.id}`}>
-                <div className="flex justify-center items-center h-[200px] overflow-hidden">
-                <img src={article.imagePaths[0]} alt="thumbnail" className="max-h-full max-w-full object-contain"/>
-                </div>
-                <h1 className="pt-2 px-4 text-center xs:text-xl md:text-2xl">{article.title}</h1>
-                <p className="px-4 text-lg xs:line-clamp-3 sm:line-clamp-5 md:line-clamp-6">{article.content}</p>
+            <h1 style={{
+                    paddingTop: '0.5rem',
+                    paddingLeft: '1rem',
+                    paddingRight: '1rem',
+                    fontSize: '1.5rem',
+                    fontWeight: 'bold',
+                }}>{article.title}
+            </h1>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+                <Image imagePath={article.imagePaths[0]} />
+                <p className='line-clamp-3'>{article.content}</p>
+            </Box>
             </Link>
         </Box>
     )
-
 }
