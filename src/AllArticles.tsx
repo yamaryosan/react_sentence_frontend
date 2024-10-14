@@ -4,6 +4,7 @@ import Article from './Article';
 import Box from '@mui/material/Box';
 import MuiPagination from '@mui/material/Pagination';
 import ArticleCard from './ArticleCard';
+import {useEffect} from 'react';
 
 type Article = {
     id: number;
@@ -36,6 +37,12 @@ export default function AllArticles() {
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     }
+
+    // ページネーションがクリックされたときに自動でページトップにスクロールする
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page]);
+
 
     const indexOfLast = page * pageSize;
     const indexOfFirst = indexOfLast - pageSize;
