@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import MuiPagination from '@mui/material/Pagination';
 import ArticleCard from '@/component/ArticleCard';
 import {useEffect} from 'react';
-import fetchAllArticles from '@/api/article';
+import { fetchAllArticles } from '@/api/article';
 import { ArticleOutlined } from '@mui/icons-material';
 import PageSizeSelect from '@/component/PageSizeSelect';
 
@@ -13,6 +13,7 @@ type Article = {
     id: number;
     title: string;
     content: string;
+    category: string;
     imagePaths: string[];
 };
 
@@ -43,7 +44,7 @@ export default function AllArticles() {
         <Box>
             <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
                 <ArticleOutlined />
-                <h2>記事一覧</h2>
+                <h2>記事一覧({articles?.length || 0}件)</h2>
                 <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
             </Box>
             {currentArticles?.map((article) => (

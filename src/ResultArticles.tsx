@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
-import ArticleCard from './ArticleCard';
+import ArticleCard from '@/component/ArticleCard';
 
 type Article = {
     id: number;
     title: string;
     content: string;
+    category: string;
     imagePaths: string[];
 };
 
