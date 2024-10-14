@@ -11,7 +11,7 @@ const routes = createBrowserRouter(
     createRoutesFromElements(
         <Route element={<App />}>
             <Route index element={<ContentsArea children={<Home />} />} />
-            <Route path="/all" element={<ContentsArea children={<All />} />}/>
+            <Route path="/allArticles" element={<ContentsArea children={<All />} />}/>
             <Route path="/contact" element={<ContentsArea children={<Contact />} />}/>
             <Route path="/articles/:id" element={<ContentsArea children={<Article />} />}/>
             <Route path="/articles/search/:keyword" element={<ContentsArea children={<ResultArticles />} />}/>
