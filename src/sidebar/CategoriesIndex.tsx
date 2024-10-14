@@ -1,3 +1,4 @@
+import { List } from '@mui/material';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 
@@ -27,9 +28,19 @@ export default function CategoriesIndex() {
             <h2>カテゴリー</h2>
             <ul>
                 {categories?.map((category) => (
-                    <li key={category} className="text-left hover:text-blue-500 active:text-blue-700">
-                        <Link to={`/categories/${category}`} className="block">{category}</Link>
-                    </li>
+                    <Link to={`/categories/${category}`} key={category}>
+                        <List key={category}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            transition: '0.3s',
+                            ":hover": {
+                                color: 'blue',
+                                bgcolor: 'secondary.light',
+                            }}}>
+                            <span>・{category}</span>
+                        </List>
+                    </Link>
                 ))}
             </ul>
         </div>
