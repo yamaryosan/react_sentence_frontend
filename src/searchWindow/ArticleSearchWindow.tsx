@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { SearchOutlined } from '@mui/icons-material';
 import SearchWindow from '@/searchWindow/SearchWindow';
 
 export default function ArticleSearchWindow() {
