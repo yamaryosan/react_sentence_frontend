@@ -1,5 +1,5 @@
-import ArticleSearchWindow from "@/header/ArticleSearchWindow";
-import SentenceSearchWindow from "@/header/SentenceSearchWindow";
+import ArticleSearchWindow from "@/searchWindow/ArticleSearchWindow";
+import SentenceSearchWindow from "@/searchWindow/SentenceSearchWindow";
 import { fetchVerification } from "@/api/verify";
 import { useEffect, useState } from "react";
 import VerificationContext from "@/header/VerificationContext";

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import LaptopIcon from '@mui/icons-material/Laptop';
-import VerificationProvider from '@/header/VerificationProvider';
+import VerificationProvider from '@/searchWindow/VerificationProvider';
 import { HomeOutlined, MailOutlined, ArticleOutlined } from '@mui/icons-material';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,6 @@ export default function Header() {
                     </React.Fragment>
                 ))}
             </Box>
-            <VerificationProvider />
         </Box>
     );
 }
