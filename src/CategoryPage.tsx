@@ -61,7 +61,7 @@ export default function CategoryPage() {
     
     return (
         <div>
-            <h1>{params.category}の記事</h1>
+            <h2>{params.category}の記事</h2>
             {isLoading && <div>読み込み中...</div>}
             <Box className="flex-col">
                 {currentArticles?.length === 0 ? (
