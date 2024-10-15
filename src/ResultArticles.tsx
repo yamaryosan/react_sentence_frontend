@@ -1,7 +1,11 @@
 import { useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
 import ArticleCard from '@/component/ArticleCard';
+import { ArticleOutlined } from '@mui/icons-material';
+import PageSizeSelect from '@/component/PageSizeSelect';
+import MuiPagination from '@mui/material/Pagination';
 
 type Article = {
     id: number;
@@ -11,9 +15,7 @@ type Article = {
     imagePaths: string[];
 };
 
-type Articles = Article[];
-
-async function fetchArticles(keyword: string): Promise<Articles> {
+async function fetchArticles(keyword: string): Promise<Article[]> {
     const apiUrl = process.env.REACT_APP_API_URL;
     const response = await fetch(`${apiUrl}/articles/search?keyword=${keyword}`, {
         credentials: 'include',
@@ -21,7 +23,7 @@ async function fetchArticles(keyword: string): Promise<Articles> {
     if (!response.ok) {
         throw new Error('記事の取得に失敗しました');
     }
-    return response.json() as Promise<Articles>;
+    return response.json() as Promise<Article[]>;
 }
 
 /**
@@ -32,10 +34,22 @@ export default function ResultArticles() {
     // URLパラメータからキーワードを取得
     const { keyword } = useParams<{ keyword: string }>();
     // 記事を取得
-    const { data: articles, isLoading, error } = useQuery<Articles, Error>(
+    const { data: articles, isLoading, error } = useQuery<Article[], Error>(
         ['articles', keyword],
         () => fetchArticles(keyword || '')
     );
+    // ページネーション用の変数
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    // ページネーションがクリックされたときに自動でページトップにスクロールする
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page]);
+
+    const indexOfLast = page * pageSize;
+    const indexOfFirst = indexOfLast - pageSize;
+    const currentArticles = articles?.slice(indexOfFirst, indexOfLast);
 
     if (isLoading) {
         return <div>読み込み中...</div>;
@@ -47,12 +61,24 @@ export default function ResultArticles() {
 
     return (
         <Box>
-            {articles?.length === 0 ? (
-                <p>{keyword}の検索結果: ヒットなし</p>
-            ) : (
-                articles?.map((article) => (
+            {articles?.length === 0 && <p>{keyword}の検索結果: ヒットなし</p>}
+            {articles && articles.length > 0 && (
+                <>
+                <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                    <ArticleOutlined />
+                    <h2>記事一覧({articles?.length || 0}件)</h2>
+                    <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
+                </Box>
+                {currentArticles?.slice(0, pageSize).map((article) => (
                     <ArticleCard key={article.id} article={article} />
-                ))
+                ))}
+                <MuiPagination
+                count={Math.ceil((articles?.length || 0) / pageSize)}
+                page={page}
+                onChange={(e, value) => setPage(value)}
+                size='large'
+                sx={{display: 'flex', justifyContent: 'center', paddingY: '1rem'}} />
+                </>
             )}
         </Box>
     );
