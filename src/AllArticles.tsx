@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import {useQuery} from 'react-query';
 import Article from '@/Article';
 import Box from '@mui/material/Box';
@@ -19,9 +19,9 @@ type Article = {
 
 export default function AllArticles() {
     const {data: articles, isLoading, error} = useQuery<Article[] | undefined>('articles', fetchAllArticles);
-    const [pageSize, setPageSize] = React.useState(10);
+    const [pageSize, setPageSize] = useState(10);
     // ページネーション用の変数
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = useState(1);
 
     // ページネーションがクリックされたときに自動でページトップにスクロールする
     useEffect(() => {
