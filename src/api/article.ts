@@ -4,6 +4,8 @@ type Article = {
     content: string;
     category: string;
     imagePaths: string[];
+    created_at: string;
+    updated_at: string;
 };
 
 /**
@@ -43,6 +45,31 @@ export async function fetchRandomArticles() {
         }
         const articles = await response.json() as Article[];
         return articles;
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        }
+    }
+}
+
+/**
+ * IDに応じて記事を取得
+ * @param id 記事ID
+ */
+export async function fetchArticleById(id: number) {
+    try {
+        if (!id) {
+            throw new Error('IDが不正です');
+        }
+        const apiUrl = process.env.REACT_APP_API_URL;
+        const response = await fetch(`${apiUrl}/api/articles/${id}`, {
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            throw new Error('記事が見つかりません');
+        }
+        const article = await response.json() as Article;
+        return article;
     } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message);
