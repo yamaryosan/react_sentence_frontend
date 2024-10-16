@@ -5,6 +5,8 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import MuiPagination from '@mui/material/Pagination';
 import ArticleCard from '@/component/ArticleCard';
+import { fetchArticlesByCategory } from '@/api/article';
+import PageSizeSelect from '@/component/PageSizeSelect';
 
 type Article = {
     id: number;
@@ -17,32 +19,20 @@ type Article = {
 
 type Articles = Article[];
 
-async function fetchArticlesByCategory (category: string) {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/api/articles/categories/${category}`);
-
-    if (!response.ok) {
-        throw new Error('記事の取得に失敗しました');
-    }
-    return await response.json() as Promise<Articles>;
-}
-
 export default function CategoryPage() {
     useEffect(() => {
         window.scrollTo(0, 0);
     });
-
-
     const params = useParams<{category: string}>();
 
-    const { data: articles, isLoading, error } = useQuery<Articles, Error>(
+    const { data: articles, isLoading, error } = useQuery<Articles | undefined>(
         ['article', params.category],
         () => fetchArticlesByCategory(params.category ?? '')
     );
     
-    // ページネーション用
+    // ページネーション用の変数
     const [page, setPage] = useState(1);
-    const pageSize = 10; // 1ページあたりの表示数
+    const [pageSize, setPageSize] = useState(10);
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     }
@@ -63,22 +53,23 @@ export default function CategoryPage() {
         <div>
             <h2>{params.category}の記事</h2>
             {isLoading && <div>読み込み中...</div>}
-            <Box className="flex-col">
-                {currentArticles?.length === 0 ? (
-                    <p>{params.category}の記事: ヒットなし</p>
-                ) : (
-                    currentArticles?.map((article) => (
-                        <ArticleCard key={article.id} article={article} />
-                    ))
-                )}
-            <MuiPagination
-            count={Math.ceil((Object.values(articles ?? {})?.length || 0) / pageSize)}
-            page={page}
-            onChange={handlePageChange}
-            size='large'
-            sx={{display: 'flex', justifyContent: 'center', pt: 2}}
-            />
-            </Box>
+            {articles?.length === 0 && (<p>{params.category}の記事: ヒットなし</p>)}
+            {articles && articles.length > 0 && (
+                <>
+                <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                    <h2>記事一覧({articles?.length || 0}件)</h2>
+                    <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
+                </Box>
+                {currentArticles?.slice(0, pageSize).map((article) => (
+                    <ArticleCard key={article.id} article={article} />
+                ))}
+                <MuiPagination
+                count={Math.ceil((Object.values(articles ?? {})?.length || 0) / pageSize)}
+                page={page}
+                onChange={handlePageChange}
+                size='large'/>
+                </>
+            )}
         </div>
     )
 }
