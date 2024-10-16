@@ -1,16 +1,7 @@
 import { List } from '@mui/material';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-
-async function fetchCategories() {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/api/articles/categories`);
-
-    if (!response.ok) {
-        throw new Error('カテゴリの取得に失敗しました');
-    }
-    return await response.json() as string[];
-}
+import { fetchCategories } from '@/api/category';
 
 export default function CategoriesIndex() {
     const { data: categories, isLoading, error } = useQuery<string[]>('categories', fetchCategories);
@@ -25,7 +16,7 @@ export default function CategoriesIndex() {
 
     return (
         <div>
-            <h2>カテゴリー</h2>
+            <h3>カテゴリー</h3>
             <ul>
                 {categories?.map((category) => (
                     <Link to={`/categories/${category}`} key={category}>
@@ -38,7 +29,7 @@ export default function CategoriesIndex() {
                                 color: 'blue',
                                 bgcolor: 'secondary.light',
                             }}}>
-                            <span>・{category}</span>
+                            <span>{category}</span>
                         </List>
                     </Link>
                 ))}
