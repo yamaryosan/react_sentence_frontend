@@ -16,7 +16,7 @@ export async function fetchSentences(keyword: string) {
         if (!response.ok) {
             throw new Error('記事の取得に失敗しました');
         }
-        const sentences = await response.json() as Sentence[];
+        const sentences = await response.json() as Promise<Sentence[]>;
         return sentences;
     } catch (error) {
         if (error instanceof Error) {
