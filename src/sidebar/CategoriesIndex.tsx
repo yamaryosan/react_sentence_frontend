@@ -25,6 +25,7 @@ export default function CategoriesIndex() {
                             display: 'flex',
                             flexDirection: 'row',
                             transition: '0.3s',
+                            paddingLeft: '0.5rem',
                             ":hover": {
                                 color: 'blue',
                                 bgcolor: 'secondary.light',
