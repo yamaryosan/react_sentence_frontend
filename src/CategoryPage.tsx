@@ -51,23 +51,23 @@ export default function CategoryPage() {
     
     return (
         <div>
-            <h2>{params.category}の記事</h2>
             {isLoading && <div>読み込み中...</div>}
             {articles?.length === 0 && (<p>{params.category}の記事: ヒットなし</p>)}
             {articles && articles.length > 0 && (
                 <>
                 <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                    <h2>記事一覧({articles?.length || 0}件)</h2>
+                    <h2>{params.category}の記事一覧({articles?.length || 0}件)</h2>
                     <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
                 </Box>
                 {currentArticles?.slice(0, pageSize).map((article) => (
                     <ArticleCard key={article.id} article={article} />
                 ))}
                 <MuiPagination
-                count={Math.ceil((Object.values(articles ?? {})?.length || 0) / pageSize)}
+                count={Math.ceil((articles?.length || 0) / pageSize)}
                 page={page}
-                onChange={handlePageChange}
-                size='large'/>
+                onChange={(e, value) => setPage(value)}
+                size='large'
+                sx={{display: 'flex', justifyContent: 'center', paddingY: '1rem'}} />
                 </>
             )}
         </div>
