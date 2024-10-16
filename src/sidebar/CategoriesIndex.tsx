@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchCategories } from '@/api/category';
 
 export default function CategoriesIndex() {
-    const { data: categories, isLoading, error } = useQuery<string[]>('categories', fetchCategories);
+    const { data: categories, isLoading, error } = useQuery<string[] | undefined>('categories', fetchCategories);
 
     if (isLoading) {
         return <div>読み込み中...</div>;
