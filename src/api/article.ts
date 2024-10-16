@@ -76,3 +76,48 @@ export async function fetchArticleById(id: number) {
         }
     }
 }
+
+/**
+ * キーワードに応じて記事を取得
+ * @param keyword キーワード
+ */
+export async function fetchArticles(keyword: string) {
+    try {
+        const apiUrl = process.env.REACT_APP_API_URL;
+        const response = await fetch(`${apiUrl}/articles/search?keyword=${keyword}`, {
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            throw new Error('記事の取得に失敗しました');
+        }
+        const articles = await response.json() as Article[];
+        return articles;
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        }
+    }
+}
+
+/**
+ * カテゴリーで記事を取得
+ * @param category カテゴリー名
+ * @returns 
+ */
+export async function fetchArticlesByCategory(category: string) {
+    try {
+        const apiUrl = process.env.REACT_APP_API_URL;
+        const response = await fetch(`${apiUrl}/api/articles/categories/${category}`, {
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            throw new Error('記事の取得に失敗しました');
+        }
+        const articles = await response.json() as Promise<Article[]>;
+        return articles;
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        }
+    }
+}

@@ -6,6 +6,7 @@ import ArticleCard from '@/component/ArticleCard';
 import { ArticleOutlined } from '@mui/icons-material';
 import PageSizeSelect from '@/component/PageSizeSelect';
 import MuiPagination from '@mui/material/Pagination';
+import { fetchArticles } from '@/api/article';
 
 type Article = {
     id: number;
@@ -15,16 +16,7 @@ type Article = {
     imagePaths: string[];
 };
 
-async function fetchArticles(keyword: string): Promise<Article[]> {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/articles/search?keyword=${keyword}`, {
-        credentials: 'include',
-    });
-    if (!response.ok) {
-        throw new Error('記事の取得に失敗しました');
-    }
-    return response.json() as Promise<Article[]>;
-}
+
 
 /**
  * Renders a list of articles based on a keyword.
@@ -34,7 +26,7 @@ export default function ResultArticles() {
     // URLパラメータからキーワードを取得
     const { keyword } = useParams<{ keyword: string }>();
     // 記事を取得
-    const { data: articles, isLoading, error } = useQuery<Article[], Error>(
+    const { data: articles, isLoading, error } = useQuery<Article[] | undefined>(
         ['articles', keyword],
         () => fetchArticles(keyword || '')
     );
