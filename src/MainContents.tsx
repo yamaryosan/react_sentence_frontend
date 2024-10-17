@@ -1,6 +1,6 @@
 import AllArticles from '@/AllArticles';
 import HomeContent from '@/home/HomeContent';
-import ContactForm from '@/ContactForm';
+import ContactForm from '@/upload/ContactForm';
 import Box from '@mui/material/Box';
 import CategoryPage from '@/CategoryPage';
 
