@@ -42,6 +42,9 @@ export default function AllArticles() {
 
     return (
         <Box>
+            {articles?.length === 0 && <p>記事がありません</p>}
+            {articles && articles.length > 0 && (
+            <>
             <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
                 <ArticleOutlined />
                 <h2>記事一覧({articles?.length || 0}件)</h2>
@@ -56,6 +59,8 @@ export default function AllArticles() {
             onChange={(e, value) => setPage(value)}
             size='large'
             sx={{display: 'flex', justifyContent: 'center', paddingY: '1rem'}} />
+            </>
+            )}
         </Box>
     );
 }

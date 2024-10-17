@@ -27,7 +27,9 @@ export default function SidebarRandomArticleItems() {
 
     return (
         <>
-            <h3>ランダム</h3>
+            {articles && articles.length > 0 && (
+                <h3>ランダム</h3>
+            )}
             <ul>
             {articles?.slice(0, maxArticleLength).map((article) => (
                 <li key={article.id}>

@@ -16,7 +16,9 @@ export default function CategoriesIndex() {
 
     return (
         <div>
-            <h3>カテゴリー</h3>
+            {categories && categories.length > 0 && (
+                <h3>カテゴリ一覧</h3>
+            )}
             <ul>
                 {categories?.map((category) => (
                     <Link to={`/categories/${category}`} key={category}>
