@@ -3,44 +3,11 @@ import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
-// フォームの値の型
-type Form = {
-    name: string,
-    email: string,
-    message: string,
-};
-
-// フォームからの返り値の型
-type Response = Promise<{
-    secret: string,
-}>;
-
-/**
- * Sends a contact form to the server.
- * @param form - The contact form data.
- * @returns A promise that resolves to the server response.
- * @throws An error if the request fails.
- */
-async function fetchContact(form: Form) {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/api/contacts`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-    });
-
-    if (!response.ok) {
-        throw new Error('送信に失敗しました');
-    }
-    return await response.json() as Response;
-}
+import { fetchContact } from '@/api/contact';
+import { SentimentSatisfiedAltOutlined, SentimentVeryDissatisfiedOutlined } from '@mui/icons-material';
 
 export default function ContactForm() {
     const [form, setForm] = useState({
@@ -64,51 +31,50 @@ export default function ContactForm() {
     }
 
     // フォームの送信
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError('');
         setSuccess(false);
-        const data = fetchContact(form);
+        const data = await fetchContact(form);
+        if (!data) {
+            setError('エラーが発生しました');
+            setLoading(false);
+            return;
+        }
         // データに秘密の文字列が含まれていたら記事投稿ページに遷移
-        data.then((res) => {
-            if (res.secret) {
-                navigate('/upload');
-            }
-        }).catch((err) => {
-            setError(err.message);
-        });
+        if (data.secret === 'article') {
+            navigate('/upload');
+            return;
+        }
         setLoading(false);
         setSuccess(true);
+        setForm({
+            name: '',
+            email: '',
+            message: '',
+        })
     }
 
     return (
-        <Container>
+        <>
             <Box
             component="form"
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 2,
-                mt: 4,
-                p: 3,
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                backgroundColor: '#f9f9f9',
+                gap: "1rem",
             }}
             autoComplete="off"
             onSubmit={handleSubmit}
             >
-            <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#3f51b5' }}>
-                お問い合わせはこちら
-            </Typography>
+            <h2>お問い合わせフォーム</h2>
             <TextField
                 label="Name"
                 variant="outlined"
                 name="name"
                 required
-                sx={{ backgroundColor: '#fff' }}
+                value={form.name}
                 onChange={handleFormChange}
             />
             <TextField
@@ -117,7 +83,7 @@ export default function ContactForm() {
                 type="email"
                 name="email"
                 required
-                sx={{ backgroundColor: '#fff' }}
+                value={form.email}
                 onChange={handleFormChange}
             />
             <TextField
@@ -125,17 +91,23 @@ export default function ContactForm() {
                 variant="outlined"
                 name="message"
                 multiline
-                rows={4}
+                rows={6}
                 required
-                sx={{ backgroundColor: '#fff' }}
+                value={form.message}
                 onChange={handleFormChange}
             />
-            <Button variant="contained" color="primary" type="submit" sx={{ alignSelf: 'flex-start' }}>
+            <Button variant="contained" color="primary" type="submit" sx={{ alignSelf: 'flex-end', width: '20%' }}>
                 {loading ? '送信中...' : '送信'}
             </Button>
-            {error && <Typography color="error">{error}</Typography>}
-            {success && <Typography color="primary">送信完了しました</Typography>}
+            {error && <Typography color="error" sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <SentimentVeryDissatisfiedOutlined />
+                <span>{error}</span>
+            </Typography>}
+            {success && <Typography color="primary" sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <SentimentSatisfiedAltOutlined />
+                <span>送信完了</span>
+            </Typography>}
             </Box>
-        </Container>
+        </>
     );
 };
