@@ -3,7 +3,7 @@ import Footer from '@/Footer';
 import Header from '@/header/Header';
 import { Outlet } from 'react-router-dom';
 import theme from '@/theme/index';
-import VerificationProvider from '@/searchWindow/VerificationProvider';
+import SentenceVerificationProvider from '@/searchWindow/SentenceVerificationProvider';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
@@ -13,12 +13,12 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Header />
-            <VerificationProvider />
+            <SentenceVerificationProvider />
             <Outlet />
             <Footer />
         </ThemeProvider>
     </div>
-  )
+    );
 }
 
 export default App;
