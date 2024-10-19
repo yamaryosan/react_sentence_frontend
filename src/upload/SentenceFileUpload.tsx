@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import UploadOutlined from '@mui/icons-material/UploadOutlined';
+import CommonButton from '@/component/Button';
 
 type UploadResponse = {
     message: string;
@@ -53,20 +55,8 @@ export default function SentenceFileUpload() {
 
     return (
         <Container>
-            <h1>文章ファイルアップロード</h1>
-            <Box component="form"
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                mt: 4,
-                p: 3,
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                backgroundColor: '#f9f9f9',
-            }}
-            >
+            <h3>文章ファイルアップロード</h3>
+            <Box component="form">
                 <input
                     style={{ display: 'none' }}
                     id="sentence-file-upload"
@@ -79,7 +69,10 @@ export default function SentenceFileUpload() {
                     ファイルを選択
                     </Button>
                 </label>
-                <Button variant="contained" color="primary" onClick={handleUpload} disabled={selectedFile === null}>アップロード</Button>
+                <CommonButton color="primary" onClick={handleUpload} disabled={selectedFile === null}>
+                    <UploadOutlined />
+                    アップロード
+                </CommonButton>
                 {response && (
                     <p>{response.message}</p>
                 )}
