@@ -1,6 +1,6 @@
 import ArticleSearchWindow from "@/searchWindow/ArticleSearchWindow";
 import SentenceSearchWindow from "@/searchWindow/SentenceSearchWindow";
-import { fetchVerification } from "@/api/verify";
+import { fetchSentenceVerification } from "@/api/verify";
 import { useEffect, useState } from "react";
 import SentenceVerificationContext from "@/searchWindow/SentenceVerificationContext";
 
@@ -13,7 +13,7 @@ export default function SentenceVerificationProvider() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const isVerified = await fetchVerification();
+            const isVerified = await fetchSentenceVerification();
             setIsVerified(isVerified ?? false);
         }
         fetchData();
