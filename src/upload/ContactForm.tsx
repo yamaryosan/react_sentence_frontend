@@ -42,11 +42,6 @@ export default function ContactForm() {
             setLoading(false);
             return;
         }
-        // データに秘密の文字列が含まれていたら記事投稿ページに遷移
-        if (data.secret === 'article') {
-            navigate('/upload');
-            return;
-        }
         setLoading(false);
         setSuccess(true);
         setForm({
