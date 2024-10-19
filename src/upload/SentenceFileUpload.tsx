@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import UploadOutlined from '@mui/icons-material/UploadOutlined';
 import CommonButton from '@/component/Button';
