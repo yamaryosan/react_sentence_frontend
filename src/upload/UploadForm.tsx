@@ -6,7 +6,7 @@ import ArticleFilesDeleteModal from "@/upload/ArticleFilesDeleteModal";
 import ImagesDeleteModal from "@/upload/ImagesDeleteModal";
 import SentenceFileDeleteModal from "@/upload/SentenceFileDeleteModal";
 
-export default function Upload() {
+export default function UploadForm() {
     return (
         <div>
             <ArticleFilesUpload />
