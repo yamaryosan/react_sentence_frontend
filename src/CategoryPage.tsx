@@ -22,7 +22,8 @@ type Articles = Article[];
 export default function CategoryPage() {
     useEffect(() => {
         window.scrollTo(0, 0);
-    });
+    }, []);
+
     const params = useParams<{category: string}>();
 
     const { data: articles, isLoading, error } = useQuery<Articles | undefined>(

@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
 import { List } from '@mui/material';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { fetchCategories } from '@/api/category';
 
 export default function CategoriesIndex() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const { data: categories, isLoading, error } = useQuery<string[] | undefined>('categories', fetchCategories);
 
     if (isLoading) {
@@ -14,6 +19,10 @@ export default function CategoriesIndex() {
         return <div>エラーが発生しました</div>;
     }
 
+    const handleClick = () => {
+        window.scrollTo(0, 0);
+    };
+
     return (
         <div>
             {categories && categories.length > 0 && (
@@ -21,7 +30,7 @@ export default function CategoriesIndex() {
             )}
             <ul>
                 {categories?.map((category) => (
-                    <Link to={`/categories/${category}`} key={category}>
+                    <Link to={`/categories/${category}`} key={category} onClick={handleClick}>
                         <List key={category}
                         sx={{
                             display: 'flex',

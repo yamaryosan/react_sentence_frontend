@@ -13,7 +13,6 @@ type Article = {
 };
 
 const maxArticleLength = 5;
-
 export default function SidebarRandomArticleItems() {
     const {data: articles, isLoading, error} = useQuery<Article[] | undefined>('randomArticles', fetchRandomArticles);
 
@@ -25,6 +24,10 @@ export default function SidebarRandomArticleItems() {
         return <div>エラーが発生しました</div>;
     }
 
+    const handleClick = () => {
+        window.scrollTo(0, 0);
+    };
+
     return (
         <>
             {articles && articles.length > 0 && (
@@ -33,7 +36,7 @@ export default function SidebarRandomArticleItems() {
             <ul>
             {articles?.slice(0, maxArticleLength).map((article) => (
                 <li key={article.id}>
-                    <Link to={`/articles/${article.id}`}>
+                    <Link to={`/articles/${article.id}`} onClick={handleClick}>
                         <SidebarThumbnailBox>
                             <Image imagePath={article.imagePaths[0]} />
                             <p>{article.title}({article.category})</p>
