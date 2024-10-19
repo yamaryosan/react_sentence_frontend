@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 import CommonButton from '@/component/Button';
 import CommonDeleteModal from '@/component/CommonDeleteModal';
@@ -9,7 +8,7 @@ type UploadResponse = {
 };
 
 // 文章ファイルおよびデータを削除する処理
-async function fetchDelete() {
+async function fetchDeleteAll() {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const response = await fetch(`${apiUrl}/api/sentences/deleteAll`, {
@@ -22,28 +21,34 @@ async function fetchDelete() {
     return await response.json() as UploadResponse;
 }
 
+
 /**
  * 文章ファイルを全削除するボタン
  */
 export default function SentenceFileDeleteButton() {
-    const [confirmOpen, setConfirmOpen] = useState(false);
-    const { data: response, isLoading } = useQuery<UploadResponse>('response', fetchDelete, {
-        enabled: confirmOpen
-    });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [response, setResponse] = useState<UploadResponse | null>(null);
+    const [error, setError] = useState<string>('');
 
-    // 文章ファイルを全削除するボタンを押したときの処理
+    // 全削除ボタンを押したときの処理
     const handleDeleteButton = () => {
-        setConfirmOpen(true);
+        setIsModalOpen(true);
     };
 
-    // 文章ファイルを全削除するモーダルを閉じたときの処理
+    // モーダルを閉じたときの処理
     const handleClose = () => {
-        setConfirmOpen(false);
+        setIsModalOpen(false);
     };
 
-    // 文章ファイルを全削除する処理
-    const handleDelete = () => {
-        setConfirmOpen(false);
+    // 文章ファイルを削除する処理
+    const handleDelete = async () => {
+        try {
+            const response = await fetchDeleteAll();
+            setResponse(response);
+            setIsModalOpen(false);
+        } catch (error) {
+            setError(error as string);
+        }
     };
 
     return (
@@ -53,10 +58,12 @@ export default function SentenceFileDeleteButton() {
                 文章削除
             </CommonButton>
             <CommonDeleteModal
-                open={confirmOpen}
+                open={isModalOpen}
                 handleClose={handleClose}
                 handleDelete={handleDelete} 
             />
+            {response && <p>{response.message}</p>}
+            {error && <p>{error}</p>}
         </>
     );
 };

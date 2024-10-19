@@ -29,24 +29,29 @@ async function fetchDeleteAll() {
  * 画像を全削除するボタン
  */
 export default function ImagesDeleteButton() {
-    const [confirmOpen, setConfirmOpen] = useState(false);
-    const { data: response, isLoading } = useQuery<UploadResponse>('response', fetchDeleteAll, {
-        enabled: confirmOpen
-    });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [response, setResponse] = useState<UploadResponse | null>(null);
+    const [error, setError] = useState<string>('');
 
-    // 画像を全削除するボタンを押したときの処理
+    // 全削除ボタンを押したときの処理
     const handleDeleteButton = () => {
-        setConfirmOpen(true);
+        setIsModalOpen(true);
     };
 
-    // 画像を全削除するモーダルを閉じたときの処理
+    // モーダルを閉じたときの処理
     const handleClose = () => {
-        setConfirmOpen(false);
+        setIsModalOpen(false);
     };
 
     // 画像を全削除する処理
-    const handleDelete = () => {
-        setConfirmOpen(false);
+    const handleDelete = async () => {
+        try {
+            const response = await fetchDeleteAll();
+            setResponse(response);
+            setIsModalOpen(false);
+        } catch (error) {
+            setError(error as string);
+        }
     };
 
     return (
@@ -56,10 +61,12 @@ export default function ImagesDeleteButton() {
                 画像削除
             </CommonButton>
             <CommonDeleteModal
-                open={confirmOpen}
+                open={isModalOpen}
                 handleClose={handleClose}
                 handleDelete={handleDelete} 
             />
+            {response && <p>{response.message}</p>}
+            {error && <p>{error}</p>}
         </>
     );
 };
