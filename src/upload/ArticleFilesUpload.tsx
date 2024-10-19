@@ -50,7 +50,7 @@ export default function ArticleFilesUpload() {
 
     // ファイル選択ボタンがクリックされたときの処理
     const handleButtonClick = () => {
-        document.getElementById('file-upload')?.click();
+        document.getElementById('article-file-upload')?.click();
     };
 
     // ファイルのアップロード処理
@@ -72,7 +72,7 @@ export default function ArticleFilesUpload() {
         <Container>
             <h3>記事用ファイルアップロード</h3>
             <Box component="form">
-                <FireUploadButton accept=".md" id="file-upload" handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} />
+                <FireUploadButton accept=".md" id="article-file-upload" multiple={true} directory={true} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} />
                 {selectedFiles.length > 0 && (
                     <p>以下のファイルが選択されています</p>
                 )}

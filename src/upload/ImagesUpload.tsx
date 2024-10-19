@@ -68,7 +68,7 @@ export default function ImagesUpload() {
         <Container>
             <h3>画像ファイルアップロード</h3>
             <Box component="form">
-                <FireUploadButton accept="image/*" id="image-upload" handleFileChange={handleImageChange} handleButtonClick={handleButtonClick} />
+                <FireUploadButton accept="image/*" id="image-upload" multiple={true} directory={true} handleFileChange={handleImageChange} handleButtonClick={handleButtonClick} />
                 {selectedImages.length > 0 && (
                     <p>以下のファイルが選択されています</p>
                 )}

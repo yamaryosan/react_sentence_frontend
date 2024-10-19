@@ -3,11 +3,13 @@ import CommonButton from "@/component/Button";
 type FireUploadButtonProps = {
     accept: string;
     id: string;
+    multiple: boolean;
+    directory: boolean;
     handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleButtonClick: () => void;
 }
 
-export default function FireUploadButton({accept, id, handleFileChange, handleButtonClick}: FireUploadButtonProps) {
+export default function FireUploadButton({accept, id, multiple, directory, handleFileChange, handleButtonClick}: FireUploadButtonProps) {
     return (
         <>
             <input
@@ -16,9 +18,9 @@ export default function FireUploadButton({accept, id, handleFileChange, handleBu
                 id={id}
                 type="file"
                 /* @ts-expect-error */
-                directory="true"
-                webkitdirectory="true"
-                multiple
+                directory={directory.toString()}
+                webkitdirectory={directory.toString()}
+                multiple={multiple}
                 onChange={handleFileChange}/>
             <label htmlFor={id}>
                 <CommonButton color="primary" onClick={handleButtonClick}>
