@@ -18,8 +18,8 @@ export default function FireUploadButton({accept, id, multiple, directory, handl
                 id={id}
                 type="file"
                 /* @ts-expect-error */
-                directory={directory.toString()}
-                webkitdirectory={directory.toString()}
+                directory={directory ? "true" : undefined}
+                webkitdirectory={directory ? "true" : undefined}
                 multiple={multiple}
                 onChange={handleFileChange}/>
             <label htmlFor={id}>
