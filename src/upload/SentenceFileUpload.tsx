@@ -66,9 +66,9 @@ export default function SentenceFileUpload() {
     };
 
     return (
-        <Container>
+        <>
             <h3>文章ファイルアップロード</h3>
-            <Box component="form">
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #e0e0e0', padding: '1rem', borderRadius: '0.5rem' }}>
                 <FireUploadButton accept=".txt" id="sentence-file-upload" multiple={false} directory={false} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} />
                 <CommonButton color="primary" onClick={handleUpload} disabled={selectedFile === null}>
                     <UploadOutlined />
@@ -79,6 +79,6 @@ export default function SentenceFileUpload() {
                 )}
                 {error && <p>{error}</p>}
             </Box>
-        </Container>
+        </>
     );
 };

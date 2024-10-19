@@ -65,9 +65,9 @@ export default function ImagesUpload() {
     };
 
     return (
-        <Container>
+        <>
             <h3>画像ファイルアップロード</h3>
-            <Box component="form">
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #e0e0e0', padding: '1rem', borderRadius: '0.5rem' }}>
                 <FireUploadButton accept="image/*" id="image-upload" multiple={true} directory={true} handleFileChange={handleImageChange} handleButtonClick={handleButtonClick} />
                 {selectedImages.length > 0 && (
                     <p>以下のファイルが選択されています</p>
@@ -88,6 +88,6 @@ export default function ImagesUpload() {
                 )}
                 {error && <p>{error}</p>}
             </Box>
-        </Container>
+        </>
     );
 };
