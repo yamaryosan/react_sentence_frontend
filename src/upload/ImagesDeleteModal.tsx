@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
+import CommonButton from '@/component/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { useQuery } from 'react-query';
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 
 type UploadResponse = {
     message: string;
@@ -49,16 +50,11 @@ export default function ImagesDeleteModal() {
 
     return (
         <Container>
-            <h1>画像削除</h1>
-            <Button variant="contained" color="primary" onClick={handleDelete}>
-                削除
-            </Button>
-            <Modal
-                open={confirmOpen}
-                onClose={handleConfirmClose}
-                aria-labelledby="confirm-modal-title"
-                aria-describedby="confirm-modal-description"
-            >
+            <CommonButton color="error" onClick={handleDelete}>
+                <DeleteOutlined />
+                画像削除
+            </CommonButton>
+            <Modal open={confirmOpen} onClose={handleConfirmClose}>
                 <Box sx={{
                     position: 'absolute',
                     top: '50%',
@@ -71,28 +67,25 @@ export default function ImagesDeleteModal() {
                     boxShadow: 24,
                     p: 4,
                 }}>
-                    <Typography id="confirm-modal-title" variant="h6" component="h2">
+                    <Typography variant="h6" component="h2">
                         確認
                     </Typography>
-                    <Typography id="confirm-modal-description" sx={{ mt: 2 }}>
+                    <Typography sx={{ mt: 2 }}>
                         本当に削除しますか？
                     </Typography>
                     <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
-                        <Button variant="contained" color="secondary" onClick={handleConfirmDelete}>
+                        <CommonButton color="secondary" onClick={handleConfirmDelete}>
                             はい
-                        </Button>
-                        <Button variant="outlined" color="primary" onClick={handleConfirmClose}>
+                        </CommonButton>
+                        <CommonButton color="primary" onClick={handleConfirmClose}>
                             いいえ
-                        </Button>
+                        </CommonButton>
                     </Box>
                 </Box>
             </Modal>
             <Modal
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-            >
+                onClose={handleClose}>
                 <Box sx={{
                     position: 'absolute',
                     top: '50%',

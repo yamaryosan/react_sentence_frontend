@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CommonButton from '@/component/Button';
 import UploadOutlined from '@mui/icons-material/UploadOutlined';
 import FireUploadButton from '@/component/FireUploadButton';
+import ArticleOutlined from '@mui/icons-material/ArticleOutlined';
 
 type UploadResponse = {
     message: string;
@@ -69,12 +69,17 @@ export default function ArticleFilesUpload() {
     };
 
     return (
-        <Container>
+        <>
             <h3>記事用ファイルアップロード</h3>
-            <Box component="form">
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #e0e0e0', padding: '1rem', borderRadius: '0.5rem' }}>
                 <FireUploadButton accept=".md" id="article-file-upload" multiple={true} directory={true} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} />
                 {selectedFiles.length > 0 && (
-                    <p>以下のファイルが選択されています</p>
+                    <>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <ArticleOutlined />
+                            <span>以下のファイルが選択されています</span>
+                        </Box>
+                    </>
                 )}
                 {selectedFiles.slice(0, 5).map((file, index) => (
                     <p key={index}>{file.name}</p>
@@ -91,6 +96,6 @@ export default function ArticleFilesUpload() {
                 )}
                 {error && <p>{error}</p>}
             </Box>
-        </Container>
+        </>
     );
 };
