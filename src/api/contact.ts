@@ -16,14 +16,18 @@ type Response = Promise<{
  */
 export async function fetchContact(form: Form) {
     try {
+        const name = form.name;
+        const email = form.email;
+        const message = form.message;
+        if (name === '' || email === '' || message === '') {
+            throw new Error('フォームの値が空です');
+        }
         const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await fetch(`${apiUrl}/api/contacts`, {
-            method: 'POST',
+        const response = await fetch(`${apiUrl}/contacts?name=${name}&email=${email}&message=${message}`, {
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(form),
         });
         if (!response.ok) {
             throw new Error('お問い合わせの送信に失敗しました');
