@@ -23,31 +23,40 @@ async function fetchDelete() {
 }
 
 /**
- * 文章ファイルおよびデータを削除するボタン
+ * 文章ファイルを全削除するボタン
  */
 export default function SentenceFileDeleteButton() {
     const [confirmOpen, setConfirmOpen] = useState(false);
-
     const { data: response, isLoading } = useQuery<UploadResponse>('response', fetchDelete, {
         enabled: confirmOpen
     });
 
-    // ファイルの削除処理
-    const handleDelete = () => {
+    // 文章ファイルを全削除するボタンを押したときの処理
+    const handleDeleteButton = () => {
         setConfirmOpen(true);
     };
 
+    // 文章ファイルを全削除するモーダルを閉じたときの処理
     const handleClose = () => {
+        setConfirmOpen(false);
+    };
+
+    // 文章ファイルを全削除する処理
+    const handleDelete = () => {
         setConfirmOpen(false);
     };
 
     return (
         <>
-            <CommonButton color="error" onClick={handleDelete}>
+            <CommonButton color="error" onClick={handleDeleteButton}>
                 <DeleteOutlined />
-                文章ファイル削除
+                文章削除
             </CommonButton>
-            <CommonDeleteModal open={confirmOpen} handleClose={handleClose} handleDelete={handleDelete} />
+            <CommonDeleteModal
+                open={confirmOpen}
+                handleClose={handleClose}
+                handleDelete={handleDelete} 
+            />
         </>
-    )
+    );
 };

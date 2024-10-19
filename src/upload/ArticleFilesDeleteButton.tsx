@@ -26,27 +26,34 @@ async function fetchDeleteAll() {
  * 記事ファイルを全削除するボタン
  */
 export default function ArticleFilesDeleteButton() {
-    const [open, setOpen] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
     const { data: response, isLoading } = useQuery<UploadResponse>('response', fetchDeleteAll, {
-        enabled: open
+        enabled: confirmOpen
     });
 
-    const handleDelete = () => {
-        setOpen(true);
+    // 記事ファイルを全削除するボタンを押したときの処理
+    const handleDeleteButton = () => {
+        setConfirmOpen(true);
     };
 
+    // 記事ファイルを全削除するモーダルを閉じたときの処理
     const handleClose = () => {
-        setOpen(false);
+        setConfirmOpen(false);
     };
-    
+
+    // 記事ファイルを全削除する処理
+    const handleDelete = () => {
+        setConfirmOpen(false);
+    };
+
     return (
         <>
-            <CommonButton color="error" onClick={handleDelete}>
+            <CommonButton color="error" onClick={handleDeleteButton}>
                 <DeleteOutlined />
                 記事削除
             </CommonButton>
             <CommonDeleteModal
-                open={open}
+                open={confirmOpen}
                 handleClose={handleClose}
                 handleDelete={handleDelete} 
             />
