@@ -35,6 +35,10 @@ async function fetchUpload(files: File[]) {
     }
     return await response.json() as UploadResponse;
 }
+
+/**
+ * 記事ファイルをアップロードするボタン
+ */ 
 export default function ArticleFilesUpload() {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [response, setResponse] = useState<UploadResponse | null>(null);
