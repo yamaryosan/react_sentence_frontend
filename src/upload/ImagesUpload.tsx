@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import UploadOutlined from '@mui/icons-material/UploadOutlined';
 import CommonButton from '@/component/Button';
@@ -13,27 +11,33 @@ type UploadResponse = {
 
 // 複数ファイルのアップロード処理
 async function fetchUpload(files: File[]) {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const formData = new FormData();
+    try {
+        const apiUrl = process.env.REACT_APP_API_URL;
+        const formData = new FormData();
 
-    files.forEach((file) => {
-        formData.append('images[]', file);
-    });
+        files.forEach((file) => {
+            formData.append('images[]', file);
+        });
 
-    const response = await fetch(`${apiUrl}/api/articleImages/upload`, {
-        method: 'POST',
-        body: formData,
-    });
+        const response = await fetch(`${apiUrl}/api/articleImages/upload`, {
+            method: 'POST',
+            body: formData,
+        });
 
-    if (!response.ok) {
-        throw new Error('アップロードに失敗しました');
+        if (!response.ok) {
+            throw new Error('アップロードに失敗しました');
+        }
+        return await response.json() as UploadResponse;
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        }
     }
-    return await response.json() as UploadResponse;
 }
 
 export default function ImagesUpload() {
     const [selectedImages, setSelectedImages] = useState<File[]>([]);
-    const [response, setResponse] = useState<UploadResponse | null>(null);
+    const [response, setResponse] = useState<UploadResponse | undefined>(undefined);
     const [error, setError] = useState<string>('');
 
     // ファイルが選択されたときの処理
