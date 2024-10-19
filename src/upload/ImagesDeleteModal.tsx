@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import CommonButton from '@/component/Button';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
@@ -49,7 +48,7 @@ export default function ImagesDeleteModal() {
     };
 
     return (
-        <Container>
+        <>
             <CommonButton color="error" onClick={handleDelete}>
                 <DeleteOutlined />
                 画像削除
@@ -102,6 +101,6 @@ export default function ImagesDeleteModal() {
                     {response && <p>{response.message}</p>}
                 </Box>
             </Modal>
-        </Container>
+        </>
     )
 };

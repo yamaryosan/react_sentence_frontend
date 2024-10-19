@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
@@ -50,7 +49,7 @@ export default function SentenceFileDeleteModal() {
     };
 
     return (
-        <Container>
+        <>
             <CommonButton color="error" onClick={handleDelete}>
                 <DeleteOutlined />
                 文章削除
@@ -111,6 +110,6 @@ export default function SentenceFileDeleteModal() {
                     {response && <p>{response.message}</p>}
                 </Box>
             </Modal>
-        </Container>
+        </>
     )
 };
