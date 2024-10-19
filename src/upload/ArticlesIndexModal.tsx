@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import CommonButton from '@/component/Button';
 
 type articleTitles = {
     title: string;
@@ -32,10 +32,9 @@ export default function ArticlesIndexModal() {
 
     return (
         <Container>
-            <h1>記事一覧</h1>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-                表示
-            </Button>
+            <CommonButton color="primary" onClick={handleOpen}>
+                記事一覧
+            </CommonButton>
             <Modal
                 open={open}
                 onClose={handleClose}

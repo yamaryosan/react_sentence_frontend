@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { useQuery } from 'react-query';
+import CommonButton from '@/component/Button';
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 
 type UploadResponse = {
     message: string;
@@ -49,10 +51,10 @@ export default function ArticleFilesDeleteModal() {
 
     return (
         <Container>
-            <h1>記事ファイル削除</h1>
-            <Button variant="contained" color="primary" onClick={handleDelete}>
-                削除
-            </Button>
+            <CommonButton color="error" onClick={handleDelete}>
+                <DeleteOutlined />
+                記事削除
+            </CommonButton>
             <Modal
                 open={confirmOpen}
                 onClose={handleConfirmClose}
