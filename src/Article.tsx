@@ -21,7 +21,6 @@ type Article = {
     updated_at: string;
 };
 
-
 export default function Article() {
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -70,6 +69,11 @@ export default function Article() {
                         <Table>{children}</Table>
                     </TableContainer>
                     );
+                },
+                blockquote({ children }) {
+                    return <blockquote style={{ padding: '0.5rem 0 0.5rem 0.5rem', margin: '1rem 0', backgroundColor: '#e8e8e8' }}>
+                        {children}
+                    </blockquote>;
                 },
                 ul({ children }) {
                     return <ul style={{ listStyleType: 'disc', listStylePosition: 'inside', paddingBottom: '0.5rem' }}>{children}</ul>;
