@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build && cp public/_redirects build/_redirects",
+    "build": "react-app-rewired build && cp public/_redirects build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
