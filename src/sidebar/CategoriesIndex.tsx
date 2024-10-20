@@ -1,18 +1,15 @@
+import { useEffect } from 'react';
+import { List } from '@mui/material';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-
-async function fetchCategories() {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/api/articles/categories`);
-
-    if (!response.ok) {
-        throw new Error('カテゴリの取得に失敗しました');
-    }
-    return await response.json() as string[];
-}
+import { fetchCategories } from '@/api/category';
 
 export default function CategoriesIndex() {
-    const { data: categories, isLoading, error } = useQuery<string[]>('categories', fetchCategories);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    const { data: categories, isLoading, error } = useQuery<string[] | undefined>('categories', fetchCategories);
 
     if (isLoading) {
         return <div>読み込み中...</div>;
@@ -22,14 +19,31 @@ export default function CategoriesIndex() {
         return <div>エラーが発生しました</div>;
     }
 
+    const handleClick = () => {
+        window.scrollTo(0, 0);
+    };
+
     return (
         <div>
-            <h2>カテゴリー</h2>
+            {categories && categories.length > 0 && (
+                <h3>カテゴリ一覧</h3>
+            )}
             <ul>
                 {categories?.map((category) => (
-                    <li key={category} className="text-left hover:text-blue-500 active:text-blue-700">
-                        <Link to={`/categories/${category}`} className="block">{category}</Link>
-                    </li>
+                    <Link to={`/categories/${category}`} key={category} onClick={handleClick}>
+                        <List key={category}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            transition: '0.3s',
+                            paddingLeft: '0.5rem',
+                            ":hover": {
+                                color: 'blue',
+                                bgcolor: 'secondary.light',
+                            }}}>
+                            <span>{category}</span>
+                        </List>
+                    </Link>
                 ))}
             </ul>
         </div>

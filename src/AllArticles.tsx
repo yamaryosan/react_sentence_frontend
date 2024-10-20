@@ -1,48 +1,32 @@
-import React from 'react';
+import {useState} from 'react';
 import {useQuery} from 'react-query';
-import Article from './Article';
+import Article from '@/Article';
 import Box from '@mui/material/Box';
 import MuiPagination from '@mui/material/Pagination';
-import ArticleCard from './ArticleCard';
+import ArticleCard from '@/component/ArticleCard';
 import {useEffect} from 'react';
+import { fetchAllArticles } from '@/api/article';
+import { ArticleOutlined } from '@mui/icons-material';
+import PageSizeSelect from '@/component/PageSizeSelect';
 
 type Article = {
     id: number;
     title: string;
     content: string;
+    category: string;
     imagePaths: string[];
 };
 
-type Articles = Article[];
-
-const fetchArticleItem = async () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/api/articles`);
-    if (!response.ok) {
-        throw new Error('記事が見つかりません');
-    }
-    return response.json() as Promise<Articles>;
-};
-
 export default function AllArticles() {
-    const {data: articles, isLoading, isError} = useQuery<Articles, Error>(
-        'article',
-        () => fetchArticleItem()
-    );
-
+    const {data: articles, isLoading, error} = useQuery<Article[] | undefined>('articles', fetchAllArticles);
+    const [pageSize, setPageSize] = useState(10);
     // ページネーション用の変数
-    const [page, setPage] = React.useState(1);
-    const pageSize = 10;
-
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    }
+    const [page, setPage] = useState(1);
 
     // ページネーションがクリックされたときに自動でページトップにスクロールする
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page]);
-
 
     const indexOfLast = page * pageSize;
     const indexOfFirst = indexOfLast - pageSize;
@@ -52,22 +36,31 @@ export default function AllArticles() {
         return <div>読み込み中...</div>;
     }
 
-    if (isError) {
+    if (error) {
         return <div>エラーが発生しました</div>;
     }
+
     return (
-        <Box className="flex-col">
-            <h1 className="text-2xl font-bold">記事一覧</h1>
+        <Box>
+            {articles?.length === 0 && <p>記事がありません</p>}
+            {articles && articles.length > 0 && (
+            <>
+            <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                <ArticleOutlined />
+                <h2>記事一覧({articles?.length || 0}件)</h2>
+                <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
+            </Box>
             {currentArticles?.map((article) => (
                 <ArticleCard key={article.id} article={article} />
             ))}
-                <MuiPagination
-                count={Math.ceil((articles?.length || 0) / pageSize)}
-                page={page}
-                onChange={handlePageChange}
-                size='large'
-                sx={{display: 'flex', justifyContent: 'center', pt: 2, pb: 2}}
-                />
+            <MuiPagination
+            count={Math.ceil((articles?.length || 0) / pageSize)}
+            page={page}
+            onChange={(e, value) => setPage(value)}
+            size='large'
+            sx={{display: 'flex', justifyContent: 'center', paddingY: '1rem'}} />
+            </>
+            )}
         </Box>
     );
 }

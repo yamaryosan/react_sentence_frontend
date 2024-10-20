@@ -1,8 +1,8 @@
-import AllArticles from './AllArticles';
-import HomeContent from './HomeContent';
-import ContactForm from './ContactForm';
+import AllArticles from '@/AllArticles';
+import HomeContent from '@/home/HomeContent';
+import ContactForm from '@/upload/ContactForm';
 import Box from '@mui/material/Box';
-import CategoryPage from './CategoryPage';
+import CategoryPage from '@/CategoryPage';
 
 type MainContentsProps = {
     children: React.ReactNode;

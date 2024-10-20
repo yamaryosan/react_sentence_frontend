@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import CommonButton from '@/component/Button';
+import UploadOutlined from '@mui/icons-material/UploadOutlined';
+import FireUploadButton from '@/component/FireUploadButton';
+import ArticleOutlined from '@mui/icons-material/ArticleOutlined';
 
 type UploadResponse = {
     message: string;
@@ -34,6 +36,9 @@ async function fetchUpload(files: File[]) {
     return await response.json() as UploadResponse;
 }
 
+/**
+ * 記事ファイルをアップロードするボタン
+ */ 
 export default function ArticleFilesUpload() {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [response, setResponse] = useState<UploadResponse | null>(null);
@@ -47,56 +52,38 @@ export default function ArticleFilesUpload() {
         }
     };
 
+    // ファイル選択ボタンがクリックされたときの処理
+    const handleButtonClick = () => {
+        document.getElementById('article-file-upload')?.click();
+    };
+
     // ファイルのアップロード処理
-    const handleUpload = () => {
+    const handleUpload = async () => {
         // ファイルが選択されていない場合は処理を中断
         if (selectedFiles.length === 0) {
             return;
         }
-        fetchUpload(selectedFiles)
-            .then((response) => {
-                setResponse(response);
-                setSelectedFiles([]);
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
+        try {
+            const response = await fetchUpload(selectedFiles);
+            setResponse(response);
+            setSelectedFiles([]);
+        } catch (error) {
+            setError(error as string);
+        }
     };
 
     return (
-        <Container>
-            <h1>記事用ファイルアップロード</h1>
-            <Box component="form"
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                mt: 4,
-                p: 3,
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                backgroundColor: '#f9f9f9',
-            }}
-            >
-                <input
-                    accept=".md"
-                    style={{ display: 'none' }}
-                    id="file-upload"
-                    type="file"
-                    /* @ts-expect-error */
-                    directory="true"
-                    webkitdirectory="true"
-                    multiple
-                    onChange={handleFileChange}
-                />
-                <label htmlFor="file-upload">
-                    <Button variant="contained" component="span">
-                    ファイルを選択
-                    </Button>
-                </label>
+        <>
+            <h3>記事用ファイルアップロード</h3>
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #e0e0e0', padding: '1rem', borderRadius: '0.5rem' }}>
+                <FireUploadButton accept=".md" id="article-file-upload" multiple={true} directory={true} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} />
                 {selectedFiles.length > 0 && (
-                    <p>以下のファイルが選択されています</p>
+                    <>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <ArticleOutlined />
+                            <span>以下のファイルが選択されています</span>
+                        </Box>
+                    </>
                 )}
                 {selectedFiles.slice(0, 5).map((file, index) => (
                     <p key={index}>{file.name}</p>
@@ -104,13 +91,15 @@ export default function ArticleFilesUpload() {
                 {selectedFiles.length > 5 && (
                     <p>他{selectedFiles.length - 5}件のファイルが選択されています</p>
                 )}
-                
-                <Button variant="contained" color="primary" onClick={handleUpload} disabled={selectedFiles.length === 0}>Upload</Button>
+                <CommonButton color="primary" onClick={handleUpload} disabled={selectedFiles.length === 0}>
+                    <UploadOutlined />
+                    アップロード
+                </CommonButton>
                 {response && (
                     <p>{response.message}</p>
                 )}
                 {error && <p>{error}</p>}
             </Box>
-        </Container>
+        </>
     );
 };

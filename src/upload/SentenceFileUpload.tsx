@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import UploadOutlined from '@mui/icons-material/UploadOutlined';
+import CommonButton from '@/component/Button';
+import FireUploadButton from '@/component/FireUploadButton';
 
 type UploadResponse = {
     message: string;
 };
 
-// 複数ファイルのアップロード処理
+/**
+ * 文章ファイルのアップロード
+ * @param file アップロードするファイル
+ * @returns アップロード結果
+ */
 async function fetchUpload(file: File) {
     const apiUrl = process.env.REACT_APP_API_URL;
     const formData = new FormData();
@@ -22,6 +27,10 @@ async function fetchUpload(file: File) {
     return await response.json() as UploadResponse;
 }
 
+/**
+ * 文章ファイルのアップロード
+ * @returns 文章ファイルのアップロードコンポーネント
+ */
 export default function SentenceFileUpload() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [response, setResponse] = useState<UploadResponse | null>(null);
@@ -35,56 +44,40 @@ export default function SentenceFileUpload() {
         }
     };
 
+    // ファイル選択ボタンがクリックされたときの処理
+    const handleButtonClick = () => {
+        document.getElementById('sentence-file-upload')?.click();
+    };
+
     // ファイルのアップロード処理
-    const handleUpload = () => {
+    const handleUpload = async () => {
         // ファイルが選択されていない場合は処理を中断
         if (!selectedFile) {
             return;
         }
-        fetchUpload(selectedFile)
-            .then((data) => {
-                setResponse(data);
-                setSelectedFile(null);
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
+        try {
+            const response = await fetchUpload(selectedFile);
+            setResponse(response);
+            setSelectedFile(null);
+        } catch (error) {
+            setError(error as string);
+        }   
     };
 
     return (
-        <Container>
-            <h1>文章ファイルアップロード</h1>
-            <Box component="form"
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                mt: 4,
-                p: 3,
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                backgroundColor: '#f9f9f9',
-            }}
-            >
-                <input
-                    style={{ display: 'none' }}
-                    id="sentence-file-upload"
-                    type="file"
-                    accept=".txt"
-                    onChange={handleFileChange}
-                />
-                <label htmlFor="sentence-file-upload">
-                    <Button variant="contained" component="span">
-                    ファイルを選択
-                    </Button>
-                </label>
-                <Button variant="contained" color="primary" onClick={handleUpload} disabled={selectedFile === null}>アップロード</Button>
+        <>
+            <h3>文章ファイルアップロード</h3>
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #e0e0e0', padding: '1rem', borderRadius: '0.5rem' }}>
+                <FireUploadButton accept=".txt" id="sentence-file-upload" multiple={false} directory={false} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} />
+                <CommonButton color="primary" onClick={handleUpload} disabled={selectedFile === null}>
+                    <UploadOutlined />
+                    アップロード
+                </CommonButton>
                 {response && (
                     <p>{response.message}</p>
                 )}
                 {error && <p>{error}</p>}
             </Box>
-        </Container>
+        </>
     );
 };
