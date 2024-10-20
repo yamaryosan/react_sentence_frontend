@@ -1,23 +1,12 @@
 import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
- 
-const Footer: React.FC = () => {
-  return(
-    <>
-        <AppBar component="footer" position="static">
-            <Container maxWidth="md">
-                <Box sx={{ textAlign: 'center' }}>
-                    <Typography variant="caption">
-                        ©2024 Webエンジン All rights reserved.
-                    </Typography>
-                </Box>
-            </Container>
-        </AppBar>
-    </>
-  );
+
+export default function Footer() {
+    return(
+        <>
+        <Box sx={{ textAlign: 'center', bgcolor: 'primary.main', paddingY: '1rem', fontSize: '1.2rem' }}>
+            ©2024 Webエンジン All rights reserved.
+        </Box>
+        </>
+    );
 };
- 
-export default Footer;
