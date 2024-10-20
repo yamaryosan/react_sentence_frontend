@@ -15,14 +15,14 @@ type Sentence = {
 }
 
 export default function ResultSentences() {
-    // URLパラメータからキーワードを取得
+    /* URLパラメータからキーワードを取得 */
     const { keyword } = useParams<{ keyword: string }>();
-    // 文章を取得
+    /* 文章を取得 */
     const { data: sentences, isLoading, error } = useQuery<Sentence[] | undefined>(
         ['sentences', keyword],
         () => fetchSentences(keyword || '')
     );
-    // ページネーション用の変数
+    /* ページネーション */
     const [pageSize, setPageSize] = useState(10);
     const [page, setPage] = useState(1);
 
@@ -30,7 +30,7 @@ export default function ResultSentences() {
         setPage(value);
     }
 
-    // ページネーションがクリックされたときに自動でページトップにスクロールする
+    /* ページネーションがクリックされたときに自動でページトップにスクロールする */
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page]);

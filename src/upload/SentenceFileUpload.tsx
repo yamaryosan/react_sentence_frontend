@@ -36,7 +36,10 @@ export default function SentenceFileUpload() {
     const [response, setResponse] = useState<UploadResponse | null>(null);
     const [error, setError] = useState<string>('');
 
-    // ファイルが選択されたときの処理
+    /**
+     * ファイルが選択されたときの処理
+     * @param event イベント
+     */
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -44,14 +47,18 @@ export default function SentenceFileUpload() {
         }
     };
 
-    // ファイル選択ボタンがクリックされたときの処理
+    /**
+     * ファイル選択ボタンがクリックされたときの処理
+     */
     const handleButtonClick = () => {
         document.getElementById('sentence-file-upload')?.click();
     };
 
-    // ファイルのアップロード処理
+    /**
+     * ファイルのアップロード処理
+     */
     const handleUpload = async () => {
-        // ファイルが選択されていない場合は処理を中断
+        /* ファイルが選択されていない場合は処理を中断 */
         if (!selectedFile) {
             return;
         }
