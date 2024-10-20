@@ -31,7 +31,7 @@ export default function ArticlesIndexModal() {
     const handleClose = () => setOpen(false);
 
     const { data: articles, isLoading, error } = useQuery<articleTitles[]>('articles', fetchArticles, {
-        enabled: open, // モーダルが開いた時のみ記事をフェッチする
+        enabled: open, /* モーダルが開いた時のみ記事をフェッチする */
     });
 
     return (

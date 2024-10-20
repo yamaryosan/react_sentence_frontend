@@ -22,7 +22,10 @@ export default function ContactForm() {
 
     const navigate = useNavigate();
 
-    // フォームの値を更新
+    /**
+     * フォームの値を更新
+     * @param e イベント
+     */
     const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
         setForm({
             ...form,
@@ -30,7 +33,10 @@ export default function ContactForm() {
         });
     }
 
-    // フォームの送信
+    /**
+     * フォームの送信
+     * @param e イベント
+     */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);

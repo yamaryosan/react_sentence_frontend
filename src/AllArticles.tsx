@@ -20,10 +20,10 @@ type Article = {
 export default function AllArticles() {
     const {data: articles, isLoading, error} = useQuery<Article[] | undefined>('articles', fetchAllArticles);
     const [pageSize, setPageSize] = useState(10);
-    // ページネーション用の変数
+    /* ページネーション */
     const [page, setPage] = useState(1);
 
-    // ページネーションがクリックされたときに自動でページトップにスクロールする
+    /* ページネーションがクリックされたときに自動でページトップにスクロールする */
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page]);

@@ -6,7 +6,9 @@ export default function SentenceSearchWindow() {
     const [keyword, setKeyword] = useState('');
     const navigate = useNavigate();
 
-    // 値が空白でないことを確認して検索ページに遷移
+    /**
+     * 値が空白でないことを確認して検索ページに遷移
+     */
     const handleSubmit = () => {
         if (keyword === '') {
             return;

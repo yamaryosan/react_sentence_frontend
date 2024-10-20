@@ -1,18 +1,23 @@
-// フォームの値の型
+/**
+ * フォームの値の型
+ */
 type Form = {
     name: string,
     email: string,
     message: string,
 };
 
-// フォームからの返り値の型
+/**
+ * フォームからの返り値の型
+ */
 type Response = Promise<{
     secret: string,
 }>;
 
 /**
  * お問い合わせの送信を行う
-
+ * @param form フォームの値
+ * @returns お問い合わせの送信結果
  */
 export async function fetchContact(form: Form) {
     try {

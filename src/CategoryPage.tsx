@@ -31,7 +31,7 @@ export default function CategoryPage() {
         () => fetchArticlesByCategory(params.category ?? '')
     );
     
-    // ページネーション用の変数
+    /* ページネーション */
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {

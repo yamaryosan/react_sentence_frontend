@@ -9,7 +9,11 @@ type UploadResponse = {
     count: number;
 };
 
-// 複数ファイルのアップロード処理
+/**
+ * 複数ファイルのアップロード処理
+ * @param files アップロードするファイルの配列
+ * @returns アップロード結果
+ */ 
 async function fetchUpload(files: File[]) {
     try {
         const apiUrl = process.env.REACT_APP_API_URL;
@@ -40,7 +44,10 @@ export default function ImagesUpload() {
     const [response, setResponse] = useState<UploadResponse | undefined>(undefined);
     const [error, setError] = useState<string>('');
 
-    // ファイルが選択されたときの処理
+    /**
+     * ファイルが選択されたときの処理
+     * @param event イベント
+     */
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
@@ -48,14 +55,18 @@ export default function ImagesUpload() {
         }
     };
 
-    // ファイル選択ボタンがクリックされたときの処理
+    /**
+     * ファイル選択ボタンがクリックされたときの処理
+     */
     const handleButtonClick = () => {
         document.getElementById('image-upload')?.click();
     };
 
-    // ファイルのアップロード処理
+    /**
+     * ファイルのアップロード処理
+     */
     const handleUpload = async () => {
-        // ファイルが選択されていない場合は処理を中断
+        /* ファイルが選択されていない場合は処理を中断 */
         if (selectedImages.length === 0) {
             return;
         }

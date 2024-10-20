@@ -11,14 +11,18 @@ type UploadResponse = {
     filenames: string[];
 };
 
-// 複数ファイルのアップロード処理
+/**
+ * 複数ファイルのアップロード処理
+ * @param files アップロードするファイルの配列
+ * @returns アップロード結果
+ */
 async function fetchUpload(files: File[]) {
     const apiUrl = process.env.REACT_APP_API_URL;
     const formData = new FormData();
 
     files.forEach((file) => {
         formData.append('files[]', file);
-        // ファイルの親フォルダの1つ内側のフォルダ名を取得
+        /* ファイルの親フォルダの1つ内側のフォルダ名を取得 */
         const pathSegments = file.webkitRelativePath.split('/');
         const category = pathSegments.length > 1 ? pathSegments[pathSegments.length - 2] : 'default';
         formData.append('categories[]', category);
@@ -38,13 +42,16 @@ async function fetchUpload(files: File[]) {
 
 /**
  * 記事ファイルをアップロードするボタン
- */ 
+ */
 export default function ArticleFilesUpload() {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [response, setResponse] = useState<UploadResponse | null>(null);
     const [error, setError] = useState<string>('');
 
-    // ファイルが選択されたときの処理
+    /**
+     * ファイルが選択されたときの処理
+     * @param event イベント
+     */
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
@@ -52,14 +59,18 @@ export default function ArticleFilesUpload() {
         }
     };
 
-    // ファイル選択ボタンがクリックされたときの処理
+    /**
+     * ファイル選択ボタンがクリックされたときの処理
+     */
     const handleButtonClick = () => {
         document.getElementById('article-file-upload')?.click();
     };
 
-    // ファイルのアップロード処理
+    /**
+     * ファイルのアップロード処理
+     */
     const handleUpload = async () => {
-        // ファイルが選択されていない場合は処理を中断
+        /* ファイルが選択されていない場合は処理を中断 */
         if (selectedFiles.length === 0) {
             return;
         }

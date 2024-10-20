@@ -5,7 +5,9 @@ import { HomeOutlined, MailOutlined, ArticleOutlined } from '@mui/icons-material
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// ナビゲーションメニューの項目
+/**
+ * ナビゲーションメニューの項目
+ */
 const pages = [
     {name: 'Home', url: '/', icon: <HomeOutlined />},
     {name: 'Articles', url: '/allArticles', icon: <ArticleOutlined />},

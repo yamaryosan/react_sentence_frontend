@@ -23,18 +23,18 @@ type Article = {
  * @returns JSX.Element
  */
 export default function ResultArticles() {
-    // URLパラメータからキーワードを取得
+    /* URLパラメータからキーワードを取得 */
     const { keyword } = useParams<{ keyword: string }>();
-    // 記事を取得
+    /* 記事を取得 */
     const { data: articles, isLoading, error } = useQuery<Article[] | undefined>(
         ['articles', keyword],
         () => fetchArticles(keyword || '')
     );
-    // ページネーション用の変数
+    /* ページネーション */
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
 
-    // ページネーションがクリックされたときに自動でページトップにスクロールする
+    /* ページネーションがクリックされたときに自動でページトップにスクロールする */
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page]);
