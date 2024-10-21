@@ -19,9 +19,6 @@ export default function UploadVerificationProvider() {
             setIsVerified(isVerified ?? false);
         }
         fetchData();
-
-        const intervalId = setInterval(fetchData, 5000);
-        return () => clearInterval(intervalId);
     }, []);
 
     return (
