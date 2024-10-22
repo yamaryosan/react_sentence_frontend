@@ -18,7 +18,9 @@ export default function UploadVerificationProvider() {
             console.log(isVerified);
             setIsVerified(isVerified ?? false);
         }
-        fetchData();
+        // 5秒ごとにチェック
+        const intervalId = setInterval(fetchData, 5000);
+        return () => clearInterval(intervalId);
     }, []);
 
     return (
