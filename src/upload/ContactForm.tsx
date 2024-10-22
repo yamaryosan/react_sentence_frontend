@@ -9,7 +9,14 @@ import Button from '@mui/material/Button';
 import { fetchContact } from '@/api/contact';
 import { SentimentSatisfiedAltOutlined, SentimentVeryDissatisfiedOutlined } from '@mui/icons-material';
 
-export default function ContactForm() {
+type ContactFormProps = {
+    setIsVerified: (isVerified: boolean) => void;
+}
+
+/**
+ * お問い合わせフォーム
+ */
+export default function ContactForm({ setIsVerified }: ContactFormProps) {
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -19,8 +26,6 @@ export default function ContactForm() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
-
-    const navigate = useNavigate();
 
     /**
      * フォームの値を更新
@@ -43,11 +48,12 @@ export default function ContactForm() {
         setError('');
         setSuccess(false);
         const data = await fetchContact(form);
-        if (!data) {
+        if (data === undefined) {
             setError('エラーが発生しました');
             setLoading(false);
             return;
         }
+        setIsVerified(data);
         setLoading(false);
         setSuccess(true);
         setForm({
