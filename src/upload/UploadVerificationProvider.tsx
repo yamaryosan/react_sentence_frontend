@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchUploadVerification } from "@/api/verify";
-import UploadVerificationContext from "@/upload/UploadVerificationContext";
 import UploadForm from "@/upload/UploadForm";
 import ContactForm from "@/upload/ContactForm";
-
+import SentenceSearchWindow from "@/searchWindow/SentenceSearchWindow";
 /**
  * アップロードフォームの認証確認プロバイダ
  * 未認証の場合、連絡先フォームを表示する
@@ -12,20 +11,15 @@ import ContactForm from "@/upload/ContactForm";
 export default function UploadVerificationProvider() {
     const [isVerified, setIsVerified] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const isVerified = await fetchUploadVerification();
-            console.log(isVerified);
-            setIsVerified(isVerified ?? false);
-        }
-        // 5秒ごとにチェック
-        const intervalId = setInterval(fetchData, 5000);
-        return () => clearInterval(intervalId);
-    }, []);
-
     return (
-        <UploadVerificationContext.Provider value={isVerified}>
-            {isVerified ? <UploadForm /> : <ContactForm />}
-        </UploadVerificationContext.Provider>
+        <>
+            {isVerified ? 
+                <>
+                    <SentenceSearchWindow />
+                    <UploadForm />
+                </> : 
+                <ContactForm setIsVerified={setIsVerified} />
+            }
+        </>
     )
 }

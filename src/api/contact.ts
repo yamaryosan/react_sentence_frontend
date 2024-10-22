@@ -8,18 +8,11 @@ type Form = {
 };
 
 /**
- * フォームからの返り値の型
- */
-type Response = Promise<{
-    secret: string,
-}>;
-
-/**
  * お問い合わせの送信を行う
  * @param form フォームの値
- * @returns お問い合わせの送信結果
+ * @returns 認証結果
  */
-export async function fetchContact(form: Form) {
+export async function fetchContact(form: Form): Promise<boolean | undefined> {
     try {
         const name = form.name;
         const email = form.email;
@@ -37,8 +30,8 @@ export async function fetchContact(form: Form) {
         if (!response.ok) {
             throw new Error('お問い合わせの送信に失敗しました');
         }
-        const result = await response.json() as Response;
-        return result;
+        const result = await response.json();
+        return result.isVerified;
     } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message);

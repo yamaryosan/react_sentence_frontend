@@ -25,7 +25,7 @@ function Home() {
 }
 
 function Contact() {
-    return <MainContents children={<ContactForm />} />;
+    return <MainContents children={<ContactForm setIsVerified={() => {}} />} />;
 }
 
 function Category() {
