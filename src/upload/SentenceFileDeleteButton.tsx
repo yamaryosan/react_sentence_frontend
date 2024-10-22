@@ -56,7 +56,7 @@ export default function SentenceFileDeleteButton() {
             setResponse(response);
             setIsModalOpen(false);
         } catch (error) {
-            setError(error as string);
+            setError((error as Error).message);
         }
     };
 

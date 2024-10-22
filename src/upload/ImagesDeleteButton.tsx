@@ -59,7 +59,7 @@ export default function ImagesDeleteButton() {
             setResponse(response);
             setIsModalOpen(false);
         } catch (error) {
-            setError(error as string);
+            setError((error as Error).message);
         }
     };
 

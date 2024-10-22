@@ -79,7 +79,7 @@ export default function ArticleFilesUpload() {
             setResponse(response);
             setSelectedFiles([]);
         } catch (error) {
-            setError(error as string);
+            setError((error as Error).message);
         }
     };
 

@@ -67,7 +67,7 @@ export default function SentenceFileUpload() {
             setResponse(response);
             setSelectedFile(null);
         } catch (error) {
-            setError(error as string);
+            setError((error as Error).message);
         }   
     };
 
