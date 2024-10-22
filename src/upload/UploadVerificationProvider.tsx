@@ -13,8 +13,13 @@ export default function UploadVerificationProvider() {
 
     return (
         <>
-            <SentenceSearchWindow />
-            {isVerified ? <UploadForm /> : <ContactForm setIsVerified={setIsVerified} />}
+            {isVerified ? 
+                <>
+                    <SentenceSearchWindow />
+                    <UploadForm />
+                </> : 
+                <ContactForm setIsVerified={setIsVerified} />
+            }
         </>
     )
 }
