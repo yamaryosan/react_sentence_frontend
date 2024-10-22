@@ -8,6 +8,7 @@ import PageSizeSelect from '@/component/PageSizeSelect';
 import { AbcOutlined } from '@mui/icons-material';
 
 import MuiPagination from '@mui/material/Pagination';
+import SentenceSearchWindow from './searchWindow/SentenceSearchWindow';
 
 type Sentence = {
     id: number,
@@ -48,7 +49,9 @@ export default function ResultSentences() {
     }
 
     return (
-        <Box sx={{ textAlign: 'left',}}>
+        <>
+            <SentenceSearchWindow />
+            <Box sx={{ textAlign: 'left',}}>
                 {currentSentences?.length === 0 && ( <p>{keyword}の検索結果: ヒットなし</p> )}
                 {currentSentences && currentSentences?.length > 0 && (
                     <>
@@ -73,7 +76,8 @@ export default function ResultSentences() {
                  size='large'
                  sx={{display: 'flex', justifyContent: 'center', pt: 2}} />
                 </>
-            )}
-        </Box>
+                )}
+            </Box>
+        </>
     );
 }
