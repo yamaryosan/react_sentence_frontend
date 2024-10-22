@@ -75,7 +75,7 @@ export default function ImagesUpload() {
             setResponse(response);
             setSelectedImages([]);
         } catch (error) {
-            setError(error as string);
+            setError((error as Error).message);
         }
     };
 
