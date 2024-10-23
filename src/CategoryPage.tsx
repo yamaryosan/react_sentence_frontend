@@ -3,10 +3,12 @@ import { useQuery } from 'react-query';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import MuiPagination from '@mui/material/Pagination';
 import ArticleCard from '@/component/ArticleCard';
 import { fetchArticlesByCategory } from '@/api/article';
 import PageSizeSelect from '@/component/PageSizeSelect';
+import DeviceTypeContext from '@/hooks/DeviceTypeContext';
+import { useContext } from 'react';
+import Pagination from '@/component/Pagination';
 
 type Article = {
     id: number;
@@ -20,6 +22,8 @@ type Article = {
 type Articles = Article[];
 
 export default function CategoryPage() {
+    const deviceType = useContext(DeviceTypeContext);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -56,19 +60,14 @@ export default function CategoryPage() {
             {articles?.length === 0 && (<p>{params.category}の記事: ヒットなし</p>)}
             {articles && articles.length > 0 && (
                 <>
-                <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                    <h2>{params.category}の記事一覧({articles?.length || 0}件)</h2>
+                <Box sx={{display: 'flex', flexDirection: deviceType === 'desktop' ? 'row' : 'column', alignItems: 'center', gap: '0.5rem'}}>
+                    <h2 style={{fontSize: '1.2rem'}}>{params.category}の記事一覧({articles?.length || 0}件)</h2>
                     <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
                 </Box>
                 {currentArticles?.slice(0, pageSize).map((article) => (
                     <ArticleCard key={article.id} article={article} />
                 ))}
-                <MuiPagination
-                count={Math.ceil((articles?.length || 0) / pageSize)}
-                page={page}
-                onChange={(e, value) => setPage(value)}
-                size='large'
-                sx={{display: 'flex', justifyContent: 'center', paddingY: '1rem'}} />
+                <Pagination items={articles} pageSize={pageSize} page={page} setPage={setPage} />
                 </>
             )}
         </div>
