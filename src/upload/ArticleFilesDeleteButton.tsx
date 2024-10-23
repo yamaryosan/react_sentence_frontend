@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import CommonButton from '@/component/Button';
 import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 import CommonDeleteModal from '@/component/CommonDeleteModal';
