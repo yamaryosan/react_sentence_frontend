@@ -5,8 +5,10 @@ import { useParams } from 'react-router-dom';
 import ArticleCard from '@/component/ArticleCard';
 import { ArticleOutlined } from '@mui/icons-material';
 import PageSizeSelect from '@/component/PageSizeSelect';
-import MuiPagination from '@mui/material/Pagination';
 import { fetchArticles } from '@/api/article';
+import DeviceTypeContext from '@/hooks/DeviceTypeContext';
+import { useContext } from 'react';
+import Pagination from '@/component/Pagination';
 
 type Article = {
     id: number;
@@ -23,6 +25,8 @@ type Article = {
  * @returns JSX.Element
  */
 export default function ResultArticles() {
+    const deviceType = useContext(DeviceTypeContext);
+
     /* URLパラメータからキーワードを取得 */
     const { keyword } = useParams<{ keyword: string }>();
     /* 記事を取得 */
@@ -56,20 +60,15 @@ export default function ResultArticles() {
             {articles?.length === 0 && <p>{keyword}の検索結果: ヒットなし</p>}
             {articles && articles.length > 0 && (
                 <>
-                <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                <Box sx={{display: 'flex', flexDirection: deviceType === 'desktop' ? 'row' : 'column', alignItems: 'center', gap: '0.5rem'}}>
                     <ArticleOutlined />
-                    <h2>記事一覧({articles?.length || 0}件)</h2>
+                    <h2 style={{fontSize: '1.2rem'}}>記事一覧({articles?.length || 0}件)</h2>
                     <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
                 </Box>
                 {currentArticles?.slice(0, pageSize).map((article) => (
                     <ArticleCard key={article.id} article={article} />
                 ))}
-                <MuiPagination
-                count={Math.ceil((articles?.length || 0) / pageSize)}
-                page={page}
-                onChange={(e, value) => setPage(value)}
-                size='large'
-                sx={{display: 'flex', justifyContent: 'center', paddingY: '1rem'}} />
+                <Pagination items={articles} pageSize={pageSize} page={page} setPage={setPage} />
                 </>
             )}
         </Box>
