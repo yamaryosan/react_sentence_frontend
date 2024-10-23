@@ -1,6 +1,8 @@
 import Box from "@mui/material/Box";
 import {Link} from 'react-router-dom';
 import Image from '@/component/Image';
+import DeviceTypeContext from '@/hooks/DeviceTypeContext';
+import { useContext } from 'react';
 
 type Article = {
     id: number;
@@ -19,6 +21,8 @@ type ArticleCardProps = {
  * @param article 記事
  */
 export default function ArticleCard({article}: ArticleCardProps) {
+    const deviceType = useContext(DeviceTypeContext);
+
     return (
         <Box key={article.id}
              sx={{
@@ -33,8 +37,8 @@ export default function ArticleCard({article}: ArticleCardProps) {
              }}>
             <Link to={`/articles/${article.id}`}>
             <Box sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{article.title}</h1>
-                <p style={{ fontSize: '1rem' }}>{article.category}</p>
+                <h1 style={{ fontSize: deviceType === 'desktop' ? '1.5rem' : '1rem', fontWeight: 'bold' }}>{article.title}</h1>
+                <p style={{ fontSize: deviceType === 'desktop' ? '1rem' : '0.8rem' }}>{article.category}</p>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
                 <Image imagePath={article.imagePaths[0]} />

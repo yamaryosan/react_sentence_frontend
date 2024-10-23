@@ -3,8 +3,11 @@ import { List } from '@mui/material';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { fetchCategories } from '@/api/category';
+import { useContext } from 'react';
+import DeviceTypeContext from '@/hooks/DeviceTypeContext';
 
 export default function CategoriesIndex() {
+    const deviceType = useContext(DeviceTypeContext);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -37,6 +40,9 @@ export default function CategoriesIndex() {
                             flexDirection: 'row',
                             transition: '0.3s',
                             paddingLeft: '0.5rem',
+                            fontSize: '1.2rem',
+                            paddingY: '1rem',
+                            borderBottom: deviceType === 'desktop' ? 'none' : '1px solid black',
                             ":hover": {
                                 color: 'blue',
                                 bgcolor: 'secondary.light',
