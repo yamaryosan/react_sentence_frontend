@@ -1,4 +1,3 @@
-import { useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 import Box from "@mui/material/Box";
 import { useParams } from 'react-router-dom';
@@ -18,57 +17,54 @@ type Article = {
     imagePaths: string[];
 };
 
-
-
 /**
- * Renders a list of articles based on a keyword.
- * @returns JSX.Element
+ * キーワード検索結果の記事一覧を表示するコンポーネント
  */
 export default function ResultArticles() {
     const deviceType = useContext(DeviceTypeContext);
+    const [articles, setArticles] = useState<Article[]>([]);
+    const [totalCount, setTotalCount] = useState(0);
 
     /* URLパラメータからキーワードを取得 */
     const { keyword } = useParams<{ keyword: string }>();
-    /* 記事を取得 */
-    const { data: articles, isLoading, error } = useQuery<Article[] | undefined>(
-        ['articles', keyword],
-        () => fetchArticles(keyword || '')
-    );
+
     /* ページネーション */
-    const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
+    const [page, setPage] = useState(1);
 
     /* ページネーションがクリックされたときに自動でページトップにスクロールする */
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page]);
 
-    const indexOfLast = page * pageSize;
-    const indexOfFirst = indexOfLast - pageSize;
-    const currentArticles = articles?.slice(indexOfFirst, indexOfLast);
-
-    if (isLoading) {
-        return <div>読み込み中...</div>;
-    }
-
-    if (error) {
-        return <div>エラーが発生しました</div>;
-    }
+    
+    /* データを取得 */
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await fetchArticles(keyword || '', page, pageSize);
+            if (result) {
+                setArticles(result.articles);
+                setTotalCount(result.totalCount);
+            }
+        };
+        console.log(keyword, page, pageSize, articles, totalCount);
+        fetchData();
+    }, [keyword, page, pageSize]);
 
     return (
         <Box>
-            {articles?.length === 0 && <p>{keyword}の検索結果: ヒットなし</p>}
-            {articles && articles.length > 0 && (
+            {totalCount === 0 && <p>{keyword}の検索結果: ヒットなし</p>}
+            {totalCount > 0 && (
                 <>
                 <Box sx={{display: 'flex', flexDirection: deviceType === 'desktop' ? 'row' : 'column', alignItems: 'center', gap: '0.5rem'}}>
                     <ArticleOutlined />
-                    <h2 style={{fontSize: '1.2rem'}}>記事一覧({articles?.length || 0}件)</h2>
+                    <h2 style={{fontSize: '1.2rem'}}>記事一覧({totalCount || 0}件)</h2>
                     <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
                 </Box>
-                {currentArticles?.slice(0, pageSize).map((article) => (
+                {articles.map((article) => (
                     <ArticleCard key={article.id} article={article} />
                 ))}
-                <Pagination items={articles} pageSize={pageSize} page={page} setPage={setPage} />
+                <Pagination total={totalCount} pageSize={pageSize} page={page} setPage={setPage} />
                 </>
             )}
         </Box>
