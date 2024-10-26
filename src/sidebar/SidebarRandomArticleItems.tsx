@@ -1,6 +1,6 @@
-import {useQuery} from 'react-query';
 import SidebarThumbnailBox from '@/component/ThumbnailBox';
 import { fetchRandomArticles } from '@/api/article';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Image from '@/component/Image';
 
@@ -9,12 +9,25 @@ type Article = {
     title: string;
     content: string;
     category: string;
-    imagePaths: string[];
 };
 
 const maxArticleLength = 5;
 export default function SidebarRandomArticleItems() {
-    const {data: articles, isLoading, error} = useQuery<Article[] | undefined>('randomArticles', fetchRandomArticles);
+
+    const [articles, setArticles] = useState<Article[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        const fetchArticles = async () => {
+            const result = await fetchRandomArticles();
+            if (result) {
+                setArticles(result);
+            }
+            setIsLoading(false);
+        };
+        fetchArticles();
+    }, []);
 
     if (isLoading) {
         return <div>読み込み中...</div>;
@@ -38,7 +51,6 @@ export default function SidebarRandomArticleItems() {
                 <li key={article.id}>
                     <Link to={`/articles/${article.id}`} onClick={handleClick}>
                         <SidebarThumbnailBox>
-                            <Image imagePath={article.imagePaths[0]} />
                             <p>{article.title}({article.category})</p>
                         </SidebarThumbnailBox>
                     </Link>

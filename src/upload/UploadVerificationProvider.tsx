@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { fetchUploadVerification } from "@/api/verify";
+import { useState } from "react";
 import UploadForm from "@/upload/UploadForm";
 import ContactForm from "@/upload/ContactForm";
 import SentenceSearchWindow from "@/searchWindow/SentenceSearchWindow";
