@@ -9,7 +9,6 @@ export default function ThumbnailBox({children}: SidebarThumbnailBoxProps) {
     <Box sx={{ 
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
         width: '100%',
         border: '1.5px solid transparent',
         padding: '0.5rem',

@@ -1,6 +1,4 @@
 import {useState} from 'react';
-import {useQuery} from 'react-query';
-import Article from '@/Article';
 import Box from '@mui/material/Box';
 import ArticleCard from '@/component/ArticleCard';
 import {useEffect} from 'react';
@@ -16,7 +14,6 @@ type Article = {
     title: string;
     content: string;
     category: string;
-    imagePaths: string[];
 };
 
 export default function AllArticles() {

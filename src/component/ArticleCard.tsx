@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import {Link} from 'react-router-dom';
-import Image from '@/component/Image';
 import DeviceTypeContext from '@/hooks/DeviceTypeContext';
 import { useContext } from 'react';
 
@@ -9,7 +8,6 @@ type Article = {
     title: string;
     content: string;
     category: string;
-    imagePaths: string[];
 }
 
 type ArticleCardProps = {
@@ -41,7 +39,6 @@ export default function ArticleCard({article}: ArticleCardProps) {
                 <p style={{ fontSize: deviceType === 'desktop' ? '1rem' : '0.8rem' }}>{article.category}</p>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-                <Image imagePath={article.imagePaths[0]} />
                 <p className='line-clamp-3'>{article.content}</p>
             </Box>
             </Link>

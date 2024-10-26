@@ -14,7 +14,6 @@ type Article = {
     title: string;
     content: string;
     category: string;
-    imagePaths: string[];
 };
 
 /**

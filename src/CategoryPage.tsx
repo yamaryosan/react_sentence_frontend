@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
@@ -15,7 +14,6 @@ type Article = {
     title: string;
     content: string;
     category: string;
-    imagePaths: string[];
     created_at: string;
 };
 
