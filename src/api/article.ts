@@ -139,7 +139,7 @@ export async function fetchUpload(files: File[]) {
     const formData = new FormData();
 
     files.forEach((file) => {
-        // 拡張子が.mdでないファイルは処理をスキップ
+        /* 拡張子が.mdでないファイルは処理をスキップ */
         if (!file.name.endsWith('.md')) {
             return;
         }

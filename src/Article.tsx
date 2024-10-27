@@ -7,7 +7,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useEffect } from 'react';
 import { fetchArticleById } from '@/api/article';
 
-import remarkGfm from 'remark-gfm'; // gfm(GitHub Flavored Markdown)
+import remarkGfm from 'remark-gfm'; /* gfm(GitHub Flavored Markdown) */
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
