@@ -21,7 +21,7 @@ export default function ArticleFilesUpload() {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
-            // 名前順にソート
+            /* 名前順にソート */
             setSelectedFiles(Array.from(files).sort((a, b) => a.name.localeCompare(b.name)));
         }
     };
