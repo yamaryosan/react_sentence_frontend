@@ -36,7 +36,11 @@ export default function SentenceCard({sentence}: SentenceCardProps) {
                 </Button>
             )}
             {!isLongSentence && (
-                <p style={{ marginBottom: '1rem' }}>{sentence.sentence}</p>
+                <p>
+                    {sentence.sentence.split('\n').map((line, index) => (
+                        <span key={index}>{line}<br /></span>
+                    ))}
+                </p>
             )}
         </div>
     );
