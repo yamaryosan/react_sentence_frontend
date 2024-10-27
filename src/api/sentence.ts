@@ -26,3 +26,22 @@ export async function fetchSentences(keyword: string, page: number, pageSize: nu
         }
     }
 }
+
+/**
+ * 文章ファイルのアップロード
+ * @param file アップロードするファイル
+ * @returns アップロード結果
+ */
+export async function fetchUpload(file: File) {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await fetch(`${apiUrl}/api/sentences/upload`, {
+        method: 'POST',
+        body: formData,
+    });
+    if (!response.ok) {
+        throw new Error('アップロードに失敗しました');
+    }
+    return await response.json() as { message: string };
+}

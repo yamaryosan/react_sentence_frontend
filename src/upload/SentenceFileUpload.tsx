@@ -3,29 +3,10 @@ import Box from '@mui/material/Box';
 import UploadOutlined from '@mui/icons-material/UploadOutlined';
 import CommonButton from '@/component/Button';
 import FireUploadButton from '@/component/FireUploadButton';
-
+import { fetchUpload } from '@/api/sentence';
 type UploadResponse = {
     message: string;
 };
-
-/**
- * 文章ファイルのアップロード
- * @param file アップロードするファイル
- * @returns アップロード結果
- */
-async function fetchUpload(file: File) {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await fetch(`${apiUrl}/api/sentences/upload`, {
-        method: 'POST',
-        body: formData,
-    });
-    if (!response.ok) {
-        throw new Error('アップロードに失敗しました');
-    }
-    return await response.json() as UploadResponse;
-}
 
 /**
  * 文章ファイルのアップロード
@@ -68,7 +49,7 @@ export default function SentenceFileUpload() {
             setSelectedFile(null);
         } catch (error) {
             setError((error as Error).message);
-        }   
+        }
     };
 
     return (

@@ -4,6 +4,10 @@ import SentenceFileUpload from "@/upload/SentenceFileUpload";
 import DeleteButtons from "@/upload/DeleteButtons";
 import IndexButton from "@/upload/IndexButton";
 
+/**
+ * アップロードフォーム
+ * @returns アップロードフォーム
+ */
 export default function UploadForm() {
     return (
         <>
