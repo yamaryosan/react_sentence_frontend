@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import Pagination from '@/component/Pagination';
 
 import SentenceSearchWindow from './searchWindow/SentenceSearchWindow';
+import SentenceCard from '@/component/SentenceCard';
 
 type Sentences = {
     sentence: string;
@@ -81,13 +82,7 @@ export default function ResultSentences() {
                     <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
                 </Box>
                 {sentences.map((sentence) => (
-                    <div key={sentence.id}>
-                        <p>{sentence.sentence.split('\n').map(line => {
-                            return (
-                                <span key={line}>{line}<br /></span>
-                            );
-                        })}</p>
-                    </div>
+                    <SentenceCard key={sentence.id} sentence={sentence} />
                 ))}
                 <Pagination total={totalCount} pageSize={pageSize} page={page} setPage={setPage} />
                 </>
