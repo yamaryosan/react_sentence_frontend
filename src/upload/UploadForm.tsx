@@ -2,7 +2,6 @@ import ArticleFilesUpload from "@/upload/ArticleFilesUpload";
 import ImagesUpload from "@/upload/ImagesUpload";
 import SentenceFileUpload from "@/upload/SentenceFileUpload";
 import DeleteButtons from "@/upload/DeleteButtons";
-import IndexButton from "@/upload/IndexButton";
 
 /**
  * アップロードフォーム
@@ -15,7 +14,6 @@ export default function UploadForm() {
             <ImagesUpload />
             <SentenceFileUpload />
             <DeleteButtons />
-            <IndexButton />
         </>
     )
 };
