@@ -1,21 +1,21 @@
-import { useState } from 'react';
+import { useState } from "react";
 import Box from "@mui/material/Box";
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { fetchSentences } from '@/api/sentence';
-import PageSizeSelect from '@/component/PageSizeSelect';
-import { AbcOutlined } from '@mui/icons-material';
-import DeviceTypeContext from '@/hooks/DeviceTypeContext';
-import { useContext } from 'react';
-import Pagination from '@/component/Pagination';
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchSentences } from "@/api/sentence";
+import PageSizeSelect from "@/component/PageSizeSelect";
+import { AbcOutlined } from "@mui/icons-material";
+import DeviceTypeContext from "@/hooks/DeviceTypeContext";
+import { useContext } from "react";
+import Pagination from "@/component/Pagination";
 
-import SentenceSearchWindow from './searchWindow/SentenceSearchWindow';
-import SentenceCard from '@/component/SentenceCard';
+import SentenceSearchWindow from "./searchWindow/SentenceSearchWindow";
+import SentenceCard from "@/component/SentenceCard";
 
 type Sentences = {
     sentence: string;
     id: number;
-}
+};
 
 export default function ResultSentences() {
     const deviceType = useContext(DeviceTypeContext);
@@ -29,7 +29,7 @@ export default function ResultSentences() {
     const [page, setPage] = useState(1);
 
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<Error | null>(null);
+    const [error] = useState<Error | null>(null);
 
     /* ページネーションがクリックされたときに自動でページトップにスクロールする */
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function ResultSentences() {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
-            const result = await fetchSentences(keyword || '', page, pageSize);
+            const result = await fetchSentences(keyword || "", page, pageSize);
             if (result) {
                 setSentences(result.sentences);
                 setTotalCount(result.totalCount);
@@ -49,11 +49,7 @@ export default function ResultSentences() {
         };
         console.log(keyword, page, pageSize, sentences, totalCount);
         fetchData();
-    }, [keyword, page, pageSize]);
-
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    }
+    }, [keyword, page, pageSize, sentences, totalCount]);
 
     /* ページネーションがクリックされたときに自動でページトップにスクロールする */
     useEffect(() => {
@@ -71,22 +67,43 @@ export default function ResultSentences() {
     return (
         <>
             <SentenceSearchWindow />
-            <Box sx={{ textAlign: 'left' }}>
+            <Box sx={{ textAlign: "left" }}>
                 {isLoading && <p>読み込み中...</p>}
                 {error && <p>エラーが発生しました</p>}
                 {totalCount > 0 && (
-                <>
-                <Box sx={{display: 'flex', flexDirection: deviceType === 'desktop' ? 'row' : 'column', alignItems: 'center', gap: '0.5rem'}}>
-                    <AbcOutlined />
-                    <h2 style={{fontSize: '1.2rem'}}>文章一覧({totalCount || 0}件)</h2>
-                    <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
-                </Box>
-                {sentences.map((sentence) => (
-                    <SentenceCard key={sentence.id} sentence={sentence} />
-                ))}
-                <Pagination total={totalCount} pageSize={pageSize} page={page} setPage={setPage} />
-                </>
-            )}
+                    <>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection:
+                                    deviceType === "desktop" ? "row" : "column",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                            }}
+                        >
+                            <AbcOutlined />
+                            <h2 style={{ fontSize: "1.2rem" }}>
+                                文章一覧({totalCount || 0}件)
+                            </h2>
+                            <PageSizeSelect
+                                pageSize={pageSize}
+                                setPageSize={setPageSize}
+                            />
+                        </Box>
+                        {sentences.map((sentence) => (
+                            <SentenceCard
+                                key={sentence.id}
+                                sentence={sentence}
+                            />
+                        ))}
+                        <Pagination
+                            total={totalCount}
+                            pageSize={pageSize}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    </>
+                )}
             </Box>
         </>
     );

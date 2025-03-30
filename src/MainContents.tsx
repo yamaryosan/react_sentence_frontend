@@ -1,19 +1,15 @@
-import AllArticles from '@/AllArticles';
-import HomeContent from '@/home/HomeContent';
-import ContactForm from '@/upload/ContactForm';
-import Box from '@mui/material/Box';
-import CategoryPage from '@/CategoryPage';
+import AllArticles from "@/AllArticles";
+import HomeContent from "@/home/HomeContent";
+import ContactForm from "@/upload/ContactForm";
+import Box from "@mui/material/Box";
+import CategoryPage from "@/CategoryPage";
 
 type MainContentsProps = {
     children: React.ReactNode;
 };
 
-function MainContents({children}: MainContentsProps) {
-    return (
-        <Box>
-            {children}
-        </Box>
-    );
+function MainContents({ children }: MainContentsProps) {
+    return <Box>{children}</Box>;
 }
 
 function All() {
@@ -32,4 +28,4 @@ function Category() {
     return <MainContents children={<CategoryPage />} />;
 }
 
-export {All, Home, Contact, Category};
+export { All, Home, Contact, Category };

@@ -1,8 +1,7 @@
-import SidebarThumbnailBox from '@/component/ThumbnailBox';
-import { fetchRandomArticles } from '@/api/article';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Image from '@/component/Image';
+import SidebarThumbnailBox from "@/component/ThumbnailBox";
+import { fetchRandomArticles } from "@/api/article";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 type Article = {
     id: number;
@@ -13,10 +12,9 @@ type Article = {
 
 const maxArticleLength = 5;
 export default function SidebarRandomArticleItems() {
-
     const [articles, setArticles] = useState<Article[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+    const [error] = useState<Error | null>(null);
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -43,19 +41,22 @@ export default function SidebarRandomArticleItems() {
 
     return (
         <>
-            {articles && articles.length > 0 && (
-                <h3>ランダム</h3>
-            )}
+            {articles && articles.length > 0 && <h3>ランダム</h3>}
             <ul>
-            {articles?.slice(0, maxArticleLength).map((article) => (
-                <li key={article.id}>
-                    <Link to={`/articles/${article.id}`} onClick={handleClick}>
-                        <SidebarThumbnailBox>
-                            <p>{article.title}({article.category})</p>
-                        </SidebarThumbnailBox>
-                    </Link>
-                </li>
-            ))}
+                {articles?.slice(0, maxArticleLength).map((article) => (
+                    <li key={article.id}>
+                        <Link
+                            to={`/articles/${article.id}`}
+                            onClick={handleClick}
+                        >
+                            <SidebarThumbnailBox>
+                                <p>
+                                    {article.title}({article.category})
+                                </p>
+                            </SidebarThumbnailBox>
+                        </Link>
+                    </li>
+                ))}
             </ul>
         </>
     );

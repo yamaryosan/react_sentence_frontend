@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
-import CommonButton from '@/component/Button';
-import CommonDeleteModal from '@/component/CommonDeleteModal';
+import { useState } from "react";
+import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
+import CommonButton from "@/component/Button";
+import CommonDeleteModal from "@/component/CommonDeleteModal";
 
 type UploadResponse = {
     message: string;
@@ -15,15 +15,14 @@ async function fetchDeleteAll() {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const response = await fetch(`${apiUrl}/api/sentences/deleteAll`, {
-        method: 'DELETE',
+        method: "DELETE",
     });
 
     if (!response.ok) {
-        throw new Error('削除に失敗しました');
+        throw new Error("削除に失敗しました");
     }
-    return await response.json() as UploadResponse;
+    return (await response.json()) as UploadResponse;
 }
-
 
 /**
  * 文章ファイルを全削除するボタン
@@ -31,7 +30,7 @@ async function fetchDeleteAll() {
 export default function SentenceFileDeleteButton() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [response, setResponse] = useState<UploadResponse | null>(null);
-    const [error, setError] = useState<string>('');
+    const [error, setError] = useState<string>("");
 
     /**
      * 全削除ボタンを押したときの処理
@@ -69,10 +68,10 @@ export default function SentenceFileDeleteButton() {
             <CommonDeleteModal
                 open={isModalOpen}
                 handleClose={handleClose}
-                handleDelete={handleDelete} 
+                handleDelete={handleDelete}
             />
             {response && <p>{response.message}</p>}
             {error && <p>{error}</p>}
         </>
     );
-};
+}

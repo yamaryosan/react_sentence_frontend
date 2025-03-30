@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { useParams } from 'react-router-dom';
-import ArticleCard from '@/component/ArticleCard';
-import { ArticleOutlined } from '@mui/icons-material';
-import PageSizeSelect from '@/component/PageSizeSelect';
-import { fetchArticles } from '@/api/article';
-import DeviceTypeContext from '@/hooks/DeviceTypeContext';
-import { useContext } from 'react';
-import Pagination from '@/component/Pagination';
+import { useParams } from "react-router-dom";
+import ArticleCard from "@/component/ArticleCard";
+import { ArticleOutlined } from "@mui/icons-material";
+import PageSizeSelect from "@/component/PageSizeSelect";
+import { fetchArticles } from "@/api/article";
+import DeviceTypeContext from "@/hooks/DeviceTypeContext";
+import { useContext } from "react";
+import Pagination from "@/component/Pagination";
 
 type Article = {
     id: number;
@@ -36,11 +36,10 @@ export default function ResultArticles() {
         window.scrollTo(0, 0);
     }, [page]);
 
-    
     /* データを取得 */
     useEffect(() => {
         const fetchData = async () => {
-            const result = await fetchArticles(keyword || '', page, pageSize);
+            const result = await fetchArticles(keyword || "", page, pageSize);
             if (result) {
                 setArticles(result.articles);
                 setTotalCount(result.totalCount);
@@ -48,22 +47,40 @@ export default function ResultArticles() {
         };
         console.log(keyword, page, pageSize, articles, totalCount);
         fetchData();
-    }, [keyword, page, pageSize]);
+    }, [articles, keyword, page, pageSize, totalCount]);
 
     return (
         <Box>
             {totalCount === 0 && <p>{keyword}の検索結果: ヒットなし</p>}
             {totalCount > 0 && (
                 <>
-                <Box sx={{display: 'flex', flexDirection: deviceType === 'desktop' ? 'row' : 'column', alignItems: 'center', gap: '0.5rem'}}>
-                    <ArticleOutlined />
-                    <h2 style={{fontSize: '1.2rem'}}>記事一覧({totalCount || 0}件)</h2>
-                    <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
-                </Box>
-                {articles.map((article) => (
-                    <ArticleCard key={article.id} article={article} />
-                ))}
-                <Pagination total={totalCount} pageSize={pageSize} page={page} setPage={setPage} />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection:
+                                deviceType === "desktop" ? "row" : "column",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                        }}
+                    >
+                        <ArticleOutlined />
+                        <h2 style={{ fontSize: "1.2rem" }}>
+                            記事一覧({totalCount || 0}件)
+                        </h2>
+                        <PageSizeSelect
+                            pageSize={pageSize}
+                            setPageSize={setPageSize}
+                        />
+                    </Box>
+                    {articles.map((article) => (
+                        <ArticleCard key={article.id} article={article} />
+                    ))}
+                    <Pagination
+                        total={totalCount}
+                        pageSize={pageSize}
+                        page={page}
+                        setPage={setPage}
+                    />
                 </>
             )}
         </Box>
