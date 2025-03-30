@@ -1,6 +1,6 @@
 import AllArticles from "@/AllArticles";
 import HomeContent from "@/home/HomeContent";
-import ContactForm from "@/upload/ContactForm";
+import AdminInputForm from "@/upload/AdminInputForm";
 import Box from "@mui/material/Box";
 import CategoryPage from "@/CategoryPage";
 
@@ -21,7 +21,9 @@ function Home() {
 }
 
 function Contact() {
-    return <MainContents children={<ContactForm setIsVerified={() => {}} />} />;
+    return (
+        <MainContents children={<AdminInputForm setIsVerified={() => {}} />} />
+    );
 }
 
 function Category() {

@@ -5,39 +5,32 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { fetchContact } from "@/api/contact";
+import { fetchAdminAuth } from "@/api/admin";
 import {
     SentimentSatisfiedAltOutlined,
     SentimentVeryDissatisfiedOutlined,
 } from "@mui/icons-material";
 
-type ContactFormProps = {
+type AdminInputFormProps = {
     setIsVerified: (isVerified: boolean) => void;
 };
 
 /**
- * お問い合わせフォーム
+ * 管理者画面用入力フォーム
  */
-export default function ContactForm({ setIsVerified }: ContactFormProps) {
-    const [form, setForm] = useState({
-        name: "",
-        email: "",
-        message: "",
-    });
+export default function AdminInputForm({ setIsVerified }: AdminInputFormProps) {
+    const [password, setPassword] = useState("");
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
 
     /**
-     * フォームの値を更新
+     * パスワードの値を更新
      * @param e イベント
      */
-    const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
     };
 
     /**
@@ -49,7 +42,7 @@ export default function ContactForm({ setIsVerified }: ContactFormProps) {
         setLoading(true);
         setError("");
         setSuccess(false);
-        const data = await fetchContact(form);
+        const data = await fetchAdminAuth(password);
         if (data === undefined) {
             setError("エラーが発生しました");
             setLoading(false);
@@ -58,11 +51,7 @@ export default function ContactForm({ setIsVerified }: ContactFormProps) {
         setIsVerified(data);
         setLoading(false);
         setSuccess(true);
-        setForm({
-            name: "",
-            email: "",
-            message: "",
-        });
+        setPassword("");
     };
 
     return (
@@ -77,33 +66,15 @@ export default function ContactForm({ setIsVerified }: ContactFormProps) {
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
-                <h2>お問い合わせフォーム</h2>
+                <h2>管理者認証画面</h2>
                 <TextField
-                    label="Name"
+                    label="Password"
                     variant="outlined"
-                    name="name"
+                    type="password"
+                    name="password"
                     required
-                    value={form.name}
-                    onChange={handleFormChange}
-                />
-                <TextField
-                    label="Email"
-                    variant="outlined"
-                    type="email"
-                    name="email"
-                    required
-                    value={form.email}
-                    onChange={handleFormChange}
-                />
-                <TextField
-                    label="Message"
-                    variant="outlined"
-                    name="message"
-                    multiline
-                    rows={6}
-                    required
-                    value={form.message}
-                    onChange={handleFormChange}
+                    value={password}
+                    onChange={handlePasswordChange}
                 />
                 <Button
                     variant="contained"
