@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import UploadOutlined from '@mui/icons-material/UploadOutlined';
-import CommonButton from '@/component/Button';
-import FireUploadButton from '@/component/FireUploadButton';
-import { fetchUpload } from '@/api/sentence';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import UploadOutlined from "@mui/icons-material/UploadOutlined";
+import CommonButton from "@/component/Button";
+import FireUploadButton from "@/component/FireUploadButton";
+import { fetchUpload } from "@/api/sentence";
 type UploadResponse = {
     message: string;
 };
@@ -15,7 +15,7 @@ type UploadResponse = {
 export default function SentenceFileUpload() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [response, setResponse] = useState<UploadResponse | null>(null);
-    const [error, setError] = useState<string>('');
+    const [error, setError] = useState<string>("");
 
     /**
      * ファイルが選択されたときの処理
@@ -32,7 +32,7 @@ export default function SentenceFileUpload() {
      * ファイル選択ボタンがクリックされたときの処理
      */
     const handleButtonClick = () => {
-        document.getElementById('sentence-file-upload')?.click();
+        document.getElementById("sentence-file-upload")?.click();
     };
 
     /**
@@ -55,17 +55,35 @@ export default function SentenceFileUpload() {
     return (
         <>
             <h3>文章ファイルアップロード</h3>
-            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #e0e0e0', padding: '1rem', borderRadius: '0.5rem' }}>
-                <FireUploadButton accept=".txt" id="sentence-file-upload" multiple={false} directory={false} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} />
-                <CommonButton color="primary" onClick={handleUpload} disabled={selectedFile === null}>
+            <Box
+                component="form"
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    border: "1px solid #e0e0e0",
+                    padding: "1rem",
+                    borderRadius: "0.5rem",
+                }}
+            >
+                <FireUploadButton
+                    accept=".txt"
+                    id="sentence-file-upload"
+                    multiple={false}
+                    directory={false}
+                    handleFileChange={handleFileChange}
+                    handleButtonClick={handleButtonClick}
+                />
+                <CommonButton
+                    color="primary"
+                    onClick={handleUpload}
+                    disabled={selectedFile === null}
+                >
                     <UploadOutlined />
                     アップロード
                 </CommonButton>
-                {response && (
-                    <p>{response.message}</p>
-                )}
+                {response && <p>{response.message}</p>}
                 {error && <p>{error}</p>}
             </Box>
         </>
     );
-};
+}

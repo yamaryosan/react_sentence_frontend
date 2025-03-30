@@ -1,13 +1,13 @@
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import ArticleCard from '@/component/ArticleCard';
-import { fetchArticlesByCategory } from '@/api/article';
-import PageSizeSelect from '@/component/PageSizeSelect';
-import DeviceTypeContext from '@/hooks/DeviceTypeContext';
-import { useContext } from 'react';
-import Pagination from '@/component/Pagination';
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import ArticleCard from "@/component/ArticleCard";
+import { fetchArticlesByCategory } from "@/api/article";
+import PageSizeSelect from "@/component/PageSizeSelect";
+import DeviceTypeContext from "@/hooks/DeviceTypeContext";
+import { useContext } from "react";
+import Pagination from "@/component/Pagination";
 
 type Article = {
     id: number;
@@ -22,7 +22,7 @@ export default function CategoryPage() {
     const [articles, setArticles] = useState<Article[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+    const [error] = useState<Error | null>(null);
 
     /* URLパラメータからカテゴリーを取得 */
     const { category } = useParams<{ category: string }>();
@@ -40,7 +40,11 @@ export default function CategoryPage() {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
-            const result = await fetchArticlesByCategory(category ?? '', page, pageSize);
+            const result = await fetchArticlesByCategory(
+                category ?? "",
+                page,
+                pageSize
+            );
             if (result) {
                 setArticles(result.articles);
                 setTotalCount(result.totalCount);
@@ -49,24 +53,44 @@ export default function CategoryPage() {
         };
         fetchData();
     }, [category, page, pageSize]);
-    
+
     return (
         <div>
             {isLoading && <p>記事を読み込んでいます...</p>}
             {error && <p>記事の読み込みに失敗しました</p>}
-            {totalCount === 0 && !isLoading && !error && (<p>{category}の記事: ヒットなし</p>)}
+            {totalCount === 0 && !isLoading && !error && (
+                <p>{category}の記事: ヒットなし</p>
+            )}
             {totalCount > 0 && !isLoading && !error && (
                 <>
-                <Box sx={{display: 'flex', flexDirection: deviceType === 'desktop' ? 'row' : 'column', alignItems: 'center', gap: '0.5rem'}}>
-                    <h2 style={{fontSize: '1.2rem'}}>{category}の記事一覧({totalCount || 0}件)</h2>
-                    <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
-                </Box>
-                {articles.map((article) => (
-                    <ArticleCard key={article.id} article={article} />
-                ))}
-                <Pagination total={totalCount} pageSize={pageSize} page={page} setPage={setPage} />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection:
+                                deviceType === "desktop" ? "row" : "column",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                        }}
+                    >
+                        <h2 style={{ fontSize: "1.2rem" }}>
+                            {category}の記事一覧({totalCount || 0}件)
+                        </h2>
+                        <PageSizeSelect
+                            pageSize={pageSize}
+                            setPageSize={setPageSize}
+                        />
+                    </Box>
+                    {articles.map((article) => (
+                        <ArticleCard key={article.id} article={article} />
+                    ))}
+                    <Pagination
+                        total={totalCount}
+                        pageSize={pageSize}
+                        page={page}
+                        setPage={setPage}
+                    />
                 </>
             )}
         </div>
-    )
+    );
 }
