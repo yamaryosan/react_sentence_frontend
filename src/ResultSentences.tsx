@@ -9,7 +9,7 @@ import DeviceTypeContext from "@/hooks/DeviceTypeContext";
 import { useContext } from "react";
 import Pagination from "@/component/Pagination";
 
-import SentenceSearchWindow from "./searchWindow/SentenceSearchWindow";
+import SentenceSearchWindow from "@/searchWindow/SentenceSearchWindow";
 import SentenceCard from "@/component/SentenceCard";
 
 type Sentences = {
@@ -21,6 +21,7 @@ export default function ResultSentences() {
     const deviceType = useContext(DeviceTypeContext);
     const [sentences, setSentences] = useState<Sentences[]>([]);
     const [totalCount, setTotalCount] = useState(0);
+
     /* URLパラメータからキーワードを取得 */
     const { keyword } = useParams<{ keyword: string }>();
 
@@ -36,6 +37,11 @@ export default function ResultSentences() {
         window.scrollTo(0, 0);
     }, [page]);
 
+    /* ページサイズが変更されたときにページを1に戻す */
+    useEffect(() => {
+        setPage(1);
+    }, [pageSize]);
+
     /* データを取得 */
     useEffect(() => {
         const fetchData = async () => {
@@ -47,14 +53,9 @@ export default function ResultSentences() {
             }
             setIsLoading(false);
         };
-        console.log(keyword, page, pageSize, sentences, totalCount);
         fetchData();
-    }, [keyword, page, pageSize, sentences, totalCount]);
-
-    /* ページネーションがクリックされたときに自動でページトップにスクロールする */
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [page]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [keyword, page, pageSize]);
 
     if (isLoading) {
         return <div>読み込み中...</div>;

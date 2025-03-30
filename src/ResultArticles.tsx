@@ -36,6 +36,11 @@ export default function ResultArticles() {
         window.scrollTo(0, 0);
     }, [page]);
 
+    /* ページサイズが変更されたときにページを1に戻す */
+    useEffect(() => {
+        setPage(1);
+    }, [pageSize]);
+
     /* データを取得 */
     useEffect(() => {
         const fetchData = async () => {
@@ -45,9 +50,9 @@ export default function ResultArticles() {
                 setTotalCount(result.totalCount);
             }
         };
-        console.log(keyword, page, pageSize, articles, totalCount);
         fetchData();
-    }, [articles, keyword, page, pageSize, totalCount]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [keyword, page, pageSize]);
 
     return (
         <Box>
