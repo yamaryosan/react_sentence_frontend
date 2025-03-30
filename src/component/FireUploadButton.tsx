@@ -7,21 +7,29 @@ type FireUploadButtonProps = {
     directory: boolean;
     handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleButtonClick: () => void;
-}
+};
 
-export default function FireUploadButton({accept, id, multiple, directory, handleFileChange, handleButtonClick}: FireUploadButtonProps) {
+export default function FireUploadButton({
+    accept,
+    id,
+    multiple,
+    directory,
+    handleFileChange,
+    handleButtonClick,
+}: FireUploadButtonProps) {
     return (
         <>
             <input
                 accept={accept}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 id={id}
                 type="file"
                 /* @ts-expect-error */
                 directory={directory ? "true" : undefined}
                 webkitdirectory={directory ? "true" : undefined}
                 multiple={multiple}
-                onChange={handleFileChange}/>
+                onChange={handleFileChange}
+            />
             <label htmlFor={id}>
                 <CommonButton color="primary" onClick={handleButtonClick}>
                     ファイルを選択
