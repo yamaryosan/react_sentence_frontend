@@ -1,7 +1,7 @@
 type Sentence = {
     sentence: string;
     id: number;
-}
+};
 
 /**
  * キーワードに応じて文章を取得
@@ -9,16 +9,26 @@ type Sentence = {
  * @param page ページ番号
  * @param pageSize ページサイズ
  */
-export async function fetchSentences(keyword: string, page: number, pageSize: number) {
+export async function fetchSentences(
+    keyword: string,
+    page: number,
+    pageSize: number
+) {
     try {
         const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await fetch(`${apiUrl}/sentences/search?keyword=${keyword}&page=${page}&pageSize=${pageSize}`, {
-            credentials: 'include',
-        });
+        const response = await fetch(
+            `${apiUrl}/sentences/search?keyword=${keyword}&page=${page}&pageSize=${pageSize}`,
+            {
+                credentials: "include",
+            }
+        );
         if (!response.ok) {
-            throw new Error('記事の取得に失敗しました');
+            throw new Error("文章の取得に失敗しました");
         }
-        const result = await response.json() as {sentences: Sentence[], totalCount: number};
+        const result = (await response.json()) as {
+            sentences: Sentence[];
+            totalCount: number;
+        };
         return { sentences: result.sentences, totalCount: result.totalCount };
     } catch (error) {
         if (error instanceof Error) {
@@ -35,13 +45,14 @@ export async function fetchSentences(keyword: string, page: number, pageSize: nu
 export async function fetchUpload(file: File) {
     const apiUrl = process.env.REACT_APP_API_URL;
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
     const response = await fetch(`${apiUrl}/api/sentences/upload`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
     });
+    console.log(response);
     if (!response.ok) {
-        throw new Error('アップロードに失敗しました');
+        throw new Error("アップロードに失敗しました");
     }
-    return await response.json() as { message: string };
+    return (await response.json()) as { message: string };
 }
