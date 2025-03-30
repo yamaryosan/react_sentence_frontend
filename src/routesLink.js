@@ -6,7 +6,7 @@ import {
 import App from "@/App";
 import ContentsArea from "@/ContentsArea";
 import { All, Home, Category } from "@/MainContents";
-import Article from "@/ArticleDetail";
+import ArticleDetail from "@/ArticleDetail";
 import ResultArticles from "@/ResultArticles";
 import ResultSentences from "@/ResultSentences";
 import UploadVerificationProvider from "@/upload/UploadVerificationProvider";
@@ -27,7 +27,7 @@ const routes = createBrowserRouter(
             />
             <Route
                 path="/articles/:id"
-                element={<ContentsArea children={<Article />} />}
+                element={<ContentsArea children={<ArticleDetail />} />}
             />
             <Route
                 path="/articles/search/:keyword"

@@ -7,5 +7,5 @@ export default function Sidebar() {
             <CategoriesIndex />
             <SidebarRandomArticleItems />
         </div>
-    )
-};
+    );
+}
