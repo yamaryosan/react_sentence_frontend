@@ -9,7 +9,7 @@ import { All, Home, Category } from "@/MainContents";
 import ArticleDetail from "@/ArticleDetail";
 import ResultArticles from "@/ResultArticles";
 import ResultSentences from "@/ResultSentences";
-import UploadVerificationProvider from "@/upload/UploadVerificationProvider";
+import AdminAuthProvider from "@/upload/AdminAuthProvider";
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -20,10 +20,8 @@ const routes = createBrowserRouter(
                 element={<ContentsArea children={<All />} />}
             />
             <Route
-                path="/contact"
-                element={
-                    <ContentsArea children={<UploadVerificationProvider />} />
-                }
+                path="/admin"
+                element={<ContentsArea children={<AdminAuthProvider />} />}
             />
             <Route
                 path="/articles/:id"

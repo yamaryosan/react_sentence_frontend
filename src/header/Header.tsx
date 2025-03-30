@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import LaptopIcon from "@mui/icons-material/Laptop";
 import {
     HomeOutlined,
-    MailOutlined,
+    AdminPanelSettingsOutlined,
     ArticleOutlined,
 } from "@mui/icons-material";
 import React, { useContext } from "react";
@@ -16,7 +16,7 @@ import DeviceTypeContext from "@/hooks/DeviceTypeContext";
 const pages = [
     { name: "Home", url: "/", icon: <HomeOutlined /> },
     { name: "Articles", url: "/allArticles", icon: <ArticleOutlined /> },
-    { name: "Contact", url: "/contact", icon: <MailOutlined /> },
+    { name: "Admin", url: "/admin", icon: <AdminPanelSettingsOutlined /> },
 ];
 
 export default function Header() {
