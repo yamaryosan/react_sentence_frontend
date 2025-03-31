@@ -180,6 +180,21 @@ export default function ArticleDetail() {
                             </h4>
                         );
                     },
+                    a({ children, href }) {
+                        return (
+                            <a
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    color: "#3b82f6",
+                                    textDecoration: "underline",
+                                }}
+                            >
+                                {children}
+                            </a>
+                        );
+                    },
                 }}
                 remarkPlugins={[remarkGfm]}
             >
