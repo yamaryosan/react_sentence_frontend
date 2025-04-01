@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
+import { Typography } from "@mui/material";
 
 type Sentence = {
     sentence: string;
@@ -20,43 +21,64 @@ export default function SentenceCard({ sentence }: SentenceCardProps) {
     const isLongSentence = sentence.sentence.length > maxLength;
 
     const toggleExpand = () => {
-        setIsExpanded(!isExpanded);
+        setIsExpanded(true);
+    };
+
+    const renderText = (text: string) => {
+        const lines = text.split("\n");
+        return lines.map((line, index) => (
+            <span key={index}>
+                {line}
+                <br />
+            </span>
+        ));
     };
 
     return (
         <div>
-            {isLongSentence && (
-                <Button
-                    variant="text"
-                    sx={{
-                        fontSize: "1rem",
-                        color: "inherit",
-                        textAlign: "left",
-                        display: "block",
-                        marginBottom: "1rem",
-                    }}
-                    onClick={toggleExpand}
-                >
-                    {!isExpanded
-                        ? `${sentence.sentence.slice(0, maxLength)}...`
-                        : sentence.sentence.split("\n").map((line, index) => (
-                              <span key={index}>
-                                  {line}
-                                  <br />
-                              </span>
-                          ))}
-                </Button>
-            )}
-            {!isLongSentence && (
-                <p>
-                    {sentence.sentence.split("\n").map((line, index) => (
-                        <span key={index}>
-                            {line}
-                            <br />
-                        </span>
-                    ))}
-                </p>
-            )}
+            <div>
+                {isLongSentence ? (
+                    isExpanded ? (
+                        <Typography
+                            sx={{
+                                fontSize: "1rem",
+                                userSelect: "text",
+                                textAlign: "left",
+                                marginBottom: "1rem",
+                            }}
+                        >
+                            {renderText(sentence.sentence)}
+                        </Typography>
+                    ) : (
+                        <Button
+                            variant="text"
+                            sx={{
+                                fontSize: "1rem",
+                                color: "inherit",
+                                textAlign: "left",
+                                display: "block",
+                                marginBottom: "1rem",
+                                textTransform: "none",
+                                userSelect: "text",
+                            }}
+                            onClick={toggleExpand}
+                        >
+                            {`${sentence.sentence.slice(0, maxLength)}...`}
+                        </Button>
+                    )
+                ) : (
+                    <Typography
+                        sx={{
+                            fontSize: "1rem",
+                            userSelect: "text",
+                            textAlign: "left",
+                            marginBottom: "1rem",
+                        }}
+                    >
+                        {renderText(sentence.sentence)}
+                    </Typography>
+                )}
+            </div>
         </div>
     );
 }
