@@ -1,6 +1,6 @@
 import {
     Route,
-    createBrowserRouter,
+    createHashRouter,
     createRoutesFromElements,
 } from "react-router-dom";
 import App from "@/App";
@@ -11,7 +11,7 @@ import ResultArticles from "@/ResultArticles";
 import ResultSentences from "@/ResultSentences";
 import AdminAuthProvider from "@/upload/AdminAuthProvider";
 
-const routes = createBrowserRouter(
+const routes = createHashRouter(
     createRoutesFromElements(
         <Route element={<App />}>
             <Route index element={<ContentsArea children={<Home />} />} />
