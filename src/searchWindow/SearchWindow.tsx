@@ -14,6 +14,11 @@ export default function SearchWindow({
     setKeyword,
     handleSubmit,
 }: props) {
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        handleSubmit();
+    };
+
     return (
         <Box
             sx={{
@@ -22,7 +27,7 @@ export default function SearchWindow({
                 paddingY: "0.5rem",
             }}
         >
-            <form action={path} method="get">
+            <form action={path} method="get" onSubmit={handleOnSubmit}>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <TextField
                         name="keyword"
