@@ -56,8 +56,8 @@ export default function CategoryPage() {
 
     return (
         <div>
-            {isLoading && <p>記事を読み込んでいます...</p>}
-            {error && <p>記事の読み込みに失敗しました</p>}
+            {isLoading && <p>読み込み中...</p>}
+            {error && <p>読み込みに失敗しました</p>}
             {totalCount === 0 && !isLoading && !error && (
                 <p>{category}の記事: ヒットなし</p>
             )}
