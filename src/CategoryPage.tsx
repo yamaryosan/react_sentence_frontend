@@ -28,7 +28,7 @@ export default function CategoryPage() {
     const { category } = useParams<{ category: string }>();
 
     /* ページネーション */
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(50);
     const [page, setPage] = useState(1);
 
     /* ページネーションがクリックされたときに自動でページトップにスクロールする */
