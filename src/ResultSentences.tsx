@@ -26,7 +26,7 @@ export default function ResultSentences() {
     const { keyword } = useParams<{ keyword: string }>();
 
     /* ページネーション */
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(50);
     const [page, setPage] = useState(1);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -69,8 +69,9 @@ export default function ResultSentences() {
         <>
             <SentenceSearchWindow />
             <Box sx={{ textAlign: "left" }}>
-                {isLoading && <p>読み込み中...</p>}
-                {error && <p>エラーが発生しました</p>}
+                {totalCount === 0 && !isLoading && (
+                    <p>{keyword}の検索結果: ヒットなし</p>
+                )}
                 {totalCount > 0 && (
                     <>
                         <Box
@@ -84,7 +85,7 @@ export default function ResultSentences() {
                         >
                             <AbcOutlined />
                             <h2 style={{ fontSize: "1.2rem" }}>
-                                文章一覧({totalCount || 0}件)
+                                {keyword}の検索結果: ({totalCount || 0}件)
                             </h2>
                             <PageSizeSelect
                                 pageSize={pageSize}
