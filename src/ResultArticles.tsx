@@ -23,6 +23,7 @@ export default function ResultArticles() {
     const deviceType = useContext(DeviceTypeContext);
     const [articles, setArticles] = useState<Article[]>([]);
     const [totalCount, setTotalCount] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     /* URLパラメータからキーワードを取得 */
     const { keyword } = useParams<{ keyword: string }>();
@@ -48,6 +49,7 @@ export default function ResultArticles() {
             if (result) {
                 setArticles(result.articles);
                 setTotalCount(result.totalCount);
+                setIsLoading(false);
             }
         };
         fetchData();
@@ -56,7 +58,10 @@ export default function ResultArticles() {
 
     return (
         <Box>
-            {totalCount === 0 && <p>{keyword}の検索結果: ヒットなし</p>}
+            {isLoading && <p>読み込み中...</p>}
+            {totalCount === 0 && !isLoading && (
+                <p>{keyword}の検索結果: ヒットなし</p>
+            )}
             {totalCount > 0 && (
                 <>
                     <Box
