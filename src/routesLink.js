@@ -10,6 +10,7 @@ import ArticleDetail from "@/ArticleDetail";
 import ResultArticles from "@/ResultArticles";
 import ResultSentences from "@/ResultSentences";
 import AdminAuthProvider from "@/upload/AdminAuthProvider";
+import NotFound from "@/NotFound";
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -38,6 +39,10 @@ const routes = createBrowserRouter(
             <Route
                 path="/categories/:category"
                 element={<ContentsArea children={<Category />} />}
+            />
+            <Route
+                path="*"
+                element={<ContentsArea children={<NotFound />} />}
             />
         </Route>
     )
