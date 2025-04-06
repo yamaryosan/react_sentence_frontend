@@ -6,6 +6,11 @@ import { fetchCategories } from "@/api/category";
 import { useContext } from "react";
 import DeviceTypeContext from "@/hooks/DeviceTypeContext";
 
+type CategoryWithCount = {
+    category: string;
+    count: number;
+};
+
 export default function CategoriesIndex() {
     const deviceType = useContext(DeviceTypeContext);
     useEffect(() => {
@@ -16,7 +21,10 @@ export default function CategoriesIndex() {
         data: categories,
         isLoading,
         error,
-    } = useQuery<string[] | undefined>("categories", fetchCategories);
+    } = useQuery<CategoryWithCount[] | undefined>(
+        "categories",
+        fetchCategories
+    );
 
     if (isLoading) {
         return <div>読み込み中...</div>;
@@ -36,12 +44,12 @@ export default function CategoriesIndex() {
             <ul>
                 {categories?.map((category) => (
                     <Link
-                        to={`/categories/${category}`}
-                        key={category}
+                        to={`/categories/${category.category}`}
+                        key={category.category}
                         onClick={handleClick}
                     >
                         <List
-                            key={category}
+                            key={category.category}
                             sx={{
                                 display: "flex",
                                 flexDirection: "row",
@@ -59,7 +67,9 @@ export default function CategoriesIndex() {
                                 },
                             }}
                         >
-                            <span>{category}</span>
+                            <span>
+                                {category.category} ({category.count})
+                            </span>
                         </List>
                     </Link>
                 ))}
