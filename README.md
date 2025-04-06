@@ -2,6 +2,10 @@
 
 自作ブログアプリのフロントエンドです。学習した内容をブログ風に閲覧できるようにしました。
 
+デプロイ先は以下
+
+https://react-sentence-frontend.vercel.app/
+
 ## 仕様
 
 ローカル環境のメモアプリである"Joplin"に記載した内容をオンライン上でブログ風に見れるようにしました。
@@ -11,16 +15,13 @@ Joplin のマークダウン形式ファイル(.md)をアップロードする�
 
 -   React
 -   TypeScript
--   AWS Fargate → Vercel
 -   Tailwind CSS
--   AWS Route 53(AWS Fargate でのデプロイ時に使用)
--   Docker(AWS Fargate でのデプロイ時に使用)
--   nginx(AWS Fargate でのデプロイ時に使用)
--   AWS Budgets(AWS Fargate でのデプロイ時に使用)
--   AWS CloudWatch(AWS Fargate でのデプロイ時に使用)
+-   AWS Fargate(初期デプロイ時に使用、現在は Vercel で運用中)
 
-    ※以前は AWS ECS Fargate でデプロイしていましたが、
-    Fargate は個人利用としては料金が高く、Vercel に移行しました。
+    -   Docker, nginx, AWS Route 53, AWS Budgets, AWS CloudWatch も設定
+
+    ※以前は AWS Fargate でデプロイしていましたが、
+    個人利用としては料金が高く、Vercel に移行しました。
 
 ## 工夫した点
 
@@ -29,9 +30,13 @@ Joplin のマークダウン形式ファイル(.md)をアップロードする�
 -   .md ファイルはバックエンドでマークダウン記法のまま保存し、フロントエンドでは react-markdown や react-syntax-highlighter を使用して HTML に変換して表示するようにした。
 -   エイリアス(@/)を使用するため、react-app-rewired を使用した。
 -   美麗なロゴやアイコンを使用するため、Material-UI(MUI) を使用した。
--   状態管理には Redux ではなく、React Query を使用した。バックエンド API から非同期でデータを取得するだけであり、Redux よりもシンプルであると感じた。
+-   状態管理には Redux ではなく React Query を使用した。今回のようにサーバーからデータを取得し、それを表示する用途では、React Query のほうがシンプルかつ最適だと感じた。
 -   テキストのサイズやフォントを一括で管理できるよう、Tailwind CSS を使用した。
 -   当初は AWS Fargate を使ってインフラ構築を行っていた。理由は、Docker ベースでコンテナ運用が可能で、スケーラブルな構成がより実務的であるためである。タスク定義、CloudWatch ログの設定、AWS Route 53 の設定、nginx の設定も行ったものの、少ないアクセスでもコストが 1 日 1,000 円以上となるケースがあり、個人開発としては持続可能でないと判断。現在は Vercel で運用中。
+
+## デモ画像
+
+![alt text](screenshot.png)
 
 ## 以下、開発者向けメモ
 
