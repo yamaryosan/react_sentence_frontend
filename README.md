@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+## このアプリについて
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+自作ブログアプリのフロントエンドです。学習した内容をブログ風に閲覧できるようにしました。
 
-## Available Scripts
+## 仕様
 
-In the project directory, you can run:
+ローカル環境のメモアプリである"Joplin"に記載した内容をオンライン上でブログ風に見れるようにしました。
+Joplin のマークダウン形式ファイル(.md)をアップロードすると、内容や画像が保存されます。
 
-### `npm start`
+## 技術スタック
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   React
+-   TypeScript
+-   AWS Fargate → Vercel
+-   Tailwind CSS
+-   AWS Route 53(AWS Fargate でのデプロイ時に使用)
+-   Docker(AWS Fargate でのデプロイ時に使用)
+-   nginx(AWS Fargate でのデプロイ時に使用)
+-   AWS Budgets(AWS Fargate でのデプロイ時に使用)
+-   AWS CloudWatch(AWS Fargate でのデプロイ時に使用)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    ※以前は AWS ECS Fargate でデプロイしていましたが、
+    Fargate は個人利用としては料金が高く、Vercel に移行しました。
 
-### `npm test`
+## 工夫した点
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   .md(マークダウン)ファイルをフォルダごとアップロードできるようにした。フロントエンドでは各ファイルの親フォルダ名をカテゴリー名として取得し、内容とカテゴリー名をバックエンドに渡すようにした。
+-   エクスポート後の.md ファイルには画像が保存されておらず、画像パスのみが記載される。Joplin では\_resource フォルダに全画像が保存されるため、これをバックエンドに受け渡し、AWS S3 に保存されるようにした。このとき、元の.md ファイルが示す画像パスを、AWS S3 のパスに変換して保存するようにした。
+-   .md ファイルはバックエンドでマークダウン記法のまま保存し、フロントエンドでは react-markdown や react-syntax-highlighter を使用して HTML に変換して表示するようにした。
+-   エイリアス(@/)を使用するため、react-app-rewired を使用した。
+-   美麗なロゴやアイコンを使用するため、Material-UI(MUI) を使用した。
+-   状態管理には Redux ではなく、React Query を使用した。バックエンド API から非同期でデータを取得するだけであり、Redux よりもシンプルであると感じた。
+-   テキストのサイズやフォントを一括で管理できるよう、Tailwind CSS を使用した。
+-   当初は AWS Fargate を使ってインフラ構築を行っていた。理由は、Docker ベースでコンテナ運用が可能で、スケーラブルな構成がより実務的であるためである。タスク定義、CloudWatch ログの設定、AWS Route 53 の設定、nginx の設定も行ったものの、少ないアクセスでもコストが 1 日 1,000 円以上となるケースがあり、個人開発としては持続可能でないと判断。現在は Vercel で運用中。
 
-### `npm run build`
+## 以下、開発者向けメモ
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### ローカル環境での起動
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm run start
+```
