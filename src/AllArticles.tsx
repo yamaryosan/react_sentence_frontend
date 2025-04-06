@@ -22,7 +22,7 @@ export default function AllArticles() {
     const [totalCount, setTotalCount] = useState(0);
 
     const [isLoading, setIsLoading] = useState(true);
-    const [error] = useState<Error | null>(null);
+    const [error, setError] = useState<Error | null>(null);
 
     /* ページネーション */
     const [pageSize, setPageSize] = useState(50);
@@ -36,55 +36,59 @@ export default function AllArticles() {
     /* データを取得 */
     useEffect(() => {
         const fetchData = async () => {
-            setIsLoading(true);
-            const result = await fetchAllArticles(page, pageSize);
-            if (result) {
-                setArticles(result.articles);
-                setTotalCount(result.totalCount);
+            try {
+                setIsLoading(true);
+                const result = await fetchAllArticles(page, pageSize);
+                if (result) {
+                    setArticles(result.articles);
+                    setTotalCount(result.totalCount);
+                }
+            } catch (error) {
+                setError(error as Error);
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         };
         fetchData();
     }, [page, pageSize]);
 
+    if (isLoading) {
+        return <p>読み込み中...</p>;
+    }
+
+    if (error) {
+        return <p>読み込みに失敗しました</p>;
+    }
+
+    if (totalCount === 0) {
+        return <p>記事がありません</p>;
+    }
+
     return (
-        <Box>
-            {isLoading && <p>読み込み中...</p>}
-            {error && <p>読み込みに失敗しました</p>}
-            {totalCount === 0 && !isLoading && !error && (
-                <p>記事がありません</p>
-            )}
-            {totalCount > 0 && !isLoading && !error && (
-                <>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection:
-                                deviceType === "desktop" ? "row" : "column",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                        }}
-                    >
-                        <ArticleOutlined />
-                        <h2 style={{ fontSize: "1.2rem" }}>
-                            記事一覧({totalCount || 0}件)
-                        </h2>
-                        <PageSizeSelect
-                            pageSize={pageSize}
-                            setPageSize={setPageSize}
-                        />
-                    </Box>
-                    {articles?.map((article) => (
-                        <ArticleCard key={article.id} article={article} />
-                    ))}
-                    <Pagination
-                        total={totalCount}
-                        pageSize={pageSize}
-                        page={page}
-                        setPage={setPage}
-                    />
-                </>
-            )}
-        </Box>
+        <>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: deviceType === "desktop" ? "row" : "column",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                }}
+            >
+                <ArticleOutlined />
+                <h2 style={{ fontSize: "1.2rem" }}>
+                    記事一覧({totalCount || 0}件)
+                </h2>
+                <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
+            </Box>
+            {articles?.map((article) => (
+                <ArticleCard key={article.id} article={article} />
+            ))}
+            <Pagination
+                total={totalCount}
+                pageSize={pageSize}
+                page={page}
+                setPage={setPage}
+            />
+        </>
     );
 }
