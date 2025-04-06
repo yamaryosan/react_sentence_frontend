@@ -87,34 +87,20 @@ describe("AllArticles", () => {
         });
     });
 
-    /** 
-
-    it("renders error message on fetch failure", async () => {
-        (fetchAllArticles as jest.Mock).mockRejectedValue(
-            new Error("Fetch error")
-        );
-
-        render(<AllArticles />);
-
-        await waitFor(() => {
-            expect(
-                screen.getByText("読み込みに失敗しました")
-            ).toBeInTheDocument();
-        });
-    });
-
     it("renders no articles message when there are no articles", async () => {
         (fetchAllArticles as jest.Mock).mockResolvedValue({
             articles: [],
             totalCount: 0,
         });
 
-        render(<AllArticles />);
+        render(
+            <DeviceTypeContext.Provider value="desktop">
+                <AllArticles />
+            </DeviceTypeContext.Provider>
+        );
 
         await waitFor(() => {
             expect(screen.getByText("記事がありません")).toBeInTheDocument();
         });
     });
-
-    */
 });
