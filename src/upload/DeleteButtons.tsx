@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import ArticleFilesDeleteButton from "@/upload/ArticleFilesDeleteButton";
 import ImagesDeleteButton from "@/upload/ImagesDeleteButton";
 import SentenceFileDeleteButton from "@/upload/SentenceFileDeleteButton";
 
@@ -9,7 +8,7 @@ import SentenceFileDeleteButton from "@/upload/SentenceFileDeleteButton";
 export default function DeleteButtons() {
     return (
         <>
-            <h3>削除</h3>
+            <h3>画像・文章削除</h3>
             <Box
                 sx={{
                     display: "flex",
@@ -19,7 +18,6 @@ export default function DeleteButtons() {
                     borderRadius: "0.5rem",
                 }}
             >
-                <ArticleFilesDeleteButton />
                 <ImagesDeleteButton />
                 <SentenceFileDeleteButton />
             </Box>
